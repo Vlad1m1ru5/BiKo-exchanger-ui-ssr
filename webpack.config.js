@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 const config = {
   entry: {
@@ -15,8 +16,21 @@ const config = {
     filename: "[name].[contenthash].js"
   },
   optimization: {
+    runtimeChunk: "single",
     splitChunks: {
-      chunks: "all"
+      chunks: "all",
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name(module) {
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+
+            return `npm.${packageName.replace("@", "")}`;
+          },
+        },
+      },
     },
   },
   module: {
@@ -38,7 +52,10 @@ const config = {
   },
   resolve: {
     extensions: [".js", ".jsx", ".json", ".wasm", ".mjs", "*"]
-  }
+  },
+  plugins: [
+    new webpack.HashedModuleIdsPlugin()
+  ]
 };
 
 module.exports = config;
