@@ -12,7 +12,7 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, "public"),
-    filename: "[name].js"
+    filename: "[name].[contenthash].js"
   },
   optimization: {
     splitChunks: {
