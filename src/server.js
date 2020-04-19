@@ -1,9 +1,11 @@
 import express from "express";
 import compression from "compression";
+import helmet from "helmet";
 import biko from "./routes/biko";
 
 const app = express();
 
+app.use(helmet());
 app.use(compression());
 app.use(express.static("public"));
 

@@ -13,26 +13,26 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, "public"),
-    filename: "[name].[contenthash].js"
+    filename: "[name].js"
   },
-  optimization: {
-    runtimeChunk: "single",
-    splitChunks: {
-      chunks: "all",
-      maxInitialRequests: Infinity,
-      minSize: 0,
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name(module) {
-            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+  // optimization: {
+  //   runtimeChunk: "single",
+  //   splitChunks: {
+  //     chunks: "all",
+  //     maxInitialRequests: Infinity,
+  //     minSize: 0,
+  //     cacheGroups: {
+  //       vendor: {
+  //         test: /[\\/]node_modules[\\/]/,
+  //         name(module) {
+  //           const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
 
-            return `npm.${packageName.replace("@", "")}`;
-          },
-        },
-      },
-    },
-  },
+  //           return `npm.${packageName.replace("@", "")}`;
+  //         },
+  //       },
+  //     },
+  //   },
+  // },
   module: {
     rules: [
       {
@@ -50,12 +50,12 @@ const config = {
       }
     ]
   },
-  resolve: {
-    extensions: [".js", ".jsx", ".json", ".wasm", ".mjs", "*"]
-  },
   plugins: [
     new webpack.HashedModuleIdsPlugin()
-  ]
+  ],
+  resolve: {
+    extensions: [".js", ".jsx", ".json", ".wasm", ".mjs", "*"]
+  }
 };
 
 module.exports = config;
