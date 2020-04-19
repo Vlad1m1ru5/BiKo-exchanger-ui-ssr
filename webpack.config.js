@@ -8,7 +8,7 @@ const config = {
       "react"
     ],
     app: [
-      "./src/components/index.js"
+      "./src/client/index.js"
     ]
   },
   output: {

@@ -14,7 +14,8 @@
     "express": "^4.17.1",
     "handlebars": "^4.7.6",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -26,6 +27,7 @@
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
+    "babel-plugin-styled-components": "^1.10.7",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   }

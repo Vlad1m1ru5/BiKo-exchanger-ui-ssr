@@ -1,13 +1,13 @@
 import express from "express";
 import compression from "compression";
-import ssr from "./routes/ssr";
+import biko from "./routes/biko";
 
 const app = express();
 
 app.use(compression());
 app.use(express.static("public"));
 
-app.use("/ssr", ssr);
+app.use("/biko", biko);
 
 const port = process.env.PORT || 3030;
 

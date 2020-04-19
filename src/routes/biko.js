@@ -1,19 +1,19 @@
 import express from "express";
-import App from "../components/app";
+import App from "../client/app";
 import React from "react";
 import { renderToString } from "react-dom/server";
 import hbs from "handlebars";
+import { ServerStyleSheet } from "styled-components";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  const theHtml = `
+const template = `
     <html>
     <head>
-      <title>My First SSR</title>
+      <title>biko</title>
+      {{{styles}}}
     </head>
     <body>
-      <h1>My First Server Side Render</h1>
       <div id="app">{{{app}}}</div>
       <script src="/app.js" charset="utf-8"></script>
       <script src="/vendor.js" charset="utf-8"></script>
@@ -21,9 +21,12 @@ router.get("/", async (req, res) => {
     </html>
   `;
 
-  const hbsTemplate = hbs.compile(theHtml);
-  const reactComp = renderToString(<App />);
-  const htmlToSend = hbsTemplate({ app: reactComp });
+router.get("/", async (req, res) => {
+  const hbsTemplate = hbs.compile(template);
+  const sheet = new ServerStyleSheet()
+  const app = renderToString(sheet.collectStyles(<App />));
+  const styles = sheet.getStyleTags()
+  const htmlToSend = hbsTemplate({ app, styles });
 
   res.send(htmlToSend);
 });
