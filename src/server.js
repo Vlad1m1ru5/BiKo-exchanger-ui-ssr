@@ -7,7 +7,7 @@ const app = express();
 app.use(compression());
 app.use(express.static("public"));
 
-app.use("/firstssr", ssr);
+app.use("/ssr", ssr);
 
 const port = process.env.PORT || 3030;
 
