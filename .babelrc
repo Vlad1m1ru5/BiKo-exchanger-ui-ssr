@@ -18,6 +18,17 @@
         "pure": true,
         "ssr": true
       }
+    ],
+    [
+      "module-resolver",
+      {
+        "alias":  {
+          "client": "./src/client/",
+          "routes": "./src/routes/",
+          "static": "./src/static/",
+          "store": "./src/store/"
+        }
+      }
     ]
   ]
 }

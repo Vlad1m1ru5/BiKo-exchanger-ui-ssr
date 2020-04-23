@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components"
-import actions from "../store/actions";
+import actions from "store/actions";
 import { connect } from "react-redux";
 
 const Centered = styled.div`

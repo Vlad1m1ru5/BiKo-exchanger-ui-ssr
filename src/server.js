@@ -1,7 +1,7 @@
 import express from "express";
 import compression from "compression";
 import helmet from "helmet";
-import biko from "./routes/biko";
+import biko from "routes/biko";
 
 const app = express();
 

@@ -30,7 +30,9 @@
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
+    "babel-plugin-module-resolver": "^4.0.0",
     "babel-plugin-styled-components": "^1.10.7",
+    "i": "^0.3.6",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   }

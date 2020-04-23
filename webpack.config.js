@@ -8,7 +8,7 @@ const config = {
       "react"
     ],
     app: [
-      "./src/client/index.js"
+      "./src/client/biko/index.js"
     ]
   },
   output: {
@@ -54,6 +54,12 @@ const config = {
     new webpack.HashedModuleIdsPlugin()
   ],
   resolve: {
+    alias: {
+      client: path.resolve(__dirname, "src/client/"),
+      routes: path.resolve(__dirname, "src/routes/"),
+      static: path.resolve(__dirname, "src/static/"),
+      store: path.resolve(__dirname, "src/store/"),
+    },
     extensions: [".js", ".jsx", ".json", ".wasm", ".mjs", "*"]
   }
 };

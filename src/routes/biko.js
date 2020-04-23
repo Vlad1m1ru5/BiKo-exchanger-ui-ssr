@@ -1,10 +1,10 @@
 import express from "express";
-import App from "../client/app";
+import App from "client/biko/app";
 import React from "react";
 import { renderToString } from "react-dom/server";
 import hbs from "handlebars";
 import { ServerStyleSheet } from "styled-components";
-import { createAppStore } from "../store";
+import { createAppStore } from "store";
 import { Provider } from "react-redux";
 
 const router = express.Router();
