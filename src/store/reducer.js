@@ -1,4 +1,4 @@
-import { SET_USER_NAME } from "./actionTypeList";
+import { SET_USER_NAME } from './actionTypeList';
 
 const initialState = {
   userName: null
