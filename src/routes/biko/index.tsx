@@ -1,11 +1,11 @@
-import express from 'express';
 import App from 'client/biko/app';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import express from 'express';
 import hbs from 'handlebars';
-import { ServerStyleSheet } from 'styled-components';
-import { createAppStore } from 'store';
 import { Provider } from 'react-redux';
+import { ServerStyleSheet } from 'styled-components';
+import { createAppStore } from 'store/index';
+import { renderToString } from 'react-dom/server';
 
 const router = express.Router();
 
@@ -23,7 +23,6 @@ router.get('/', async (req, res) => {
         window.__PRELOADED_STATE__ = {{{preloadedState}}};
       </script>
       <script src='/app.js' charset='utf-8'></script>
-      <script src='/vendor.js' charset='utf-8'></script>
     </body>
     </html>
   `;

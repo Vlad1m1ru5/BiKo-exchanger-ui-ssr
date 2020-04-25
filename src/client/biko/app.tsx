@@ -11,7 +11,7 @@ const Centered = styled.div`
   width: min-content;
 `;
 
-const App = () => {
+const App: React.FC = () => {
 
   return (
     <Centered>
@@ -25,7 +25,7 @@ const App = () => {
         label='Пароль:'
         type='text'
       />
-      <Group direction='column'>
+      <Group direction='row'>
         <button>Privet</button>
         <button>Privet</button>
       </Group>

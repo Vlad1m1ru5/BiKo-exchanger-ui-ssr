@@ -3,12 +3,12 @@ const webpack = require("webpack");
 
 const config = {
   entry: {
-    vendor: [
-      "@babel/polyfill",
-      "react"
-    ],
+    // vendor: [
+    //   "@babel/polyfill",
+    //   "react"
+    // ],
     app: [
-      "./src/client/biko/index.js"
+      "./src/client/biko/index.tsx"
     ]
   },
   output: {
@@ -36,17 +36,20 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: [
-              "@babel/preset-env",
-              "@babel/preset-react"
-            ]
-          }
-        },
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        use: [
+          "babel-loader"
+        ],
+        test: /\.(ts|tsx)$/
+        // use: {
+        //   loader: "babel-loader",
+        //   options: {
+        //     presets: [
+        //       "@babel/preset-env",
+        //       "@babel/preset-react"
+        //     ]
+        //   }
+        // }
       }
     ]
   },
@@ -60,7 +63,7 @@ const config = {
       static: path.resolve(__dirname, "src/static/"),
       store: path.resolve(__dirname, "src/store/"),
     },
-    extensions: [".js", ".jsx", ".json", ".wasm", ".mjs", "*"]
+    extensions: [".js", ".jsx", ".json", ".mjs", ".ts", ".tsx", ".wasm", "*"]
   }
 };
 

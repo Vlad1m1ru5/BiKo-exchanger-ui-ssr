@@ -1,12 +1,8 @@
 import styled from 'styled-components'
 
-/**
- * @param {{ direction }} props
- * @field {'column' | 'row'} direction
- */
-const Group = styled.div`
+const Group = styled.div<{ direction: 'column' | 'row' }>`
   display: flex;
-  flex-direction: ${(props) => props.direction || 'row'};
+  flex-direction: ${({ direction }) => direction};
   flex-wrap: wrap;
   justify-content: space-between;
 
