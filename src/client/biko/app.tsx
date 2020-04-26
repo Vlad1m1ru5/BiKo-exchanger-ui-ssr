@@ -2,6 +2,7 @@ import Group from 'client/components/group'
 import Input from 'client/components/input'
 import React from 'react';
 import styled from 'styled-components'
+import Button from 'client/components/button';
 
 const Centered = styled.div`
   align-items: center;
@@ -33,8 +34,12 @@ const App: React.FC = () => {
           type='text'
         />
         <Group direction='row'>
-          <button>Privet</button>
-          <button>Privet</button>
+          <Button 
+            title={'Войти'}
+          />
+          <Button
+            title={'Создать аккаунт'}
+          />
         </Group>
       </Form>
     </Centered>
