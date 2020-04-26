@@ -2,7 +2,7 @@ import Group from 'client/components/group'
 import LabeledInput from 'client/components/labeled-input'
 import React, { useState } from 'react';
 import styled from 'styled-components'
-import Button from 'client/components/button'
+import TiteledButton from 'client/components/titeled-button'
 
 interface State {
   name: string
@@ -45,10 +45,10 @@ const App: React.FC = () => {
           type='text'
         />
         <Group direction='row'>
-          <Button
+          <TiteledButton
             title={'Войти'}
           />
-          <Button
+          <TiteledButton
             title={'Создать аккаунт'}
           />
         </Group>
