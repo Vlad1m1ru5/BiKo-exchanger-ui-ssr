@@ -1,8 +1,8 @@
 import Group from 'client/components/group'
-import Input from 'client/components/input'
+import LabeledInput from 'client/components/labeled-input'
 import React from 'react';
 import styled from 'styled-components'
-import Button from 'client/components/button';
+import Button from 'client/components/button'
 
 const Centered = styled.div`
   align-items: center;
@@ -10,7 +10,7 @@ const Centered = styled.div`
   flex-direction: column;
   margin: auto;
   width: min-content;
-`;
+`
 
 const Form = styled.div`
   & > *:not(:last-child) {
@@ -25,12 +25,14 @@ const App: React.FC = () => {
       <h1>BIKO</h1>
       <h2>Вход</h2>
       <Form>
-        <Input
+        <LabeledInput
           label='Имя пользователя:'
+          onChange={() => {}}
           type='text'
         />
-        <Input
+        <LabeledInput
           label='Пароль:'
+          onChange={() => {}}
           type='text'
         />
         <Group direction='row'>
@@ -43,7 +45,7 @@ const App: React.FC = () => {
         </Group>
       </Form>
     </Centered>
-  );
-};
+  )
+}
 
 export default App

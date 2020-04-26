@@ -1,17 +1,11 @@
-import React from 'react'
+import styled from 'styled-components'
 
-interface Props {
-  label: string
+const Input = styled.input<{
+  onChange: () => void,
   type: 'checkbox' | 'text'
-}
-
-const Input: React.FC<Props> = ({ label, type }) => (
-  <div>
-    <label>
-      {label}<br />
-      <input type={type}></input>
-    </label>
-  </div>
-)
+}>`
+  border-radius: ${({ type }) => type === 'text' ? '5px' : 'none'};
+  height: 24;
+`
 
 export default Input
