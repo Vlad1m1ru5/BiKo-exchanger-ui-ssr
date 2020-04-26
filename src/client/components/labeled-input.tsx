@@ -3,24 +3,24 @@ import Input from 'client/components/input'
 
 interface Props {
   label: string,
-  onChange: () => void
+  onChange: (args: any) => void
   type: 'checkbox' | 'text'
 }
 
 const LabeledInput: React.FC<Props> = ({ 
-label,
-onChange,
-type
+  label,
+  onChange,
+  type
 }) => (
-	<div>
-		<label>
-		{label}<br />
-		<Input 
-			onChange={onChange}
-			type={type}
-		/>
-		</label>
-	</div>
+  <div>
+    <label>
+      {label}<br />
+      <Input 
+        onChange={onChange}
+        type={type}
+      />
+    </label>
+  </div>
 )
 
 export default LabeledInput

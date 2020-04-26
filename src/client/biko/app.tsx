@@ -1,8 +1,13 @@
 import Group from 'client/components/group'
 import LabeledInput from 'client/components/labeled-input'
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components'
 import Button from 'client/components/button'
+
+interface State {
+  name: string
+  password: string
+}
 
 const Centered = styled.div`
   align-items: center;
@@ -19,6 +24,10 @@ const Form = styled.div`
 `
 
 const App: React.FC = () => {
+  const [state, setState] = useState<State>({
+    name: '',
+    password: ''
+  })
 
   return (
     <Centered>
@@ -36,7 +45,7 @@ const App: React.FC = () => {
           type='text'
         />
         <Group direction='row'>
-          <Button 
+          <Button
             title={'Войти'}
           />
           <Button
