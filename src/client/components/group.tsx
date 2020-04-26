@@ -6,8 +6,11 @@ const Group = styled.div<{ direction: 'column' | 'row' }>`
   flex-wrap: wrap;
   justify-content: space-between;
 
-  & > * {
+  & > *:not(:first-child) {
     margin-left: 5px;
+  }
+
+  & > *:not(:last-child) {
     margin-right: 5px;
   }
 `

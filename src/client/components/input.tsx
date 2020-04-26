@@ -6,10 +6,12 @@ interface Props {
 }
 
 const Input: React.FC<Props> = ({ label, type }) => (
-  <label>
-    {label} 
-    <input type={type}></input>
-  </label>
+  <div>
+    <label>
+      {label}<br />
+      <input type={type}></input>
+    </label>
+  </div>
 )
 
 export default Input

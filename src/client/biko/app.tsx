@@ -11,27 +11,34 @@ const Centered = styled.div`
   width: min-content;
 `;
 
+const Form = styled.div`
+  & > *:not(:last-child) {
+    margin-bottom: 10px;
+  }
+`
+
 const App: React.FC = () => {
 
   return (
     <Centered>
       <h1>BIKO</h1>
       <h2>Вход</h2>
-      <Input
-        label='Имя пользователя:'
-        type='text'
-      />
-      <Input
-        label='Пароль:'
-        type='text'
-      />
-      <Group direction='row'>
-        <button>Privet</button>
-        <button>Privet</button>
-      </Group>
+      <Form>
+        <Input
+          label='Имя пользователя:'
+          type='text'
+        />
+        <Input
+          label='Пароль:'
+          type='text'
+        />
+        <Group direction='row'>
+          <button>Privet</button>
+          <button>Privet</button>
+        </Group>
+      </Form>
     </Centered>
   );
 };
-
 
 export default App
