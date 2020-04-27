@@ -1,30 +1,31 @@
 import React from 'react'
 import Input from 'client/components/input'
+import Warning from 'client/components/warning'
 
 interface Props {
   label: string,
   onChange: action
   type: 'checkbox' | 'text'
-  warning: string
+  isInvalid: boolean
 }
 
 const LabeledInput: React.FC<Props> = ({ 
   label,
   onChange,
   type,
-  warning
+  isInvalid
 }) => (
   <div>
     <label>
-      {label}<br />
+      {label}
+      {isInvalid && (
+        <Warning>*</Warning>
+      )}<br />
       <Input 
         onChange={onChange}
         type={type}
       />
     </label>
-    {!!warning.length && (
-      <span>{warning}</span>
-    )}
   </div>
 )
 

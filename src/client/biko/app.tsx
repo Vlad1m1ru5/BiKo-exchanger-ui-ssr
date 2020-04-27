@@ -1,12 +1,13 @@
+import Form from 'client/components/form'
 import Group from 'client/components/group'
 import LabeledInput from 'client/components/labeled-input'
 import React, { useState } from 'react';
-import styled from 'styled-components'
 import TiteledButton from 'client/components/titeled-button'
+import styled from 'styled-components'
 
 interface State {
   value: string
-  warning: string
+  isInvalid: boolean
 }
 
 const Centered = styled.div`
@@ -17,29 +18,69 @@ const Centered = styled.div`
   width: min-content;
 `
 
-const Form = styled.div<{ theme: Theme }>`
-  display: flex;
-  flex-direction: column;
-
-  & > *:not(:last-child) {
-    margin-bottom: ${({ theme }) => theme.atom.margin};
-  }
-`
-
 const App: React.FC = () => {
-  const [userName, setUserName] = useState<State>({
+  const [inputName, setInputName] = useState<State>({
     value: '',
-    warning: ''
+    isInvalid: false
   })
 
-  const [userPassword, setUserPassword] = useState<State>({
+  const [inputPassword, setInputPassword] = useState<State>({
     value: '',
-    warning: ''
+    isInvalid: false
   })
 
-  const onEnter = () => {}
+  const isInvalidValueInputName = (value: string) => !(value.match(/^[^_]([A-Za-z_]){1,24}$/))
 
-  const onRegister = () => {}
+  const isInvalidValueInputPassword = (value: string) => !(value.match(/^([A-Za-z\d]){4,}$/))
+
+  const onInputName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.currentTarget.value
+    const isInvalid = isInvalidValueInputName(value)
+
+    setInputName({
+      ...inputName,
+      value,
+      isInvalid
+    })
+  }
+
+  const onInputPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.currentTarget.value
+    const isInvalid = isInvalidValueInputPassword(value)
+
+    setInputPassword({
+      ...inputPassword,
+      value,
+      isInvalid
+    })
+  }
+
+  const onClickEnter = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const isInvalidName = isInvalidValueInputName(inputName.value)
+    const isInvalidPassword = isInvalidValueInputPassword(inputPassword.value)
+
+    if (isInvalidName) {
+      setInputName({
+        ...inputName,
+        isInvalid: true
+      })
+    }
+
+    if (isInvalidPassword) {
+      setInputPassword({
+        ...inputPassword,
+        isInvalid: true
+      })
+    }
+
+    if (!isInvalidName && !isInvalidPassword) {
+      alert('All good!')
+    }
+  }
+
+  const onClickRegister = (event: React.MouseEvent<HTMLButtonElement>) => {
+    alert(0)
+  }
 
   return (
     <Centered>
@@ -47,24 +88,24 @@ const App: React.FC = () => {
       <h2>Вход</h2>
       <Form>
         <LabeledInput
+          isInvalid={inputName.isInvalid}
           label='Имя пользователя:'
-          onChange={() => {}}
+          onChange={onInputName}
           type='text'
-          warning={''}
         />
         <LabeledInput
+          isInvalid={inputPassword.isInvalid}
           label='Пароль:'
-          onChange={() => {}}
+          onChange={onInputPassword}
           type='text'
-          warning={''}
         />
         <Group direction='row'>
           <TiteledButton
-            onClick={onEnter}
+            onClick={onClickEnter}
             title={'Войти'}
           />
           <TiteledButton
-            onClick={onRegister}
+            onClick={onClickRegister}
             title={'Создать аккаунт'}
           />
         </Group>

@@ -7,7 +7,7 @@ const Group = styled.div<{
   display: flex;
   flex-direction: ${({ direction }) => direction};
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 
   & > *:not(:first-child) {
     margin-left: ${({ theme }) => theme.atom.margin};
