@@ -17,9 +17,12 @@ const Centered = styled.div`
   width: min-content;
 `
 
-const Form = styled.div`
+const Form = styled.div<{ theme: Theme }>`
+  display: flex;
+  flex-direction: column;
+
   & > *:not(:last-child) {
-    margin-bottom: 10px;
+    margin-bottom: ${({ theme }) => theme.atom.margin};
   }
 `
 

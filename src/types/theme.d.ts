@@ -1,7 +1,8 @@
 interface Theme {
   atom: {
-    size: string
+    margin: string
     radius: string
+    size: string
   },
   box: {
     shadow: {

@@ -1,7 +1,8 @@
 const theme: Theme = {
   atom: {
-    size: '32px',
-    radius: '5px'
+    margin: '10px',
+    radius: '5px',
+    size: '32px'
   },
   box: {
     shadow: {
