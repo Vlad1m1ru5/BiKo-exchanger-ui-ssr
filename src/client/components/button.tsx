@@ -1,19 +1,15 @@
 import styled from "styled-components"
 
-const Button = styled.button`
+const Button = styled.button<{ theme: Theme }>`
   background-color: transparent;
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
-  height: 24px;
-  width: 24px;
-
-  &:focus {
-    
-  }
+  border: 2px solid cornflowerblue;
+  border-radius: 50%;
+  box-shadow: ${({ theme }) => theme.input.shadow.active};
+  height: ${({ theme }) => theme.atom.size};
+  width: ${({ theme }) => theme.atom.size};
 
   &:hover {
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3), 0px 0px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: ${({ theme }) => theme.input.shadow.hover};
   }
 `
 

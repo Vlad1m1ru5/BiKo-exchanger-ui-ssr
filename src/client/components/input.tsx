@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
-const Input = styled.input<{ onChange: (args: any) => void, type: 'checkbox' | 'text' }>`
+const Input = styled.input<{ onChange: (args: any) => void, theme: Theme, type: 'checkbox' | 'text' }>`
   border-radius: ${({ type }) => type === 'text' ? '5px' : 'none'};
   border: none;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
-  height: 24;
+  box-shadow: ${({ theme }) => theme.input.shadow.active};
+  height: ${({ theme }) => theme.atom.size};
 
   &:hover {
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3), 0px 0px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: ${({ theme }) => theme.input.shadow.hover};
   }
 `
 

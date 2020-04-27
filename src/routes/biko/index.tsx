@@ -2,8 +2,9 @@ import App from 'client/biko/app';
 import React from 'react';
 import express from 'express';
 import hbs from 'handlebars';
+import theme from 'static/theme'
 import { Provider } from 'react-redux';
-import { ServerStyleSheet } from 'styled-components';
+import { ServerStyleSheet, ThemeProvider } from 'styled-components';
 import { createAppStore } from 'store/index';
 import { renderToString } from 'react-dom/server';
 
@@ -32,7 +33,9 @@ router.get('/', async (req, res) => {
 
   const app = renderToString(sheet.collectStyles(
     <Provider store={store}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </Provider>
   ));
 
