@@ -5,8 +5,8 @@ import styled from 'styled-components'
 import TiteledButton from 'client/components/titeled-button'
 
 interface State {
-  name: string
-  password: string
+  value: string
+  warning: string
 }
 
 const Centered = styled.div`
@@ -24,10 +24,19 @@ const Form = styled.div`
 `
 
 const App: React.FC = () => {
-  const [state, setState] = useState<State>({
-    name: '',
-    password: ''
+  const [userName, setUserName] = useState<State>({
+    value: '',
+    warning: ''
   })
+
+  const [userPassword, setUserPassword] = useState<State>({
+    value: '',
+    warning: ''
+  })
+
+  const onEnter = () => {}
+
+  const onRegister = () => {}
 
   return (
     <Centered>
@@ -38,17 +47,21 @@ const App: React.FC = () => {
           label='Имя пользователя:'
           onChange={() => {}}
           type='text'
+          warning={''}
         />
         <LabeledInput
           label='Пароль:'
           onChange={() => {}}
           type='text'
+          warning={''}
         />
         <Group direction='row'>
           <TiteledButton
+            onClick={onEnter}
             title={'Войти'}
           />
           <TiteledButton
+            onClick={onRegister}
             title={'Создать аккаунт'}
           />
         </Group>

@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
-const Input = styled.input<{ onChange: (args: any) => void, theme: Theme, type: 'checkbox' | 'text' }>`
+const Input = styled.input<{
+  onChange: action,
+  theme: Theme,
+  type: 'checkbox' | 'text'
+}>`
   border-radius: ${({ type }) => type === 'text' ? '5px' : 'none'};
   border: none;
   box-shadow: ${({ theme }) => theme.input.shadow.active};

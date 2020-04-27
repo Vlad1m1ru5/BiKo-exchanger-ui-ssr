@@ -2,13 +2,19 @@ import React from 'react'
 import Button from 'client/components/button'
 
 interface Props {
-    title: string
+  onClick: action 
+  title: string
 }
 
-const TiteledButton: React.FC<Props> = ({ title }) => (
-    <div title={title}>
-        <Button />
-    </div>
+const TiteledButton: React.FC<Props> = ({
+  onClick,
+  title
+}) => (
+  <div title={title}>
+    <Button 
+      onClick={onClick}
+    />
+  </div>
 )
 
 export default TiteledButton

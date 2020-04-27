@@ -3,14 +3,16 @@ import Input from 'client/components/input'
 
 interface Props {
   label: string,
-  onChange: (args: any) => void
+  onChange: action
   type: 'checkbox' | 'text'
+  warning: string
 }
 
 const LabeledInput: React.FC<Props> = ({ 
   label,
   onChange,
-  type
+  type,
+  warning
 }) => (
   <div>
     <label>
@@ -20,6 +22,9 @@ const LabeledInput: React.FC<Props> = ({
         type={type}
       />
     </label>
+    {!!warning.length && (
+      <span>{warning}</span>
+    )}
   </div>
 )
 
