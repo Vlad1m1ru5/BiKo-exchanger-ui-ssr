@@ -1,7 +1,7 @@
 import React from 'react'
 import { hydrate } from 'react-dom'
 import App from './app'
-import { createAppStore } from 'store/index'
+import { configureStore } from 'store/index'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 import theme from 'static/theme'

@@ -5,7 +5,11 @@ const config = {
   entry: {
     // vendor: [
     //   "@babel/polyfill",
-    //   "react"
+    //   "react",
+    //   "react-dom",
+    //   "react-redux",
+    //   "redux",
+    //   "styled-components"
     // ],
     app: [
       "./src/client/biko/index.tsx"
@@ -37,19 +41,18 @@ const config = {
     rules: [
       {
         exclude: /node_modules/,
+        test: /\.(ts|tsx)$/,
         use: [
           "babel-loader"
-        ],
-        test: /\.(ts|tsx)$/
-        // use: {
-        //   loader: "babel-loader",
-        //   options: {
-        //     presets: [
-        //       "@babel/preset-env",
-        //       "@babel/preset-react"
-        //     ]
-        //   }
-        // }
+        ]
+      },
+      {
+        exclude: /node_modules/,
+        test: /\.(css)$/,
+        use: [
+          "style-loader",
+          "css-loader"
+        ]
       }
     ]
   },
