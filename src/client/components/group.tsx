@@ -10,11 +10,27 @@ const Group = styled.div<{
   justify-content: flex-start;
 
   & > *:not(:first-child) {
-    margin-left: ${({ theme }) => theme.atom.margin};
+    ${({ direction, theme }) => {
+      switch (direction) {
+        case 'column':
+          return `margin-top: ${theme.atom.margin};`
+        case 'row':
+        default:
+          return `margin-left: ${theme.atom.margin};`
+      }
+    }}
   }
 
   & > *:not(:last-child) {
-    margin-right: ${({ theme }) => theme.atom.margin};
+    ${({ direction, theme }) => {
+      switch (direction) {
+        case 'column':
+          return `margin-bottom: ${theme.atom.margin};`
+        case 'row':
+        default:
+          return `margin-right: ${theme.atom.margin};`
+      }
+    }}
   }
 `
 

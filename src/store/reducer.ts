@@ -4,7 +4,8 @@ import actions from './actions'
 type Actions = ActionCombine<typeof actions>
 
 const initialState: Store = {
-  userName: null
+  userName: '',
+  userPassword: ''
 };
 
 const reducer: Reducer<Store, Actions> = (state = initialState, action) => {
@@ -15,9 +16,14 @@ const reducer: Reducer<Store, Actions> = (state = initialState, action) => {
       return {
         ...state,
         userName: payload
-      };
+      }
+    case 'SET_USER_PASSWORD':
+      return {
+        ...state,
+        userPassword: payload
+      }
     default:
-      return state;
+      return state
   }
 };
 

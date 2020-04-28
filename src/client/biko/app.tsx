@@ -1,22 +1,13 @@
-import Form from 'client/components/form'
+import Centered from 'client/components/centered'
 import Group from 'client/components/group'
 import LabeledInput from 'client/components/labeled-input'
 import React, { useState } from 'react';
 import TiteledButton from 'client/components/titeled-button'
-import styled from 'styled-components'
 
 interface State {
   value: string
   isInvalid: boolean
 }
-
-const Centered = styled.div`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  width: min-content;
-`
 
 const App: React.FC = () => {
   const [inputName, setInputName] = useState<State>({
@@ -86,7 +77,7 @@ const App: React.FC = () => {
     <Centered>
       <h1>BIKO</h1>
       <h2>Вход</h2>
-      <Form>
+      <Group direction={'column'}>
         <LabeledInput
           isInvalid={inputName.isInvalid}
           label='Имя пользователя:'
@@ -109,7 +100,7 @@ const App: React.FC = () => {
             title={'Создать аккаунт'}
           />
         </Group>
-      </Form>
+      </Group>
     </Centered>
   )
 }
