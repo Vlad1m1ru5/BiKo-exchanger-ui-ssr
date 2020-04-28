@@ -78,7 +78,10 @@ const App: React.FC<Props> = ({ setUserName, setUserPassword }) => {
     if (!isInvalidName && !isInvalidPassword) {
       setUserName(username)
       setUserPassword(username)
-      api.authoriseUser({ username, password })
+      api
+        .authoriseUser({ username, password })
+        .then((response) => response)
+        .catch((error) => console.warn(error))
     }
   }
 

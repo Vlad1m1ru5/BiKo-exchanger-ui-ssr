@@ -1,10 +1,10 @@
 import express from 'express'
+import { isCreatedUser } from './middleweare';
 
 const router = express.Router()
 
-router.post('/login', (req, res) => {
-  console.log('API req: ', req.body)
-  res.send('LOGIN')
+router.post('/login', isCreatedUser, (req, res) => {
+  res.send('/home');
 })
 
 export default router
