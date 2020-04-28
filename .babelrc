@@ -24,6 +24,7 @@
       "module-resolver",
       {
         "alias":  {
+          "api": "./src/api",
           "client": "./src/client/",
           "routes": "./src/routes/",
           "static": "./src/static/",

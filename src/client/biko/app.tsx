@@ -3,13 +3,21 @@ import Group from 'client/components/group'
 import LabeledInput from 'client/components/labeled-input'
 import React, { useState } from 'react';
 import TiteledButton from 'client/components/titeled-button'
+import actions from 'store/actions'
+import { connect } from 'react-redux'
+import api from 'api/biko';
+
+interface Props {
+  setUserName: any
+  setUserPassword: any
+}
 
 interface State {
   value: string
   isInvalid: boolean
 }
 
-const App: React.FC = () => {
+const App: React.FC<Props> = ({ setUserName, setUserPassword }) => {
   const [inputName, setInputName] = useState<State>({
     value: '',
     isInvalid: false
@@ -46,9 +54,12 @@ const App: React.FC = () => {
     })
   }
 
-  const onClickEnter = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const isInvalidName = isInvalidValueInputName(inputName.value)
-    const isInvalidPassword = isInvalidValueInputPassword(inputPassword.value)
+  const onClickEnter = () => {
+    const username = inputName.value
+    const password = inputPassword.value
+
+    const isInvalidName = isInvalidValueInputName(username)
+    const isInvalidPassword = isInvalidValueInputPassword(password)
 
     if (isInvalidName) {
       setInputName({
@@ -65,7 +76,9 @@ const App: React.FC = () => {
     }
 
     if (!isInvalidName && !isInvalidPassword) {
-      alert('All good!')
+      setUserName(username)
+      setUserPassword(username)
+      api.authoriseUser({ username, password })
     }
   }
 
@@ -105,4 +118,9 @@ const App: React.FC = () => {
   )
 }
 
-export default App
+const mapDispatchToProps = {
+  setUserName: actions.setUserName,
+  setUserPassword: actions.setUserPassword
+}
+
+export default connect(null, mapDispatchToProps)(App)

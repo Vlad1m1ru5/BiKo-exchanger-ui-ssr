@@ -7,6 +7,7 @@
     "module": "commonjs",
     "outDir": "./public",
     "paths": {
+      "api": ["api/*"],
       "client": ["client/*"],
       "routes": ["routes/*"],
       "static": ["static/*"],

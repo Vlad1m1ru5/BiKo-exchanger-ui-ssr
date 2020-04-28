@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "TS_NODE_FILES=true nodemon -r tsconfig-paths/register src/server.ts",
+    "dev": "webpack-dev-server --hot --watch --open",
+    "server": "TS_NODE_FILES=true PORT=3030 nodemon -r tsconfig-paths/register src/server.ts",
     "webpack": "webpack -wd --hot"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "handlebars": "^4.7.6",
@@ -49,6 +51,7 @@
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.8.3",
     "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   }
 }
