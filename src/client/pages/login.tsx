@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import api from 'api/biko';
 
 interface Props {
+  setPath: any
   setUserName: any
   setUserPassword: any
 }
@@ -17,7 +18,7 @@ interface State {
   isInvalid: boolean
 }
 
-const Login: React.FC<Props> = ({ setUserName, setUserPassword }) => {
+const Login: React.FC<Props> = ({ setPath, setUserName, setUserPassword }) => {
   const [inputName, setInputName] = useState<State>({
     value: '',
     isInvalid: false
@@ -78,10 +79,10 @@ const Login: React.FC<Props> = ({ setUserName, setUserPassword }) => {
     if (!isInvalidName && !isInvalidPassword) {
       setUserName(username)
       setUserPassword(username)
+      
       api
         .authoriseUser({ username, password })
-        .then((response) => response)
-        .catch((error) => console.warn(error))
+        .then(setPath)
     }
   }
 
@@ -122,6 +123,7 @@ const Login: React.FC<Props> = ({ setUserName, setUserPassword }) => {
 }
 
 const mapDispatchToProps = {
+  setPath: actions.setPath,
   setUserName: actions.setUserName,
   setUserPassword: actions.setUserPassword
 }

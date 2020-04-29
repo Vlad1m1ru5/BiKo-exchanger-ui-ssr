@@ -3,25 +3,17 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = {
-  entry: {
-    app: [
-      "./src/client/biko/index.tsx"
-    ]
-    //, vendor: [
-    //   "@babel/polyfill",
-    //   "react",
-    //   "react-dom",
-    //   "react-redux",
-    //   "redux",
-    //   "styled-components"
-    // ]
-  },
   devServer: {
-    contentBase: "./public",
+    contentBase: path.join(__dirname, 'public'),
     port: 9000,
     proxy: {
       '/api': 'http://localhost:3030'
     }
+  },
+  entry: {
+    app: [
+      "./src/client/biko/index.tsx"
+    ]
   },
   module: {
     rules: [
@@ -42,30 +34,33 @@ const config = {
       }
     ]
   },
-  // optimization: {
-  //   runtimeChunk: "single",
-  //   splitChunks: {
-  //     chunks: "all",
-  //     maxInitialRequests: Infinity,
-  //     minSize: 0,
-  //     cacheGroups: {
-  //       vendor: {
-  //         test: /[\\/]node_modules[\\/]/,
-  //         name(module) {
-  //           const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-
-  //           return `npm.${packageName.replace("@", "")}`;
-  //         },
-  //       },
-  //     },
-  //   },
-  // },
+  optimization: {
+    runtimeChunk: "single",
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name(module) {
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            return `npm.${packageName.replace("@", "")}`;
+          }
+        }
+      },
+      chunks: "all",
+      maxInitialRequests: Infinity,
+      minSize: 0
+    },
+  },
   output: {
     path: path.resolve(__dirname, "public"),
-    filename: "[name].js"
+    filename: "[name].[hashset].js"
   },
   plugins: [
-    new webpack.HashedModuleIdsPlugin()
+    new webpack.HashedModuleIdsPlugin(),
+    new HtmlWebpackPlugin({
+      chunks: ['app'],
+      template: './src/client/index.html',
+    })
   ],
   resolve: {
     alias: {
