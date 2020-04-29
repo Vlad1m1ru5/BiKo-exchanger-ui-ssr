@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import api from 'client/api';
 
 interface Props {
-  setPath: any
+  setAuthority: any
   setUserName: any
   setUserPassword: any
 }
@@ -18,7 +18,11 @@ interface State {
   isInvalid: boolean
 }
 
-const Login: React.FC<Props> = ({ setPath, setUserName, setUserPassword }) => {
+const Login: React.FC<Props> = ({ 
+  setAuthority,
+  setUserName,
+  setUserPassword
+}) => {
   const [inputName, setInputName] = useState<State>({
     value: '',
     isInvalid: false
@@ -85,6 +89,7 @@ const Login: React.FC<Props> = ({ setPath, setUserName, setUserPassword }) => {
       api
         .getAuthorization({ username, password })
         .then(api.getAuthentication)
+        .then(setAuthority)
         .catch(setError)
     }
   }
@@ -129,7 +134,7 @@ const Login: React.FC<Props> = ({ setPath, setUserName, setUserPassword }) => {
 }
 
 const mapDispatchToProps = {
-  setPath: actions.setPath,
+  setAuthority: actions.setAuthority,
   setUserName: actions.setUserName,
   setUserPassword: actions.setUserPassword
 }

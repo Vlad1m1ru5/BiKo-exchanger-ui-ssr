@@ -5,6 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const config = {
   devServer: {
     contentBase: path.join(__dirname, 'public'),
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/.*$/, to: 'index.html'}
+      ]
+    },
     port: 9000,
     proxy: {
       '/api': 'http://localhost:3030'

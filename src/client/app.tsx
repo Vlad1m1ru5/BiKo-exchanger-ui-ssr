@@ -6,15 +6,20 @@ const Login = React.lazy(() => import('client/pages/login'))
 const Feed = React.lazy(() => import('client/pages/feed'))
 
 interface Props {
-  path: string
+  authority: string
 }
 
-const App: React.FC<Props> = ({ path }) => {
+const App: React.FC<Props> = ({ authority }) => {
   const history = useHistory()
 
   useEffect(() => {
-    history.push(path)
-  }, [path])
+    if (!authority) {
+      history.push('/login')
+      return
+    }
+
+    history.push('/feed')
+  }, [authority])
 
   return (
     <Switch>
@@ -23,22 +28,24 @@ const App: React.FC<Props> = ({ path }) => {
           <Feed />
         </Suspense>
       </Route>
-      <Route path='/'>
-        {() => {
-
-          return (
-            <Suspense fallback={'Подождите...'}>
-              <Login />
-            </Suspense>
-          )
-        }}
+      <Route path='/login'>
+        <Suspense fallback={'Подождите...'}>
+          <Login />
+        </Suspense>
       </Route>
+      {authority && (
+        <Route path='/'>
+          <Suspense fallback={'Подождите...'}>
+            <div>Hi!</div>
+          </Suspense>
+        </Route>
+      )}
     </Switch>
   )
 }
 
-const mapStateToProps = ({ path }: Store) => ({
-  path
+const mapStateToProps = ({ authority }: Store) => ({
+  authority
 })
 
 export default connect(mapStateToProps)(App)

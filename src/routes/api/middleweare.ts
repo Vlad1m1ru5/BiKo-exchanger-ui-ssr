@@ -5,7 +5,6 @@ const api = process.env.API
 
 export const isCreatedUser: RequestHandler = async (req, res, next) => {
   const { username, password } = req.query
-  console.log(req)
   
   if (username === undefined ||
       password === undefined
@@ -28,7 +27,7 @@ export const isAuthUser: RequestHandler = async (req, res, next) => {
   const { username, password } = req.body
   
   if (username === undefined ||
-    password === undefined
+      password === undefined
   ) {
     res.status(503)
     return res.send('Пользователь не найден')
