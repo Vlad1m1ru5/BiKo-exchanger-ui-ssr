@@ -1,5 +1,4 @@
 import api from 'routes/api'
-import root from 'routes/root'
 import bodyParser from 'body-parser'
 import compression from 'compression'
 import express from 'express'
@@ -13,7 +12,6 @@ app.use(express.static('public'));
 app.use(bodyParser.json())
 
 app.use('/api', api)
-app.use('/', root);
 
 const port = process.env.PORT || 3030;
 

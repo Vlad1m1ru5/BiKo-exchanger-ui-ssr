@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import TiteledButton from 'client/components/titeled-button'
 import actions from 'store/actions'
 import { connect } from 'react-redux'
-import api from 'api/biko';
+import api from 'client/api';
 
 interface Props {
   setPath: any
