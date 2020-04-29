@@ -1,5 +1,6 @@
-import React from 'react'
 import App from './app'
+import GlobalStyles from 'static/global-styles'
+import React from 'react'
 import theme from 'static/theme'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
@@ -14,6 +15,7 @@ hydrate(
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <App />
+          <GlobalStyles />
         </BrowserRouter>
       </ThemeProvider>
   </Provider>,

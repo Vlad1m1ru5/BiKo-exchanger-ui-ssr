@@ -1,3 +1,6 @@
+declare module '*.woff'
+declare module '*.woff2'
+
 type action = (args: any) => void
 
 interface Credentials {

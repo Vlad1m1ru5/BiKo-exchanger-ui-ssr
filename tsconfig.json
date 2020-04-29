@@ -8,6 +8,7 @@
     "outDir": "./public",
     "paths": {
       "api": ["api/*"],
+      "assets": ["assets/*"],
       "client": ["client/*"],
       "routes": ["routes/*"],
       "static": ["static/*"],

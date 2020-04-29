@@ -29,11 +29,15 @@ const config = {
         ]
       },
       {
-        exclude: /node_modules/,
-        test: /\.(css)$/,
+        test: /\.(woff|woff2)$/,
         use: [
-          "style-loader",
-          "css-loader"
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'assets',
+              publicPath: '/assets'
+            }
+          }
         ]
       }
     ]
@@ -69,6 +73,7 @@ const config = {
   resolve: {
     alias: {
       api: path.resolve(__dirname, "src/api/"),
+      assets: path.resolve(__dirname, "src/assets/"),
       client: path.resolve(__dirname, "src/client/"),
       routes: path.resolve(__dirname, "src/routes/"),
       static: path.resolve(__dirname, "src/static/"),
