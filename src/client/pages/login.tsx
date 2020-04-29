@@ -55,7 +55,7 @@ const Login: React.FC<Props> = ({ setPath, setUserName, setUserPassword }) => {
     })
   }
 
-  const onClickEnter = () => {
+  const onClickEnter = async () => {
     const username = inputName.value
     const password = inputPassword.value
 
@@ -80,9 +80,8 @@ const Login: React.FC<Props> = ({ setPath, setUserName, setUserPassword }) => {
       setUserName(username)
       setUserPassword(username)
       
-      api
-        .authoriseUser({ username, password })
-        .then(setPath)
+      const path = await api.authoriseUser({ username, password })
+      setPath(path)
     }
   }
 

@@ -10,10 +10,9 @@ const config = {
       '/api': 'http://localhost:3030'
     }
   },
+  devtool: 'eval-source-map',
   entry: {
-    app: [
-      "./src/client/biko/index.tsx"
-    ]
+    app: ["./src/client/index.tsx"]
   },
   module: {
     rules: [
@@ -53,7 +52,7 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, "public"),
-    filename: "[name].[hashset].js"
+    filename: "[name].[hash].js"
   },
   plugins: [
     new webpack.HashedModuleIdsPlugin(),

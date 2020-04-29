@@ -1,8 +1,9 @@
-import Feed from 'client/pages/feed'
-import Login  from 'client/pages/login'
-import React, { useEffect } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { Route, Switch, useHistory }  from 'react-router-dom'
 import { connect } from 'react-redux'
+
+const Login = React.lazy(() => import('client/pages/login'))
+const Feed = React.lazy(() => import('client/pages/feed'))
 
 interface Props {
   path: string
@@ -17,11 +18,15 @@ const App: React.FC<Props> = ({ path }) => {
 
   return (
     <Switch>
-      <Route path='/'>
-          <Login />
+      <Route path='/feed'>
+        <Suspense fallback={'Подождите...'}>
+          <Feed />
+        </Suspense>
       </Route>
-      <Route path='feed'>
-        <Feed />
+      <Route path='/'>
+        <Suspense fallback={'Подождите...'}>
+          <Login />
+        </Suspense>
       </Route>
     </Switch>
   )

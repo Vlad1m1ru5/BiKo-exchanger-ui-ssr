@@ -17,7 +17,7 @@ export const isCreatedUser: RequestHandler = async (req, res, next) => {
 
   if (status === 302) {
     res.status(302)
-    return res.send('Не удалось авторизировать польз ователя')
+    return res.send('Не удалось авторизировать пользователя')
   }
 
   next()
