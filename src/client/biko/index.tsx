@@ -1,20 +1,20 @@
 import React from 'react'
-import { hydrate } from 'react-dom'
 import App from './app'
-import { configureStore } from 'store/index'
+import theme from 'static/theme'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
-import theme from 'static/theme'
+import { createAppStore } from 'store/index'
+import { hydrate } from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
 
-const preloadedState = window.__PRELOADED_STATE__
-delete window.__PRELOADED_STATE__
-
-const store = configureStore(preloadedState)
+const store = createAppStore()
 
 hydrate(
   <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </ThemeProvider>
   </Provider>,
   document.getElementById('app')
