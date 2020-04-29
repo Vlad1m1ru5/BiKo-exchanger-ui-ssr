@@ -24,9 +24,14 @@ const App: React.FC<Props> = ({ path }) => {
         </Suspense>
       </Route>
       <Route path='/'>
-        <Suspense fallback={'Подождите...'}>
-          <Login />
-        </Suspense>
+        {() => {
+
+          return (
+            <Suspense fallback={'Подождите...'}>
+              <Login />
+            </Suspense>
+          )
+        }}
       </Route>
     </Switch>
   )

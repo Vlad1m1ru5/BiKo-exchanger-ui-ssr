@@ -4,7 +4,8 @@ import { RequestHandler } from 'express'
 const api = process.env.API
 
 export const isCreatedUser: RequestHandler = async (req, res, next) => {
-  const { username, password } = req.body
+  const { username, password } = req.query
+  console.log(req)
   
   if (username === undefined ||
       password === undefined
@@ -18,6 +19,19 @@ export const isCreatedUser: RequestHandler = async (req, res, next) => {
   if (status === 302) {
     res.status(302)
     return res.send('Не удалось авторизировать пользователя')
+  }
+
+  next()
+}
+
+export const isAuthUser: RequestHandler = async (req, res, next) => {
+  const { username, password } = req.body
+  
+  if (username === undefined ||
+    password === undefined
+  ) {
+    res.status(503)
+    return res.send('Пользователь не найден')
   }
 
   next()

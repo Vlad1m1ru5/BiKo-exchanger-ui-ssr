@@ -1,8 +1,12 @@
 import axios from 'axios'
 
 const api = {
-  authoriseUser: async (credentials: Credentials) => {
-    const { data } = await axios.post('/api/login', credentials)
+  getAuthorization: async (credentials: Credentials) => {
+    const { data } = await axios.get<Credentials>('/api/login', { params: credentials })
+    return data
+  },
+  getAuthentication: async (credentials: Credentials) => {
+    const { data } = await axios.post('/api/auth', credentials)
     return data
   }
 }

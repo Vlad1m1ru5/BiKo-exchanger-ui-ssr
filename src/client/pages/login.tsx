@@ -29,6 +29,8 @@ const Login: React.FC<Props> = ({ setPath, setUserName, setUserPassword }) => {
     isInvalid: false
   })
 
+  const [error, setError] = useState<Error | null>(null)
+
   const isInvalidValueInputName = (value: string) => !(value.match(/^[^_]([A-Za-z_]){1,24}$/))
 
   const isInvalidValueInputPassword = (value: string) => !(value.match(/^([A-Za-z\d]){4,}$/))
@@ -55,7 +57,7 @@ const Login: React.FC<Props> = ({ setPath, setUserName, setUserPassword }) => {
     })
   }
 
-  const onClickEnter = async () => {
+  const onClickEnter = () => {
     const username = inputName.value
     const password = inputPassword.value
 
@@ -79,9 +81,11 @@ const Login: React.FC<Props> = ({ setPath, setUserName, setUserPassword }) => {
     if (!isInvalidName && !isInvalidPassword) {
       setUserName(username)
       setUserPassword(username)
-      
-      const path = await api.authoriseUser({ username, password })
-      setPath(path)
+
+      api
+        .getAuthorization({ username, password })
+        .then(api.getAuthentication)
+        .catch(setError)
     }
   }
 
@@ -116,6 +120,9 @@ const Login: React.FC<Props> = ({ setPath, setUserName, setUserPassword }) => {
             title={'Создать аккаунт'}
           />
         </Group>
+        {error !== null && (
+          <h3>{error.message}</h3>
+        )}
       </Group>
     </Centered>
   )
