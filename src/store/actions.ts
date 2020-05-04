@@ -3,9 +3,7 @@ const createAction: ActionCreator = <T extends string, P>(type: T, payload: P) =
 )
 
 const setAuthority = (credentials: Credentials) => createAction('SET_AUTHORITY', 'user')
-
 const setUserName = (userName: string) => createAction('SET_USER_NAME', userName);
-
 const setUserPassword = (userPassword: string) => createAction('SET_USER_PASSWORD', userPassword)
 
 export default {

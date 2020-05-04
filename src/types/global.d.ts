@@ -8,6 +8,11 @@ interface Credentials {
   username: string
 }
 
+interface Input {
+  isInvalid: boolean
+  value: string
+}
+
 interface RegistrationCredentials extends Credentials {
   email: string
 }

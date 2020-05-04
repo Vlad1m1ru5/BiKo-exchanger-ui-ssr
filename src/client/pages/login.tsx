@@ -3,9 +3,12 @@ import Group from 'client/components/group'
 import LabeledInput from 'client/components/labeled-input'
 import React, { useState } from 'react';
 import TiteledButton from 'client/components/titeled-button'
+import Topbar from 'client/components/topbar'
 import actions from 'store/actions'
-import { connect } from 'react-redux'
 import api from 'client/api';
+import { connect } from 'react-redux'
+import { isValidName, isValidPassword } from 'client/utils'
+import { useHistory } from 'react-router-dom'
 
 interface Props {
   setAuthority: any
@@ -13,35 +16,28 @@ interface Props {
   setUserPassword: any
 }
 
-interface State {
-  value: string
-  isInvalid: boolean
-}
-
 const Login: React.FC<Props> = ({ 
   setAuthority,
   setUserName,
   setUserPassword
 }) => {
-  const [inputName, setInputName] = useState<State>({
+  const history = useHistory()
+
+  const [inputName, setInputName] = useState<Input>({
     value: '',
     isInvalid: false
   })
 
-  const [inputPassword, setInputPassword] = useState<State>({
+  const [inputPassword, setInputPassword] = useState<Input>({
     value: '',
     isInvalid: false
   })
 
   const [error, setError] = useState<Error | null>(null)
 
-  const isInvalidValueInputName = (value: string) => !(value.match(/^[^_]([A-Za-z_]){1,24}$/))
-
-  const isInvalidValueInputPassword = (value: string) => !(value.match(/^([A-Za-z\d]){4,}$/))
-
-  const onInputName = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeInputName = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value
-    const isInvalid = isInvalidValueInputName(value)
+    const isInvalid = !isValidName(value)
 
     setInputName({
       ...inputName,
@@ -50,9 +46,9 @@ const Login: React.FC<Props> = ({
     })
   }
 
-  const onInputPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeInputPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value
-    const isInvalid = isInvalidValueInputPassword(value)
+    const isInvalid = !isValidPassword(value)
 
     setInputPassword({
       ...inputPassword,
@@ -61,12 +57,12 @@ const Login: React.FC<Props> = ({
     })
   }
 
-  const onClickEnter = () => {
+  const clickEnter = () => {
     const username = inputName.value
     const password = inputPassword.value
 
-    const isInvalidName = isInvalidValueInputName(username)
-    const isInvalidPassword = isInvalidValueInputPassword(password)
+    const isInvalidName = !isValidName(username)
+    const isInvalidPassword = !isValidPassword(password)
 
     if (isInvalidName) {
       setInputName({
@@ -82,9 +78,11 @@ const Login: React.FC<Props> = ({
       })
     }
 
-    if (!isInvalidName && !isInvalidPassword) {
+    if (!isInvalidName && 
+        !isInvalidPassword
+    ) {
       setUserName(username)
-      setUserPassword(username)
+      setUserPassword(password)
 
       api
         .getAuthorization({ username, password })
@@ -94,34 +92,36 @@ const Login: React.FC<Props> = ({
     }
   }
 
-  const onClickRegister = (event: React.MouseEvent<HTMLButtonElement>) => {
-    alert(0)
+  const clickRegister = () => {
+    history.push('/auth')
   }
 
   return (
     <Centered>
-      <h1>BIKO</h1>
+      <Topbar>
+        <h1>BIKO</h1>
+      </Topbar>
       <h2>Вход</h2>
       <Group direction={'column'}>
         <LabeledInput
           isInvalid={inputName.isInvalid}
           label='Имя пользователя:'
-          onChange={onInputName}
+          onChange={changeInputName}
           type='text'
         />
         <LabeledInput
           isInvalid={inputPassword.isInvalid}
           label='Пароль:'
-          onChange={onInputPassword}
+          onChange={changeInputPassword}
           type='text'
         />
         <Group direction='row'>
           <TiteledButton
-            onClick={onClickEnter}
+            onClick={clickEnter}
             title={'Войти'}
           />
           <TiteledButton
-            onClick={onClickRegister}
+            onClick={clickRegister}
             title={'Создать аккаунт'}
           />
         </Group>

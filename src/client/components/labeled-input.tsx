@@ -5,7 +5,7 @@ import Warning from 'client/components/warning'
 interface Props {
   label: string,
   onChange: action
-  type: 'checkbox' | 'text'
+  type: 'checkbox' | 'email' | 'text'
   isInvalid: boolean
 }
 

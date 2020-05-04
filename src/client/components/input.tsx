@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const Input = styled.input<{
   onChange: action,
   theme: Theme,
-  type: 'checkbox' | 'text'
+  type: 'checkbox' | 'email' | 'text'
 }>`
   border-radius: ${({ type }) => type === 'text' ? '5px' : 'none'};
   border: none;

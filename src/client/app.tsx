@@ -2,8 +2,9 @@ import React, { Suspense, useEffect } from 'react'
 import { Route, Switch, useHistory }  from 'react-router-dom'
 import { connect } from 'react-redux'
 
-const Login = React.lazy(() => import('client/pages/login'))
+const Auth = React.lazy(() => import('client/pages/auth'))
 const Feed = React.lazy(() => import('client/pages/feed'))
+const Login = React.lazy(() => import('client/pages/login'))
 
 interface Props {
   authority: string
@@ -23,6 +24,11 @@ const App: React.FC<Props> = ({ authority }) => {
 
   return (
     <Switch>
+      <Route path='/auth'>
+        <Suspense fallback={'Подождите...'}>
+          <Auth />
+        </Suspense>
+      </Route>
       <Route path='/feed'>
         <Suspense fallback={'Подождите...'}>
           <Feed />
@@ -33,13 +39,6 @@ const App: React.FC<Props> = ({ authority }) => {
           <Login />
         </Suspense>
       </Route>
-      {authority && (
-        <Route path='/'>
-          <Suspense fallback={'Подождите...'}>
-            <div>Hi!</div>
-          </Suspense>
-        </Route>
-      )}
     </Switch>
   )
 }
