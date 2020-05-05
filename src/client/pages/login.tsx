@@ -2,6 +2,7 @@ import Button from 'client/components/button'
 import Group from 'client/components/group'
 import Icon from 'client/components/icon'
 import LabeledInput from 'client/components/labeled-input'
+import Page from 'client/components/page'
 import React, { useState } from 'react';
 import Title from 'client/components/title'
 import Topbar from 'client/components/topbar'
@@ -101,7 +102,7 @@ const Login: React.FC<Props> = ({
   }
 
   return (
-    <div>
+    <Page>
       <Topbar>
         <Group direction='row'>
           <Title title='Меню'>
@@ -111,8 +112,10 @@ const Login: React.FC<Props> = ({
           </Title>
           <h1>BIKO</h1>
         </Group>
+        <Group direction='row'>
+          <h2>Вход</h2>
+        </Group>
       </Topbar>
-      <h2>Вход</h2>
       <Group direction='column'>
         <LabeledInput
           isInvalid={inputName.isInvalid}
@@ -142,7 +145,7 @@ const Login: React.FC<Props> = ({
           <h3>{error.message}</h3>
         )}
       </Group>
-    </div>
+    </Page>
   )
 }
 

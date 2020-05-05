@@ -8,26 +8,20 @@ const Group = styled.div<{
   display: flex;
   flex-direction: ${({ direction }) => direction};
 
-  & > *:not(:first-child) {
+  & > * {
     ${({ direction, theme }) => {
       switch (direction) {
         case 'column':
-          return `margin-top: ${theme.atom.margin};`
+          return `
+            margin-top: ${theme.atom.margin};
+            margin-bottom: ${theme.atom.margin};
+          `
         case 'row':
         default:
-          return `margin-left: ${theme.atom.margin};`
-      }
-    }}
-  }
-
-  & > *:not(:last-child) {
-    ${({ direction, theme }) => {
-      switch (direction) {
-        case 'column':
-          return `margin-bottom: ${theme.atom.margin};`
-        case 'row':
-        default:
-          return `margin-right: ${theme.atom.margin};`
+          return `
+            margin-left: ${theme.atom.margin};
+            margin-right: ${theme.atom.margin};  
+          `
       }
     }}
   }

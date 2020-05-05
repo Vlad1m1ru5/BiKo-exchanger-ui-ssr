@@ -2,6 +2,7 @@ import Button from 'client/components/button'
 import Icon from 'client/components/icon'
 import Group from 'client/components/group'
 import LabeledInput from 'client/components/labeled-input'
+import Page from 'client/components/page'
 import React, { useState } from 'react'
 import Title from 'client/components/title'
 import srcArrow from 'assets/icons/Arrow.svg'
@@ -64,7 +65,7 @@ const Auth: React.FC = () => {
   }
 
   return (
-     <div>
+     <Page>
        <h2>Создание аккаунта</h2>
        <Group direction='column'>
        <LabeledInput
@@ -97,7 +98,7 @@ const Auth: React.FC = () => {
           </Button>
         </Title>
         </Group>
-     </div>
+     </Page>
   )
 }
 

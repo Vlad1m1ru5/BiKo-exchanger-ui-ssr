@@ -7,14 +7,10 @@ const Topbar = styled.div<{ theme: Theme }>`
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  justify-content: center;
+  justify-content: space-between;
 
   & > *:not(:first-child) {
-    margin-left: ${({ theme }) => theme.atom.margin};
-  }
-
-  & > *:not(:last-child) {
-    margin-right: ${({ theme }) => theme.atom.margin};
+    flex-grow: 1;
   }
 `
 
