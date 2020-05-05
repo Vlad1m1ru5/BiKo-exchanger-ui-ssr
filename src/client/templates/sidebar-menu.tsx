@@ -2,12 +2,16 @@ import Box from 'client/components/box'
 import Button from 'client/components/button'
 import Icon from 'client/components/icon'
 import Group from 'client/components/group'
+import Label from 'client/components/label'
 import React from 'react'
 import Sidebar from 'client/components/sidebar'
 import Title from 'client/components/title'
 import actions from 'store/actions'
 import svgArrow from 'assets/icons/Arrow.svg'
 import svgExit from 'assets/icons/Exit.svg'
+import svgFeed from 'assets/icons/Feed.svg'
+import svgFinder from 'assets/icons/Finder.svg'
+import svgSettings from 'assets/icons/Settings.svg'
 import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
@@ -40,9 +44,22 @@ const SidebarMenu: React.FC<Props> = ({
             {authority || 'Не авторизирован'}
           </Group>
         </Box>
-        <Group direction='column'>
-          
-        </Group>
+          {!!authority && (
+            <Group direction='column'>
+              <Label>
+                <Icon src={svgFeed}/>
+                Лента
+              </Label>
+              <Label>
+                <Icon src={svgFinder}/>
+                Поисковик
+              </Label>
+              <Label>
+                <Icon src={svgSettings}/>
+                Настройки
+              </Label>
+            </Group>
+          )}
         <Box level='top'>
           <Group direction='row'>
             {!authority && (
