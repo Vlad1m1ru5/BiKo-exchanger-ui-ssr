@@ -13,14 +13,28 @@ export const isCreatedUser: RequestHandler = async (req, res, next) => {
     return res.send('Пользователь не найден')
   }
 
-  const { status } = await axios.post(`${api}/login`, { username, password })
+  try {
+    const { data } = await axios.post(`${api}/login`, { username, password })
 
-  if (status === 302) {
-    res.status(302)
-    return res.send('Не удалось авторизировать пользователя')
+    if (!data) {
+      res.status(500)
+      return res.send('Ошибка обработки запроса')
+    }
+
+    next()
+  } catch (error) {
+    const { status } = error
+
+    if (status === 401) {
+      res.status(401)
+      return res.send('Пользователь не найден')
+    }
+
+    if (status === 302) {
+      res.status(302)
+      return res.send('Не удалось авторизировать пользователя')
+    }  
   }
-
-  next()
 }
 
 export const isAuthUser: RequestHandler = async (req, res, next) => {

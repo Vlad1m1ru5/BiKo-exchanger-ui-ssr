@@ -4,7 +4,7 @@ import actions from './actions'
 type Actions = ActionCombine<typeof actions>
 
 const initialState: Store = {
-  authority: '',
+  token: '',
   isOpenMenu: false,
   userName: '',
   userPassword: ''
@@ -17,7 +17,7 @@ const reducer: Reducer<Store, Actions> = (state = initialState, action) => {
     case 'SET_AUTHORITY':
       return {
         ...state,
-        authority: payload
+        token: payload
       }
       case 'SET_IS_OPEN_MENU':
         return {

@@ -18,7 +18,7 @@ interface ActionCreators {
 type ActionCombine<A extends ActionCreators> = ReturnType<A[keyof A]>
 
 interface Store {
-  authority: string
+  token: string
   isOpenMenu: boolean
   userName: string
   userPassword: string

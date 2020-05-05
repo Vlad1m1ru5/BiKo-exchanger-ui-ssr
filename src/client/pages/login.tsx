@@ -9,7 +9,7 @@ import SidebarMenu from 'client/templates/sidebar-menu'
 import Title from 'client/components/title'
 import TopbarMenu from 'client/templates/topbar-menu'
 import Warning from 'client/components/warning'
-import actions from 'store/actions'
+import { setToken, setUserName, setUserPassword } from 'store/actions'
 import api from 'client/api';
 import srcAdd from 'assets/icons/Add.svg'
 import srcArrow from 'assets/icons/Arrow.svg'
@@ -17,15 +17,14 @@ import { connect } from 'react-redux'
 import { isValidName, isValidPassword } from 'client/utils'
 import { useHistory } from 'react-router-dom'
 
-
 interface Props {
-  setAuthority: any
+  setToken: any
   setUserName: any
   setUserPassword: any
 }
 
 const Login: React.FC<Props> = ({ 
-  setAuthority,
+  setToken,
   setUserName,
   setUserPassword
 }) => {
@@ -95,7 +94,7 @@ const Login: React.FC<Props> = ({
       api
         .getAuthorization({ username, password })
         .then(api.getAuthentication)
-        .then(setAuthority)
+        .then(setToken)
         .catch(setError)
     }
   }
@@ -170,9 +169,9 @@ const Login: React.FC<Props> = ({
 }
 
 const mapDispatchToProps = {
-  setAuthority: actions.setAuthority,
-  setUserName: actions.setUserName,
-  setUserPassword: actions.setUserPassword
+  setToken,
+  setUserName,
+  setUserPassword
 }
 
 export default connect(null, mapDispatchToProps)(Login)

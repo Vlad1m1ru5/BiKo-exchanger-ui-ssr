@@ -5,7 +5,7 @@ import React from 'react'
 import Title from 'client/components/title'
 import Topbar from 'client/components/topbar'
 import srcHamburger from 'assets/icons/Hamburger.svg'
-import actions from 'store/actions'
+import { setIsOpenMenu } from 'store/actions'
 import { connect } from 'react-redux'
 
 interface Props {
@@ -32,7 +32,7 @@ const TopbarMenu: React.FC<Props> = ({
 )
 
 const mapDispatchToProps = {
-  setIsOpenMenu: actions.setIsOpenMenu
+  setIsOpenMenu
 }
 
 export default connect(null, mapDispatchToProps)(TopbarMenu)

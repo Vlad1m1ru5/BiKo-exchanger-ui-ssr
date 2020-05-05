@@ -4,23 +4,25 @@ import { connect } from 'react-redux'
 
 const Auth = React.lazy(() => import('client/pages/auth'))
 const Feed = React.lazy(() => import('client/pages/feed'))
+const Finder = React.lazy(() => import('client/pages/finder'))
 const Login = React.lazy(() => import('client/pages/login'))
+const Settings = React.lazy(() => import('client/pages/settings'))
 
 interface Props {
-  authority: string
+  token: string
 }
 
-const App: React.FC<Props> = ({ authority }) => {
+const App: React.FC<Props> = ({ token }) => {
   const history = useHistory()
 
   useEffect(() => {
-    if (!authority) {
+    if (!token) {
       history.push('/login')
       return
     }
 
     history.push('/feed')
-  }, [authority])
+  }, [token])
 
   return (
     <Switch>
@@ -34,17 +36,27 @@ const App: React.FC<Props> = ({ authority }) => {
           <Feed />
         </Suspense>
       </Route>
+      <Route path='/finder'>
+        <Suspense fallback={'Подождите...'}>
+          <Finder />
+        </Suspense>
+      </Route>
       <Route path='/login'>
         <Suspense fallback={'Подождите...'}>
           <Login />
+        </Suspense>
+      </Route>
+      <Route path='/settings'>
+        <Suspense fallback={'Подождите...'}>
+          <Settings />
         </Suspense>
       </Route>
     </Switch>
   )
 }
 
-const mapStateToProps = ({ authority }: Store) => ({
-  authority
+const mapStateToProps = ({ token }: Store) => ({
+  token
 })
 
 export default connect(mapStateToProps)(App)

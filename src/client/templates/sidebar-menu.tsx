@@ -6,7 +6,7 @@ import Label from 'client/components/label'
 import React from 'react'
 import Sidebar from 'client/components/sidebar'
 import Title from 'client/components/title'
-import actions from 'store/actions'
+import { setToken } from 'store/actions'
 import svgArrow from 'assets/icons/Arrow.svg'
 import svgExit from 'assets/icons/Exit.svg'
 import svgFeed from 'assets/icons/Feed.svg'
@@ -16,15 +16,15 @@ import { connect } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 interface Props {
-  authority: string
+  token: string
   isOpenMenu: boolean
-  setAuthority: any
+  setToken: any
 }
 
 const SidebarMenu: React.FC<Props> = ({
-  authority,
+  token,
   isOpenMenu,
-  setAuthority
+  setToken
 }) => {
   const history = useHistory()
 
@@ -33,7 +33,7 @@ const SidebarMenu: React.FC<Props> = ({
   }
 
   const clickExit = () => {
-    setAuthority('')
+    setToken('')
   }
 
   return (
@@ -41,10 +41,10 @@ const SidebarMenu: React.FC<Props> = ({
       <Group direction='column'>
         <Box level='top'>
           <Group direction='row'>
-            {authority || 'Не авторизирован'}
+            {token || 'Не авторизирован'}
           </Group>
         </Box>
-          {!!authority && (
+          {!!token && (
             <Group direction='column'>
               <Label>
                 <Icon src={svgFeed}/>
@@ -62,7 +62,7 @@ const SidebarMenu: React.FC<Props> = ({
           )}
         <Box level='top'>
           <Group direction='row'>
-            {!authority && (
+            {!token && (
               <Title title='Войти'>
                 <Button onClick={goToLogin}>
                   <Icon src={svgArrow} />
@@ -82,13 +82,13 @@ const SidebarMenu: React.FC<Props> = ({
   )
 }
 
-const mapStateToProps = ({ authority, isOpenMenu }: Store) => ({
-  authority,
+const mapStateToProps = ({ token, isOpenMenu }: Store) => ({
+  token,
   isOpenMenu
 })
 
 const mapDispatchToProps = {
-  setAuthority: actions.setAuthority
+  setToken
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarMenu)

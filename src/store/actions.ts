@@ -4,13 +4,13 @@ const createAction: ActionCreator = <T extends string, P>(type: T, payload: P) =
     { type, payload }
 )
 
-const setAuthority = (authority: string) => createAction('SET_AUTHORITY', authority)
-const setIsOpenMenu = () => createAction('SET_IS_OPEN_MENU')
-const setUserName = (userName: string) => createAction('SET_USER_NAME', userName);
-const setUserPassword = (userPassword: string) => createAction('SET_USER_PASSWORD', userPassword)
+export const setToken = (token: string) => createAction('SET_AUTHORITY', token)
+export const setIsOpenMenu = () => createAction('SET_IS_OPEN_MENU')
+export const setUserName = (userName: string) => createAction('SET_USER_NAME', userName);
+export const setUserPassword = (userPassword: string) => createAction('SET_USER_PASSWORD', userPassword)
 
 export default {
-  setAuthority,
+  setToken,
   setIsOpenMenu,
   setUserName,
   setUserPassword
