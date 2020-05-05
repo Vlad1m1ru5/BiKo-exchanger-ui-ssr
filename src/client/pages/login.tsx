@@ -5,12 +5,11 @@ import LabeledInput from 'client/components/labeled-input'
 import Page from 'client/components/page'
 import React, { useState } from 'react';
 import Title from 'client/components/title'
-import Topbar from 'client/components/topbar'
+import TopbarMenu from 'client/templates/topbar-menu'
 import actions from 'store/actions'
 import api from 'client/api';
 import srcAdd from 'assets/icons/Add.svg'
 import srcArrow from 'assets/icons/Arrow.svg'
-import srcHamburger from 'assets/icons/Hamburger.svg'
 import { connect } from 'react-redux'
 import { isValidName, isValidPassword } from 'client/utils'
 import { useHistory } from 'react-router-dom'
@@ -103,19 +102,9 @@ const Login: React.FC<Props> = ({
 
   return (
     <Page>
-      <Topbar>
-        <Group direction='row'>
-          <Title title='Меню'>
-            <Button onClick={() => {}}>
-            <Icon src={srcHamburger} />
-            </Button>
-          </Title>
-          <h1>BIKO</h1>
-        </Group>
-        <Group direction='row'>
-          <h2>Вход</h2>
-        </Group>
-      </Topbar>
+      <TopbarMenu>
+        <h2>Вход</h2>
+      </TopbarMenu>
       <Group direction='column'>
         <LabeledInput
           isInvalid={inputName.isInvalid}

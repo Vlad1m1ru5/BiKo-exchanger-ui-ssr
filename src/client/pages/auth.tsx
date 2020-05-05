@@ -4,6 +4,7 @@ import Group from 'client/components/group'
 import LabeledInput from 'client/components/labeled-input'
 import Page from 'client/components/page'
 import React, { useState } from 'react'
+import TopbarMenu from 'client/templates/topbar-menu'
 import Title from 'client/components/title'
 import srcArrow from 'assets/icons/Arrow.svg'
 import { isValidEmail, isValidName, isValidPassword } from 'client/utils'
@@ -66,7 +67,9 @@ const Auth: React.FC = () => {
 
   return (
      <Page>
-       <h2>Создание аккаунта</h2>
+      <TopbarMenu>
+        <h2>Создание аккаунта</h2>
+      </TopbarMenu>
        <Group direction='column'>
        <LabeledInput
           isInvalid={inputName.isInvalid}
