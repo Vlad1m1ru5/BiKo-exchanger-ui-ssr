@@ -29,7 +29,7 @@ const config = {
         ]
       },
       {
-        test: /\.(woff|woff2)$/,
+        test: /\.(woff|woff2|svg)$/,
         use: [
           {
             loader: 'file-loader',
