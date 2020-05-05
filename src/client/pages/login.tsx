@@ -1,12 +1,14 @@
 import Button from 'client/components/button'
 import Group from 'client/components/group'
 import Icon from 'client/components/icon'
-import LabeledInput from 'client/components/labeled-input'
+import Input from 'client/components/input'
+import Label from 'client/components/label'
 import Page from 'client/components/page'
 import React, { useState } from 'react'
 import SidebarMenu from 'client/templates/sidebar-menu'
 import Title from 'client/components/title'
 import TopbarMenu from 'client/templates/topbar-menu'
+import Warning from 'client/components/warning'
 import actions from 'store/actions'
 import api from 'client/api';
 import srcAdd from 'assets/icons/Add.svg'
@@ -14,6 +16,7 @@ import srcArrow from 'assets/icons/Arrow.svg'
 import { connect } from 'react-redux'
 import { isValidName, isValidPassword } from 'client/utils'
 import { useHistory } from 'react-router-dom'
+
 
 interface Props {
   setAuthority: any
@@ -108,25 +111,33 @@ const Login: React.FC<Props> = ({
       </TopbarMenu>
       <SidebarMenu />
       <Group direction='column'>
-        <LabeledInput
-          isInvalid={inputName.isInvalid}
-          label='Имя пользователя:'
-          onChange={changeInputName}
-          type='text'
-        />
-        <LabeledInput
-          isInvalid={inputPassword.isInvalid}
-          label='Пароль:'
-          onChange={changeInputPassword}
-          type='text'
-        />
+        <Group direction='row'>
+          <Label>
+            Имя пользователя:&nbsp;
+            <Warning isVisible={inputName.isInvalid}>*</Warning><br />
+            <Input
+              onChange={changeInputName}
+              type='text'
+            />
+          </Label>
+        </Group>
+        <Group direction='row'>
+          <Label>
+            Пароль:&nbsp;
+            <Warning isVisible={inputPassword.isInvalid}>*</Warning><br />
+            <Input 
+              onChange={changeInputPassword}
+              type='text'
+            />
+          </Label>
+        </Group>
         <Group direction='row'>
           <Title title='Войти'>
             <Button onClick={clickEnter}>
             <Icon src={srcArrow} />
             </Button>
           </Title>
-          <Title title='Регистрация'>
+          <Title title='Зарегистрироваться'>
             <Button onClick={clickRegister}>
             <Icon src={srcAdd} />
             </Button>

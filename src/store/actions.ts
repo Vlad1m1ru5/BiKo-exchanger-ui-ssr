@@ -1,5 +1,7 @@
 const createAction: ActionCreator = <T extends string, P>(type: T, payload: P) => (
-  payload === undefined ? { type } : { type, payload }
+  payload === undefined ? 
+    { type } :
+    { type, payload }
 )
 
 const setAuthority = (authority: string) => createAction('SET_AUTHORITY', authority)

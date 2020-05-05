@@ -1,12 +1,14 @@
 import Button from 'client/components/button'
 import Icon from 'client/components/icon'
+import Input from 'client/components/input'
 import Group from 'client/components/group'
-import LabeledInput from 'client/components/labeled-input'
+import Label from 'client/components/label'
 import Page from 'client/components/page'
 import React, { useState } from 'react'
 import SidebarMenu from 'client/templates/sidebar-menu'
 import TopbarMenu from 'client/templates/topbar-menu'
 import Title from 'client/components/title'
+import Warning from 'client/components/warning'
 import srcArrow from 'assets/icons/Arrow.svg'
 import { isValidEmail, isValidName, isValidPassword } from 'client/utils'
 import { useHistory } from 'react-router-dom'
@@ -25,6 +27,11 @@ const Auth: React.FC = () => {
   })
 
   const [inputPassword, setInputPassword] = useState<Input>({
+    isInvalid: false,
+    value: ''
+  })
+
+  const [inputPasswordDuplicate, setInputPasswordDuplicate] = useState<Input>({
     isInvalid: false,
     value: ''
   })
@@ -62,8 +69,27 @@ const Auth: React.FC = () => {
     })
   }
 
+  const comparePasswords = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.currentTarget
+    const isInvalid = value === inputPassword.value
+
+    setInputPasswordDuplicate({
+      ...inputPasswordDuplicate,
+      isInvalid,
+      value
+    })
+  }
+
   const clickConfirm = () => {
-    history.push('\login')
+    if (inputName.isInvalid ||
+        inputEmail.isInvalid ||
+        inputPassword.isInvalid ||
+        inputPasswordDuplicate.isInvalid
+    ) {
+      return
+    }
+
+    history.push('/login')
   }
 
   return (
@@ -73,30 +99,46 @@ const Auth: React.FC = () => {
       </TopbarMenu>
       <SidebarMenu />
       <Group direction='column'>
-      <LabeledInput
-        isInvalid={inputName.isInvalid}
-        label='Имя пользователя:'
-        onChange={changeInputName}
-        type='text'
-      />
-      <LabeledInput
-        isInvalid={inputEmail.isInvalid}
-        label='Электронная почта:'
-        onChange={changeInputEmail}
-        type='email'
-      />
-      <LabeledInput
-        isInvalid={inputPassword.isInvalid}
-        label='Пароль:'
-        onChange={changeInputPassword}
-        type='text'
-      />
-      <LabeledInput
-        isInvalid={inputName.isInvalid}
-        label='Повтор пароля:'
-        onChange={changeInputName}
-        type='text'
-      />
+      <Group direction='row'>
+          <Label>
+            Имя пользователя:&nbsp;
+            <Warning isVisible={inputName.isInvalid}>*</Warning><br />
+            <Input
+              onChange={changeInputName}
+              type='text'
+            />
+          </Label>
+        </Group>
+        <Group direction='row'>
+          <Label>
+            Электронная почта:&nbsp;
+            <Warning isVisible={inputEmail.isInvalid}>*</Warning><br />
+            <Input
+              onChange={changeInputEmail}
+              type='email'
+            />
+          </Label>
+        </Group>
+      <Group direction='row'>
+        <Label>
+          Пароль:&nbsp;
+          <Warning isVisible={inputPassword.isInvalid}>*</Warning><br />
+          <Input
+            onChange={changeInputPassword}
+            type='text'
+          />
+        </Label>
+      </Group>
+      <Group direction='row'>
+        <Label>
+          Повтор пароля:&nbsp;
+          <Warning isVisible={inputPassword.isInvalid}>*</Warning><br />
+          <Input
+            onChange={comparePasswords}
+            type='text'
+          />
+        </Label>
+      </Group>
       <Title title='Подтвердить'>
         <Button onClick={clickConfirm}>
           <Icon src={srcArrow}/>

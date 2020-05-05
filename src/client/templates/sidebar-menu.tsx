@@ -40,6 +40,9 @@ const SidebarMenu: React.FC<Props> = ({
             {authority || 'Не авторизирован'}
           </Group>
         </Box>
+        <Group direction='column'>
+          
+        </Group>
         <Box level='top'>
           <Group direction='row'>
             {!authority && (
