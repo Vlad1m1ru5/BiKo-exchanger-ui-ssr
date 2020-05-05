@@ -3,7 +3,8 @@ import Group from 'client/components/group'
 import Icon from 'client/components/icon'
 import LabeledInput from 'client/components/labeled-input'
 import Page from 'client/components/page'
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import SidebarMenu from 'client/templates/sidebar-menu'
 import Title from 'client/components/title'
 import TopbarMenu from 'client/templates/topbar-menu'
 import actions from 'store/actions'
@@ -105,6 +106,7 @@ const Login: React.FC<Props> = ({
       <TopbarMenu>
         <h2>Вход</h2>
       </TopbarMenu>
+      <SidebarMenu />
       <Group direction='column'>
         <LabeledInput
           isInvalid={inputName.isInvalid}

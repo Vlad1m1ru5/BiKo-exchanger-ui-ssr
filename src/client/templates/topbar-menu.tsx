@@ -5,12 +5,21 @@ import React from 'react'
 import Title from 'client/components/title'
 import Topbar from 'client/components/topbar'
 import srcHamburger from 'assets/icons/Hamburger.svg'
+import actions from 'store/actions'
+import { connect } from 'react-redux'
 
-const TopbarMenu: React.FC = ({ children}) => (
+interface Props {
+  setIsOpenMenu: any
+}
+
+const TopbarMenu: React.FC<Props> = ({
+  children,
+  setIsOpenMenu
+}) => (
   <Topbar>
     <Group direction='row'>
       <Title title='Меню'>
-        <Button onClick={() => {}}>
+        <Button onClick={setIsOpenMenu}>
         <Icon src={srcHamburger} />
         </Button>
       </Title>
@@ -22,4 +31,8 @@ const TopbarMenu: React.FC = ({ children}) => (
   </Topbar>
 )
 
-export default TopbarMenu
+const mapDispatchToProps = {
+  setIsOpenMenu: actions.setIsOpenMenu
+}
+
+export default connect(null, mapDispatchToProps)(TopbarMenu)

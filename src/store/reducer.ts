@@ -5,6 +5,7 @@ type Actions = ActionCombine<typeof actions>
 
 const initialState: Store = {
   authority: '',
+  isOpenMenu: false,
   userName: '',
   userPassword: ''
 };
@@ -18,6 +19,11 @@ const reducer: Reducer<Store, Actions> = (state = initialState, action) => {
         ...state,
         authority: payload
       }
+      case 'SET_IS_OPEN_MENU':
+        return {
+          ...state,
+          isOpenMenu: !state.isOpenMenu
+        }
     case 'SET_USER_NAME':
       return {
         ...state,
