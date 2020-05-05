@@ -1,5 +1,7 @@
+import Arrow from 'assets/icons/Arrow.svg'
 import Centered from 'client/components/centered'
 import Group from 'client/components/group'
+import Icon from 'client/components/icon'
 import LabeledInput from 'client/components/labeled-input'
 import React, { useState } from 'react';
 import TiteledButton from 'client/components/titeled-button'
@@ -119,7 +121,7 @@ const Login: React.FC<Props> = ({
           <TiteledButton
             onClick={clickEnter}
             title={'Войти'}
-          />
+          ><Icon src={Arrow} /></TiteledButton>
           <TiteledButton
             onClick={clickRegister}
             title={'Создать аккаунт'}

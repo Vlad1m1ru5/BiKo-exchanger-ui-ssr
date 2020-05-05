@@ -7,13 +7,12 @@ interface Props {
 }
 
 const TiteledButton: React.FC<Props> = ({
+  children,
   onClick,
   title
 }) => (
   <div title={title}>
-    <Button 
-      onClick={onClick}
-    />
+    <Button onClick={onClick}>{children}</Button>
   </div>
 )
 

@@ -29,8 +29,20 @@ const config = {
         ]
       },
       {
-        test: /\.(woff|woff2|svg)$/,
+        test: /\.(woff|woff2)$/,
         use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'assets',
+              publicPath: '/assets'
+            }
+          }
+        ]
+      },
+      {
+        test: /\.(svg)$/,
+        use : [
           {
             loader: 'file-loader',
             options: {
