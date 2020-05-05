@@ -92,6 +92,30 @@ const Auth: React.FC = () => {
     history.push('/login')
   }
 
+  const titleWarningInputName = `
+    Имя:
+    - должно содержать символы A-Z, a-z, _;
+    - должно иметь от 1 до 24 символов.
+  `
+
+  const titleWarningInputEmail = `
+    Электронная почта:
+    - должна существовать.
+  `
+
+  const titleWarningInputPassword = `
+    Пароль:
+    - должен содержать символы A-Z, a-z, 0-9;
+    - должен иметь от 4 символов.
+  `
+
+  const titleWarningInputPasswordDuplicate = `
+    Повтор пароля:
+    - должен совпадать с паролем;
+    - должен содержать символы A-Z, a-z, 0-9;
+    - должен иметь от 4 символов.
+  `
+
   return (
      <Page>
       <TopbarMenu>
@@ -102,7 +126,10 @@ const Auth: React.FC = () => {
       <Group direction='row'>
           <Label>
             Имя пользователя:&nbsp;
-            <Warning isVisible={inputName.isInvalid}>*</Warning><br />
+            <Warning
+              isVisible={inputName.isInvalid}
+              title={titleWarningInputName}  
+            >*</Warning><br />
             <Input
               onChange={changeInputName}
               type='text'
@@ -112,7 +139,10 @@ const Auth: React.FC = () => {
         <Group direction='row'>
           <Label>
             Электронная почта:&nbsp;
-            <Warning isVisible={inputEmail.isInvalid}>*</Warning><br />
+            <Warning
+              isVisible={inputEmail.isInvalid}
+              title={titleWarningInputEmail}
+            >*</Warning><br />
             <Input
               onChange={changeInputEmail}
               type='email'
@@ -122,20 +152,26 @@ const Auth: React.FC = () => {
       <Group direction='row'>
         <Label>
           Пароль:&nbsp;
-          <Warning isVisible={inputPassword.isInvalid}>*</Warning><br />
+          <Warning
+            isVisible={inputPassword.isInvalid}
+            title={titleWarningInputPassword}
+          >*</Warning><br />
           <Input
             onChange={changeInputPassword}
-            type='text'
+            type='password'
           />
         </Label>
       </Group>
       <Group direction='row'>
         <Label>
           Повтор пароля:&nbsp;
-          <Warning isVisible={inputPassword.isInvalid}>*</Warning><br />
+          <Warning
+            isVisible={inputPassword.isInvalid}
+            title={titleWarningInputPasswordDuplicate}
+          >*</Warning><br />
           <Input
             onChange={comparePasswords}
-            type='text'
+            type='password'
           />
         </Label>
       </Group>

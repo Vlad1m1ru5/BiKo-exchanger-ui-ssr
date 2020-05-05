@@ -104,6 +104,18 @@ const Login: React.FC<Props> = ({
     history.push('/auth')
   }
 
+  const titleWarningInputName = `
+    Имя:
+    - должно содержать символы A-Z, a-z, _;
+    - должно иметь от 1 до 24 символов.
+  `
+
+  const titleWarningInputPassword = `
+    Пароль:
+    - должен содержать символы A-Z, a-z, 0-9;
+    - должен иметь от 4 символов.
+  `
+
   return (
     <Page>
       <TopbarMenu>
@@ -114,7 +126,10 @@ const Login: React.FC<Props> = ({
         <Group direction='row'>
           <Label>
             Имя пользователя:&nbsp;
-            <Warning isVisible={inputName.isInvalid}>*</Warning><br />
+            <Warning
+              isVisible={inputName.isInvalid}
+              title={titleWarningInputName}
+            >*</Warning><br />
             <Input
               onChange={changeInputName}
               type='text'
@@ -124,10 +139,13 @@ const Login: React.FC<Props> = ({
         <Group direction='row'>
           <Label>
             Пароль:&nbsp;
-            <Warning isVisible={inputPassword.isInvalid}>*</Warning><br />
+            <Warning
+              isVisible={inputPassword.isInvalid}
+              title={titleWarningInputPassword}
+            >*</Warning><br />
             <Input 
               onChange={changeInputPassword}
-              type='text'
+              type='password'
             />
           </Label>
         </Group>
