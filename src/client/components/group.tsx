@@ -5,7 +5,6 @@ const Group = styled.div<{
   theme: Theme
 }>`
   align-items: center;
-  border-radius: ${({ theme }) => theme.atom.radius};
   display: flex;
   flex-direction: ${({ direction }) => direction};
 
