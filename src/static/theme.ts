@@ -7,20 +7,13 @@ const theme: Theme = {
   box: {
     shadow: {
       bottom: '',
-      middle: '',
+      middle: '0px 12px 24px rgba(0, 0, 0, 0.3), 0px 0px 24px rgba(0, 0, 0, 0.15)',
       top: ''
     }
   },
   brand: {
     background: '#fcfcfc',
     color: '#121212'
-  },
-  component: {
-    shadow: {
-      top: '',
-      middle: '0px 12px 24px rgba(0, 0, 0, 0.3), 0px 0px 24px rgba(0, 0, 0, 0.15)',
-      bottom: ''
-    }
   },
   input: {
     shadow: {

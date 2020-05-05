@@ -15,13 +15,6 @@ interface Theme {
     background: string,
     color: string
   },
-  component: {
-    shadow: {
-      top: string
-      middle: string
-      bottom: string
-    }
-  },
   input: {
     shadow: {
       active: string
