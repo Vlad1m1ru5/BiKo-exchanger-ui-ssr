@@ -91,7 +91,7 @@ const Auth: React.FC = () => {
         />
         <LabeledInput
           isInvalid={inputName.isInvalid}
-          label='Поатор пароля:'
+          label='Повтор пароля:'
           onChange={changeInputName}
           type='text'
         />
