@@ -4,7 +4,7 @@ const Button = styled.button<{
   onClick: action,
   theme: Theme
 }>`
-  background-color: transparent;
+  background-color: ${({ theme }) => theme.brand.background};
   border: 2px solid cornflowerblue;
   border-radius: 50%;
   box-shadow: ${({ theme }) => theme.input.shadow.active};

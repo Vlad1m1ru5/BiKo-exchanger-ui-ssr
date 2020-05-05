@@ -1,5 +1,4 @@
 import Button from 'client/components/button'
-import Centered from 'client/components/centered'
 import Group from 'client/components/group'
 import Icon from 'client/components/icon'
 import LabeledInput from 'client/components/labeled-input'
@@ -10,6 +9,7 @@ import actions from 'store/actions'
 import api from 'client/api';
 import srcAdd from 'assets/icons/Add.svg'
 import srcArrow from 'assets/icons/Arrow.svg'
+import srcHamburger from 'assets/icons/Hamburger.svg'
 import { connect } from 'react-redux'
 import { isValidName, isValidPassword } from 'client/utils'
 import { useHistory } from 'react-router-dom'
@@ -101,12 +101,19 @@ const Login: React.FC<Props> = ({
   }
 
   return (
-    <Centered>
+    <div>
       <Topbar>
-        <h1>BIKO</h1>
+        <Group direction='row'>
+          <Title title='Меню'>
+            <Button onClick={() => {}}>
+            <Icon src={srcHamburger} />
+            </Button>
+          </Title>
+          <h1>BIKO</h1>
+        </Group>
       </Topbar>
       <h2>Вход</h2>
-      <Group direction={'column'}>
+      <Group direction='column'>
         <LabeledInput
           isInvalid={inputName.isInvalid}
           label='Имя пользователя:'
@@ -125,7 +132,7 @@ const Login: React.FC<Props> = ({
             <Icon src={srcArrow} />
             </Button>
           </Title>
-          <Title title='Создать аккаунт'>
+          <Title title='Регистрация'>
             <Button onClick={clickRegister}>
             <Icon src={srcAdd} />
             </Button>
@@ -135,7 +142,7 @@ const Login: React.FC<Props> = ({
           <h3>{error.message}</h3>
         )}
       </Group>
-    </Centered>
+    </div>
   )
 }
 

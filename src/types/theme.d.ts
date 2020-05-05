@@ -11,6 +11,17 @@ interface Theme {
       top: string
     }
   },
+  brand: {
+    background: string,
+    color: string
+  },
+  component: {
+    shadow: {
+      top: string
+      middle: string
+      bottom: string
+    }
+  },
   input: {
     shadow: {
       active: string

@@ -4,10 +4,9 @@ const Group = styled.div<{
   direction: 'column' | 'row',
   theme: Theme
 }>`
+  align-items: center;
   display: flex;
   flex-direction: ${({ direction }) => direction};
-  flex-wrap: wrap;
-  justify-content: flex-start;
 
   & > *:not(:first-child) {
     ${({ direction, theme }) => {
