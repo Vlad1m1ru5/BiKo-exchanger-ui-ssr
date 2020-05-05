@@ -1,5 +1,3 @@
-import Add from 'assets/icons/Add.svg'
-import Arrow from 'assets/icons/Arrow.svg'
 import Button from 'client/components/button'
 import Centered from 'client/components/centered'
 import Group from 'client/components/group'
@@ -10,6 +8,8 @@ import Title from 'client/components/title'
 import Topbar from 'client/components/topbar'
 import actions from 'store/actions'
 import api from 'client/api';
+import srcAdd from 'assets/icons/Add.svg'
+import srcArrow from 'assets/icons/Arrow.svg'
 import { connect } from 'react-redux'
 import { isValidName, isValidPassword } from 'client/utils'
 import { useHistory } from 'react-router-dom'
@@ -122,12 +122,12 @@ const Login: React.FC<Props> = ({
         <Group direction='row'>
           <Title title='Войти'>
             <Button onClick={clickEnter}>
-            <Icon src={Arrow} />
+            <Icon src={srcArrow} />
             </Button>
           </Title>
           <Title title='Создать аккаунт'>
             <Button onClick={clickRegister}>
-            <Icon src={Add} />
+            <Icon src={srcAdd} />
             </Button>
           </Title>
         </Group>

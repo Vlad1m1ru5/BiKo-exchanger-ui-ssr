@@ -5,7 +5,7 @@ const Input = styled.input<{
   theme: Theme,
   type: 'checkbox' | 'email' | 'text'
 }>`
-  border-radius: ${({ type }) => type === 'text' ? '5px' : 'none'};
+  border-radius: ${({ type }) => type === 'checkbox' ? 'none' : '5px'};
   border: none;
   box-shadow: ${({ theme }) => theme.input.shadow.active};
   height: ${({ theme }) => theme.atom.size};
