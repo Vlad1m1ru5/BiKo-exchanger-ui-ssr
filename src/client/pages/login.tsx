@@ -1,10 +1,12 @@
+import Add from 'assets/icons/Add.svg'
 import Arrow from 'assets/icons/Arrow.svg'
+import Button from 'client/components/button'
 import Centered from 'client/components/centered'
 import Group from 'client/components/group'
 import Icon from 'client/components/icon'
 import LabeledInput from 'client/components/labeled-input'
 import React, { useState } from 'react';
-import TiteledButton from 'client/components/titeled-button'
+import Title from 'client/components/title'
 import Topbar from 'client/components/topbar'
 import actions from 'store/actions'
 import api from 'client/api';
@@ -118,14 +120,16 @@ const Login: React.FC<Props> = ({
           type='text'
         />
         <Group direction='row'>
-          <TiteledButton
-            onClick={clickEnter}
-            title={'Войти'}
-          ><Icon src={Arrow} /></TiteledButton>
-          <TiteledButton
-            onClick={clickRegister}
-            title={'Создать аккаунт'}
-          />
+          <Title title='Войти'>
+            <Button onClick={clickEnter}>
+            <Icon src={Arrow} />
+            </Button>
+          </Title>
+          <Title title='Создать аккаунт'>
+            <Button onClick={clickRegister}>
+            <Icon src={Add} />
+            </Button>
+          </Title>
         </Group>
         {error !== null && (
           <h3>{error.message}</h3>

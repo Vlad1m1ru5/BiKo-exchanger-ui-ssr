@@ -1,8 +1,9 @@
+import Button from 'client/components/button'
 import Centered from 'client/components/centered'
 import Group from 'client/components/group'
 import LabeledInput from 'client/components/labeled-input'
 import React, { useState } from 'react'
-import TiteledButton from 'client/components/titeled-button'
+import Title from 'client/components/title'
 import { isValidEmail, isValidName, isValidPassword } from 'client/utils'
 import { useHistory } from 'react-router-dom'
 
@@ -89,10 +90,11 @@ const Auth: React.FC = () => {
           onChange={changeInputName}
           type='text'
         />
-        <TiteledButton
-          onClick={clickConfirm}
-          title={'Подтвердить'}
-        />
+        <Title title='Подтвердить'>
+          <Button onClick={clickConfirm}>
+            
+          </Button>
+        </Title>
         </Group>
      </Centered>
   )

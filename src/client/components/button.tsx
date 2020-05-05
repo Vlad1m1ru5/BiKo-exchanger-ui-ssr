@@ -8,8 +8,9 @@ const Button = styled.button<{
   border: 2px solid cornflowerblue;
   border-radius: 50%;
   box-shadow: ${({ theme }) => theme.input.shadow.active};
-  height: ${({ theme }) => theme.atom.size};
-  width: ${({ theme }) => theme.atom.size};
+  cursor: pointer;
+  display: flex;
+  padding: 0;
 
   &:hover {
     box-shadow: ${({ theme }) => theme.input.shadow.hover};
