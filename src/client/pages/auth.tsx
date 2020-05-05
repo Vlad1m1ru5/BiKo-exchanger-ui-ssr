@@ -4,6 +4,7 @@ import Group from 'client/components/group'
 import LabeledInput from 'client/components/labeled-input'
 import Page from 'client/components/page'
 import React, { useState } from 'react'
+import SidebarMenu from 'client/templates/sidebar-menu'
 import TopbarMenu from 'client/templates/topbar-menu'
 import Title from 'client/components/title'
 import srcArrow from 'assets/icons/Arrow.svg'
@@ -70,37 +71,38 @@ const Auth: React.FC = () => {
       <TopbarMenu>
         <h2>Создание аккаунта</h2>
       </TopbarMenu>
-       <Group direction='column'>
-       <LabeledInput
-          isInvalid={inputName.isInvalid}
-          label='Имя пользователя:'
-          onChange={changeInputName}
-          type='text'
-        />
-        <LabeledInput
-          isInvalid={inputEmail.isInvalid}
-          label='Электронная почта:'
-          onChange={changeInputEmail}
-          type='email'
-        />
-        <LabeledInput
-          isInvalid={inputPassword.isInvalid}
-          label='Пароль:'
-          onChange={changeInputPassword}
-          type='text'
-        />
-        <LabeledInput
-          isInvalid={inputName.isInvalid}
-          label='Повтор пароля:'
-          onChange={changeInputName}
-          type='text'
-        />
-        <Title title='Подтвердить'>
-          <Button onClick={clickConfirm}>
-            <Icon src={srcArrow}/>
-          </Button>
-        </Title>
-        </Group>
+      <SidebarMenu />
+      <Group direction='column'>
+      <LabeledInput
+        isInvalid={inputName.isInvalid}
+        label='Имя пользователя:'
+        onChange={changeInputName}
+        type='text'
+      />
+      <LabeledInput
+        isInvalid={inputEmail.isInvalid}
+        label='Электронная почта:'
+        onChange={changeInputEmail}
+        type='email'
+      />
+      <LabeledInput
+        isInvalid={inputPassword.isInvalid}
+        label='Пароль:'
+        onChange={changeInputPassword}
+        type='text'
+      />
+      <LabeledInput
+        isInvalid={inputName.isInvalid}
+        label='Повтор пароля:'
+        onChange={changeInputName}
+        type='text'
+      />
+      <Title title='Подтвердить'>
+        <Button onClick={clickConfirm}>
+          <Icon src={srcArrow}/>
+        </Button>
+      </Title>
+      </Group>
      </Page>
   )
 }

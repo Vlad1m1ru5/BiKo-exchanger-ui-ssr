@@ -10,6 +10,11 @@ const Topbar = styled.div<{ theme: Theme }>`
   justify-content: space-between;
   position: sticky;
 
+  & > * {
+    margin-left: ${({ theme }) => theme.atom.margin};
+    margin-right: ${({ theme }) => theme.atom.margin};
+  }
+
   & > *:not(:first-child) {
     flex-grow: 1;
   }
