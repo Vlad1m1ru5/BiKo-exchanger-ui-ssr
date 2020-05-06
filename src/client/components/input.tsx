@@ -9,6 +9,7 @@ const Input = styled.input<{
   border: none;
   box-shadow: ${({ theme }) => theme.input.shadow.active};
   height: ${({ theme }) => theme.atom.size};
+  padding-left: ${({ theme }) => theme.atom.margin};
 
   &:hover {
     box-shadow: ${({ theme }) => theme.input.shadow.hover};

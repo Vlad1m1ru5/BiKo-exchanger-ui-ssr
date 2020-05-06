@@ -13,6 +13,8 @@ interface FileMetadata {
   birthtime: Date
   mtime: Date
   name: string
+  owner: string
+  size: number
   tags: string[]
 }
 

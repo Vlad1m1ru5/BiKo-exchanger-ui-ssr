@@ -12,8 +12,9 @@ interface Theme {
     }
   },
   brand: {
-    background: string,
+    background: string
     color: string
+    shade: string
   },
   input: {
     shadow: {

@@ -17,6 +17,7 @@ const Topbar = styled.div<{ theme: Theme }>`
 
   & > *:not(:first-child) {
     flex-grow: 1;
+    justify-content: space-between;
   }
 `
 

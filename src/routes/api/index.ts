@@ -18,13 +18,17 @@ router.get('/files', isAuthRequest, (req, res) => {
         birthtime: new Date(),
         mtime: new Date(),
         name: 'first-file.docx',
-        tags: ['tag']
+        owner: 'User1',
+        tags: ['tag'],
+        size: 815
       },
       {
         birthtime: new Date(),
         mtime: new Date(),
         name: 'second-file.docx',
-        tags: ['tag', 'tag2']
+        owner: 'User2',
+        tags: ['tag', 'tag2'],
+        size: 824
       }
     ]
 
