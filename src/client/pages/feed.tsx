@@ -4,13 +4,11 @@ import Icon from 'client/components/icon'
 import Input from 'client/components/input'
 import Item from 'client/components/item'
 import Page from 'client/components/page'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Suspense } from 'react'
 import SidebarMenu from 'client/templates/sidebar-menu'
 import Table from 'client/templates/table'
 import TopbarMenu from 'client/templates/topbar-menu'
-import Warning from 'client/components/warning'
 import api from 'client/api'
-import svgInfo from 'assets/icons/Info.svg'
 import svgSearch from 'assets/icons/Search.svg'
 import { connect } from 'react-redux'
 import { getDate } from 'client/utils'
@@ -19,11 +17,19 @@ interface Props {
   token: string
 }
 
+interface Tags {
+  applyed: string[]
+  alias: string
+}
+
 const Feed: React.FC<Props> = ({ token }) => {
   const [error, setError] = useState<Error | null>(null)
   const [filesMetadataList, setFilesMetadataList] = useState<FileMetadata[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [tags, setTags] = useState<string[]>([])
+  const [tags, setTags] = useState<Tags>({
+    applyed: [],
+    alias: ''
+  })
 
   useEffect(() => {
     const loadFilesMetadataList = async () => {
@@ -42,47 +48,49 @@ const Feed: React.FC<Props> = ({ token }) => {
     loadFilesMetadataList()
   }, [])
 
-  const getFileInfo = ({ owner, mtime, name, tags, size }: FileMetadata) => {
-    const isVisible = !!tags.length
-    const title = tags.join(', ')
-    const modification = getDate(mtime)
+  const changeTagsSuper = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.currentTarget
+    const alias = value.replace(',', '')
 
-    return (
-    <Item>
-      <span>{name}</span>
-      <span>{owner}</span>
-      <span>{modification}</span>
-      <span>{size}</span>
-      <Warning 
-        isVisible={isVisible}
-        title={title}
-      >
-        <Icon src={svgInfo} />
-      </Warning>
-    </Item>
-  )
-}
-  const hasTargetTag = (fileMetadata: FileMetadata) => (
-    !tags.length || 
-    fileMetadata.tags.some(tag => tags.indexOf(tag) + 1)
-  )
-
-  const setFilterTags = () => {
-    
+    setTags({
+      ...tags,
+      alias
+    })
   }
 
-  const headers = ['Название файла', 'Владелец', 'Последнее изенение', 'Размер']
-  const items = filesMetadataList.map(({ name, owner, mtime, size }) => {
-    const modificationDate = getDate(mtime)   
-    const weight = size + 'КБ'
+  const applyTags = () => {
+    const willApplyTags = tags.alias
+      .trim()
+      .split(' ')
+      .filter(tag => !!tag)
 
-    return {
-      name,
-      owner,
-      modificationDate,
-      weight
-    }
-  })
+    const applyed = Array.from(new Set([ ... willApplyTags ]))
+
+    setTags({
+      ...tags,
+      applyed
+    })
+  }
+
+  const hasTargetTag = (fileMetadata: FileMetadata) => (
+    !tags.applyed.length || 
+    fileMetadata.tags.some(tag => tags.applyed.indexOf(tag) + 1)
+  )
+
+  const headers = ['Название файла', 'Владелец', 'Последнее изенение', 'Размер']
+  const items = filesMetadataList
+    .filter(hasTargetTag)
+    .map(({ name, owner, mtime, size }) => {
+      const modificationDate = getDate(mtime)   
+      const weight = size + 'КБ'
+
+      return {
+        name,
+        owner,
+        modificationDate,
+        weight
+      }
+    })
 
   return (
     <Page>
@@ -90,10 +98,10 @@ const Feed: React.FC<Props> = ({ token }) => {
         <h2>Лента</h2>
         <Item>
           <Input
-            onChange={() => {}}
+            onChange={changeTagsSuper}
             type='text'
           />
-          <Button onClick={setFilterTags}>
+          <Button onClick={applyTags}>
             <Icon src={svgSearch}/>
           </Button>
         </Item>
@@ -102,10 +110,12 @@ const Feed: React.FC<Props> = ({ token }) => {
       <Group direction='column'>
         {isLoading && <h3>Загрузка</h3>}
         {!!error && <h3>{error.message}</h3>}
-        <Table 
-          headers={headers}
-          items={items}
-        />
+        <Suspense fallback='Подождите...'>
+          <Table 
+            headers={headers}
+            items={items}
+          />
+        </Suspense>
       </Group>
     </Page>
   )

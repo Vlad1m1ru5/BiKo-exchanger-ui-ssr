@@ -9,7 +9,9 @@ import {
 
 interface Props {
   headers: string[]
-  items: { [key: string]: string }[]
+  items: { 
+    [key: string]: string
+  }[]
 }
 
 const Table: React.FC<Props> = ({ headers, items }) => {
@@ -23,7 +25,7 @@ const Table: React.FC<Props> = ({ headers, items }) => {
         >{value}</TableCell>
       ))
 
-    return <TableRow>{tdsList}</TableRow>
+    return <TableRow key={index}>{tdsList}</TableRow>
   })
 
   return (
