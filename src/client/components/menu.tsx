@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
-const Label = styled.label<{ theme: Theme }>`
-  align-items: center;
+const Menu = styled.ul<{ theme: Theme }>`
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  list-style-type: none;
+  padding: 0;
   margin-left: ${({ theme }) => theme.atom.margin};
   margin-right: ${({ theme }) => theme.atom.margin};
+  width: max-content;
 `
 
-export default Label
+export default Menu

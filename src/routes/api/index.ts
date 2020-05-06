@@ -9,7 +9,7 @@ router.get('/login', isCreatedUser, (req, res) => {
 })
 
 router.post('/auth', isAuthUser, (req, res) => {
-  res.send()
+  res.send('some-unic-token')
 })
 
 export default router

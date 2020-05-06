@@ -7,6 +7,7 @@ const Sidebar = styled.div<{
   background-color: ${({ theme }) => theme.brand.background};
   border-radius: ${({ theme }) => theme.atom.radius};
   box-shadow: ${({ theme }) => theme.box.shadow.middle};
+  overflow: hidden;
   position: absolute;
   margin: ${({ theme }) => theme.atom.margin};
   visibility: ${({ isVisible }) => isVisible ? 'visible' : 'hidden'};

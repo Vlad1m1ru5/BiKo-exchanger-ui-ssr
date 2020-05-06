@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-const Page = styled.div`
+const Page = styled.div<{ theme: Theme }>`
   position: relative;
 
   & > *:last-child {
-    margin-top: 50%;
+    margin-top: ${({ theme }) => theme.atom.margin};
   }
 `
 

@@ -1,30 +1,33 @@
 import Box from 'client/components/box'
 import Button from 'client/components/button'
 import Icon from 'client/components/icon'
+import Item from 'client/components/item'
 import Group from 'client/components/group'
-import Label from 'client/components/label'
+import Menu from 'client/components/menu'
 import React from 'react'
 import Sidebar from 'client/components/sidebar'
 import Title from 'client/components/title'
-import { setToken } from 'store/actions'
 import svgArrow from 'assets/icons/Arrow.svg'
 import svgExit from 'assets/icons/Exit.svg'
 import svgFeed from 'assets/icons/Feed.svg'
 import svgFinder from 'assets/icons/Finder.svg'
 import svgSettings from 'assets/icons/Settings.svg'
 import { connect } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { setToken } from 'store/actions'
+import { useHistory, Link } from 'react-router-dom'
 
 interface Props {
   token: string
   isOpenMenu: boolean
   setToken: any
+  userName: string
 }
 
 const SidebarMenu: React.FC<Props> = ({
   token,
   isOpenMenu,
-  setToken
+  setToken,
+  userName
 }) => {
   const history = useHistory()
 
@@ -41,24 +44,30 @@ const SidebarMenu: React.FC<Props> = ({
       <Group direction='column'>
         <Box level='top'>
           <Group direction='row'>
-            {token || 'Не авторизирован'}
+            {!!token && userName || 'Не авторизирован'}
           </Group>
         </Box>
           {!!token && (
-            <Group direction='column'>
-              <Label>
-                <Icon src={svgFeed}/>
-                Лента
-              </Label>
-              <Label>
-                <Icon src={svgFinder}/>
-                Поисковик
-              </Label>
-              <Label>
-                <Icon src={svgSettings}/>
-                Настройки
-              </Label>
-            </Group>
+            <Menu>
+              <Link to='/feed'>
+                <Item>
+                  <Icon src={svgFeed}/>
+                  Лента  
+                </Item>
+              </Link>
+              <Link to='/finder'>
+                <Item>
+                  <Icon src={svgFinder}/>
+                  Поисковик
+                </Item>
+              </Link>
+              <Link to='/settings'>
+                <Item>
+                  <Icon src={svgSettings}/>
+                  Настройки
+                </Item>
+              </Link>
+            </Menu>
           )}
         <Box level='top'>
           <Group direction='row'>
@@ -82,9 +91,10 @@ const SidebarMenu: React.FC<Props> = ({
   )
 }
 
-const mapStateToProps = ({ token, isOpenMenu }: Store) => ({
+const mapStateToProps = ({ token, isOpenMenu, userName }: Store) => ({
   token,
-  isOpenMenu
+  isOpenMenu,
+  userName
 })
 
 const mapDispatchToProps = {

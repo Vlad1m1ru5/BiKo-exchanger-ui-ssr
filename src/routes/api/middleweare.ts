@@ -5,7 +5,7 @@ const api = process.env.API
 
 export const isCreatedUser: RequestHandler = async (req, res, next) => {
   const { username, password } = req.query
-  
+
   if (username === undefined ||
       password === undefined
   ) {
@@ -13,14 +13,16 @@ export const isCreatedUser: RequestHandler = async (req, res, next) => {
     return res.send('Пользователь не найден')
   }
 
-  try {
-    const { data } = await axios.post(`${api}/login`, { username, password })
+  next()
 
-    if (!data) {
-      res.status(500)
+  try {
+    const { data, status } = await axios.post(`${api}/login`, { username, password })
+
+    if (status === 504) {
+      res.status(504)
       return res.send('Ошибка обработки запроса')
     }
-
+  
     next()
   } catch (error) {
     const { status } = error
