@@ -8,18 +8,20 @@ import React from 'react'
 import Sidebar from 'client/components/sidebar'
 import Title from 'client/components/title'
 import svgArrow from 'assets/icons/Arrow.svg'
+import svgArrowLeft from 'assets/icons/Arrow-Left.svg'
 import svgExit from 'assets/icons/Exit.svg'
 import svgFeed from 'assets/icons/Feed.svg'
 import svgFinder from 'assets/icons/Finder.svg'
 import svgSettings from 'assets/icons/Settings.svg'
 import { connect } from 'react-redux'
-import { setToken } from 'store/actions'
+import { setToken, setIsOpenMenu } from 'store/actions'
 import { useHistory, Link } from 'react-router-dom'
 
 interface Props {
   token: string
   isOpenMenu: boolean
   setToken: any
+  setIsOpenMenu: any
   userName: string
 }
 
@@ -27,6 +29,7 @@ const SidebarMenu: React.FC<Props> = ({
   token,
   isOpenMenu,
   setToken,
+  setIsOpenMenu,
   userName
 }) => {
   const history = useHistory()
@@ -84,6 +87,11 @@ const SidebarMenu: React.FC<Props> = ({
                 </Button>
               </Title>
             )}
+            <Title title='Закрыть'>
+                <Button onClick={setIsOpenMenu}>
+                  <Icon src={svgArrowLeft} />
+                </Button>
+              </Title>
           </Group>
         </Box>
       </Group>
@@ -98,7 +106,8 @@ const mapStateToProps = ({ token, isOpenMenu, userName }: Store) => ({
 })
 
 const mapDispatchToProps = {
-  setToken
+  setToken,
+  setIsOpenMenu
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarMenu)

@@ -5,10 +5,12 @@ const Box = styled.div<{
   theme: Theme
 }>`
   box-shadow: ${({ level, theme }) => theme.box.shadow[level]};
+  display: flex;
   width: 100%;
 
   & > * {
     margin: ${({ theme }) => theme.atom.margin};
+    width: 100%;
   }
 `
 

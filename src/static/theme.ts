@@ -6,7 +6,7 @@ const theme: Theme = {
   },
   box: {
     shadow: {
-      bottom: '',
+      bottom: '0px 24px 48px rgba(0, 0, 0, 0.3), 0px 0px 48px rgba(0, 0, 0, 0.15)',
       middle: '0px 12px 24px rgba(0, 0, 0, 0.3), 0px 0px 24px rgba(0, 0, 0, 0.15)',
       top: '0px 2px 4px rgba(0, 0, 0, 0.3), 0px 0px 4px rgba(0, 0, 0, 0.15)'
     }

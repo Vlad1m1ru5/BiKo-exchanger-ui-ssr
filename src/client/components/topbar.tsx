@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Topbar = styled.div<{ theme: Theme }>`
   background-color: cornflowerblue;
-  box-shadow: ${({ theme }) => theme.box.shadow.middle};
+  box-shadow: ${({ theme }) => theme.box.shadow.bottom};
   color: #fbfbfb;
   display: flex;
   flex-direction: row;

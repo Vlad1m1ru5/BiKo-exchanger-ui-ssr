@@ -7,6 +7,7 @@ const Group = styled.div<{
   align-items: center;
   display: flex;
   flex-direction: ${({ direction }) => direction};
+
   margin-left: auto;
   margin-right: auto;
   width: min-content;
