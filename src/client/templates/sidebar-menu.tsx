@@ -20,8 +20,8 @@ import { useHistory, Link } from 'react-router-dom'
 interface Props {
   token: string
   isOpenMenu: boolean
-  setToken: any
-  setIsOpenMenu: any
+  setToken: action
+  setIsOpenMenu: action
   userName: string
 }
 

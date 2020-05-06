@@ -9,6 +9,13 @@ interface Credentials {
   username: string
 }
 
+interface FileMetadata {
+  birthtime: Date
+  mtime: Date
+  name: string
+  tags: string[]
+}
+
 interface Input {
   isInvalid: boolean
   value: string

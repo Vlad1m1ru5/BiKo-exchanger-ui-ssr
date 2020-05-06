@@ -6,7 +6,12 @@ const api = {
     return data
   },
   getAuthentication: async (credentials: Credentials) => {
-    const { data } = await axios.post('/api/auth', credentials)
+    const { data } = await axios.post<string>('/api/auth', credentials)
+    return data
+  },
+  getFilesMetadata: async (token: string) => {
+    const config = { headers: { token } }
+    const { data } = await axios.get<FileMetadata[]>('/api/files', config)
     return data
   }
 }

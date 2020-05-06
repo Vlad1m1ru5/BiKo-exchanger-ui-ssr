@@ -3,6 +3,17 @@ import { RequestHandler } from 'express'
 
 const api = process.env.API
 
+export const isAuthRequest: RequestHandler = async (req, res, next) => {
+  const { token } = req.headers
+
+  if (!token) {
+    res.status(403)
+    res.send('Не авторизированный запрос')
+  }
+
+  next()
+}
+
 export const isCreatedUser: RequestHandler = async (req, res, next) => {
   const { username, password } = req.query
 

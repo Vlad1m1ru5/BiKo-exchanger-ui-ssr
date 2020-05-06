@@ -9,7 +9,7 @@ import { setIsOpenMenu } from 'store/actions'
 import { connect } from 'react-redux'
 
 interface Props {
-  setIsOpenMenu: any
+  setIsOpenMenu: action
 }
 
 const TopbarMenu: React.FC<Props> = ({

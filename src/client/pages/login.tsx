@@ -18,9 +18,9 @@ import { isValidName, isValidPassword } from 'client/utils'
 import { useHistory } from 'react-router-dom'
 
 interface Props {
-  setToken: any
-  setUserName: any
-  setUserPassword: any
+  setToken: action
+  setUserName: action
+  setUserPassword: action
 }
 
 const Login: React.FC<Props> = ({ 
