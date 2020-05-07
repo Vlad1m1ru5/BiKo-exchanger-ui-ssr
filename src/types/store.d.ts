@@ -20,6 +20,7 @@ type ActionCombine<A extends ActionCreators> = ReturnType<A[keyof A]>
 interface Store {
   token: string
   isOpenMenu: boolean
+  openFileId: string
   userName: string
   userPassword: string
 }

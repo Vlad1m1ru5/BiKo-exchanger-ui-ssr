@@ -6,14 +6,18 @@ import Item from 'client/components/item'
 import Page from 'client/components/page'
 import React, { useEffect, useState, Suspense } from 'react'
 import SidebarMenu from 'client/templates/sidebar-menu'
-import Table from 'client/templates/table'
 import TopbarMenu from 'client/templates/topbar-menu'
 import api from 'client/api'
 import svgSearch from 'assets/icons/Search.svg'
 import { connect } from 'react-redux'
 import { getDate } from 'client/utils'
+import { setOpenFileId } from 'store/actions'
+
+const FileEditor = React.lazy(() => import('client/templates/file-editor'))
+const Table = React.lazy(() => import('client/templates/table'))
 
 interface Props {
+  setOpenFileId: action
   token: string
   userName: string
 }
@@ -24,12 +28,14 @@ interface Tags {
 }
 
 const Feed: React.FC<Props> = ({
+  setOpenFileId,
   token,
   userName
 }) => {
   const [error, setError] = useState<Error | null>(null)
   const [filesMetadataList, setFilesMetadataList] = useState<FileMetadata[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isOpenFileEditor, setIsOpenFileEditor] = useState<boolean>(false)
   const [tags, setTags] = useState<Tags>({
     applyed: [],
     alias: ''
@@ -39,7 +45,6 @@ const Feed: React.FC<Props> = ({
     const loadFilesMetadataList = async () => {
       try {
         const filesMetadataList = await api.getFilesMetadata(token)
-
         setFilesMetadataList(filesMetadataList)
         setError(null)
       } catch (error) {
@@ -84,16 +89,23 @@ const Feed: React.FC<Props> = ({
   const headers = ['Название файла', 'Владелец', 'Последнее изенение', 'Размер']
   const items = filesMetadataList
     .filter(hasTargetTag)
-    .map(({ name, owner, mtime, size }) => {
-      const modificationDate = getDate(mtime)   
-      const weight = size + 'КБ'
+    .map(({ id, mtime, name, owner, size }) => {
+      const lastModificationDate = getDate(mtime)  
       const master = owner === userName ? 'Я' : owner
+      const onClick = () => { 
+        setOpenFileId(id)
+        setIsOpenFileEditor(true)
+      }
+      const weight = size + 'КБ'
 
-      return {
-        name,
-        master,
-        modificationDate,
-        weight
+      return { 
+        onClick,
+        values: {
+          name,
+          master,
+          lastModificationDate,
+          weight
+        }
       }
     })
 
@@ -113,14 +125,22 @@ const Feed: React.FC<Props> = ({
       </TopbarMenu>
       <SidebarMenu />
       <Group direction='column'>
-        {isLoading && <h3>Загрузка</h3>}
         {!!error && <h3>{error.message}</h3>}
-        <Suspense fallback='Подождите...'>
-          <Table 
-            headers={headers}
-            items={items}
-          />
-        </Suspense>
+        {isLoading && (
+          <h3>Загрузка</h3>
+        ) || (
+          <Suspense fallback='Подождите...'>
+            <Table 
+              headers={headers}
+              items={items}
+            />
+          </Suspense>
+        )}
+        {isOpenFileEditor && (
+          <Suspense fallback='Подождите...'>
+            <FileEditor/>
+          </Suspense>
+        )}
       </Group>
     </Page>
   )
@@ -131,4 +151,8 @@ const mapStateToProps = ({ token, userName }: Store) => ({
   userName
 })
 
-export default connect(mapStateToProps)(Feed)
+const mapDispatchToProps = {
+  setOpenFileId
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Feed)
