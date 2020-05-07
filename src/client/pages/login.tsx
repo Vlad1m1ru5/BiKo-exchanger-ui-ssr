@@ -1,4 +1,4 @@
-import Button from 'client/components/button'
+import Button, { SpecialButton } from 'client/components/button'
 import Group from 'client/components/group'
 import Icon from 'client/components/icon'
 import Input from 'client/components/input'
@@ -150,9 +150,12 @@ const Login: React.FC<Props> = ({
         </Group>
         <Group direction='row'>
           <Title title='Войти'>
-            <Button onClick={clickEnter}>
+            <SpecialButton 
+              onClick={clickEnter}
+              spec='help'
+            >
             <Icon src={srcArrow} />
-            </Button>
+            </SpecialButton>
           </Title>
           <Title title='Зарегистрироваться'>
             <Button onClick={clickRegister}>

@@ -1,5 +1,5 @@
 import Box from 'client/components/box'
-import Button from 'client/components/button'
+import Button, { SpecialButton } from 'client/components/button'
 import Icon from 'client/components/icon'
 import Item from 'client/components/item'
 import Group from 'client/components/group'
@@ -76,15 +76,21 @@ const SidebarMenu: React.FC<Props> = ({
           <Group direction='row'>
             {!token && (
               <Title title='Войти'>
-                <Button onClick={goToLogin}>
+                <SpecialButton
+                  onClick={goToLogin}
+                  spec='help'  
+                >
                   <Icon src={svgArrow} />
-                </Button>
+                </SpecialButton>
               </Title>
             ) || (
               <Title title='Выйти'>
-                <Button onClick={clickExit}>
+                <SpecialButton
+                  onClick={clickExit}
+                  spec='danger'
+                >
                   <Icon src={svgExit} />
-                </Button>
+                </SpecialButton>
               </Title>
             )}
             <Title title='Закрыть'>

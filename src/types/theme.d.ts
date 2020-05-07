@@ -15,6 +15,11 @@ interface Theme {
     background: string
     color: string
     shade: string
+    spec: {
+      blue: string
+      green: string
+      red: string
+    }
   },
   input: {
     shadow: {
