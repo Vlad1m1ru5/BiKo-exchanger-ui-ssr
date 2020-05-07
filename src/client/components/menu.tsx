@@ -15,7 +15,7 @@ const Menu = styled.ul<{ theme: Theme }>`
   }
 
   & > *:hover {
-    color: cornflowerblue;
+    color: ${({ theme }) => theme.brand.spec.blue};
   }
 `
 

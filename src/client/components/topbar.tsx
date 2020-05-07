@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Topbar = styled.div<{ theme: Theme }>`
-  background-color: cornflowerblue;
+  background-color: ${({ theme }) => theme.brand.spec.blue};
   box-shadow: ${({ theme }) => theme.box.shadow.bottom};
   color: #fbfbfb;
   display: flex;
