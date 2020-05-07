@@ -15,18 +15,20 @@ router.get('/files', isAuthRequest, (req, res) => {
   try {
     const filesMetadataList: FileMetadata[] = [
       {
+        id: 'first-uuid',
         birthtime: new Date(),
         mtime: new Date(),
         name: 'first-file.docx',
-        owner: 'User1',
+        owner: 'User',
         tags: ['tag'],
         size: 815
       },
       {
+        id: 'second-uuid',
         birthtime: new Date(),
         mtime: new Date(),
         name: 'second-file.docx',
-        owner: 'User2',
+        owner: 'Users',
         tags: ['tag', 'tag2'],
         size: 824
       }

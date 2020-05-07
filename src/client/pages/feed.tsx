@@ -15,6 +15,7 @@ import { getDate } from 'client/utils'
 
 interface Props {
   token: string
+  userName: string
 }
 
 interface Tags {
@@ -22,7 +23,10 @@ interface Tags {
   alias: string
 }
 
-const Feed: React.FC<Props> = ({ token }) => {
+const Feed: React.FC<Props> = ({
+  token,
+  userName
+}) => {
   const [error, setError] = useState<Error | null>(null)
   const [filesMetadataList, setFilesMetadataList] = useState<FileMetadata[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -83,10 +87,11 @@ const Feed: React.FC<Props> = ({ token }) => {
     .map(({ name, owner, mtime, size }) => {
       const modificationDate = getDate(mtime)   
       const weight = size + 'КБ'
+      const master = owner === userName ? 'Я' : owner
 
       return {
         name,
-        owner,
+        master,
         modificationDate,
         weight
       }
@@ -121,8 +126,9 @@ const Feed: React.FC<Props> = ({ token }) => {
   )
 }
 
-const mapStateToProps = ({ token }: Store) => ({
-  token
+const mapStateToProps = ({ token, userName }: Store) => ({
+  token,
+  userName
 })
 
 export default connect(mapStateToProps)(Feed)

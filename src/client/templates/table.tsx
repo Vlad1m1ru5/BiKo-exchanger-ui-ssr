@@ -25,7 +25,10 @@ const Table: React.FC<Props> = ({ headers, items }) => {
         >{value}</TableCell>
       ))
 
-    return <TableRow key={index}>{tdsList}</TableRow>
+    return (
+      <TableRow
+        key={index}
+      >{tdsList}</TableRow>)
   })
 
   return (

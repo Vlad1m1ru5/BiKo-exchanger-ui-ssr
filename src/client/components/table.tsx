@@ -1,14 +1,15 @@
 import styled from 'styled-components'
 
 export const TableWrapper = styled.table<{ theme: Theme }>`
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: ${({ theme }) => theme.atom.margin};
   flex-direction: column;
   margin: ${({ theme }) => theme.atom.margin};
   width: 100%;
 
   * {
-    border-bottom: 1px solid ${({ theme }) => theme.brand.color};
-    border-top: 1px solid ${({ theme }) => theme.brand.color};
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
   }
 `
 
@@ -26,11 +27,12 @@ export const TableBody = styled.tbody<{ theme: Theme }>`
   flex-direction: column;
 
   & > * {
+    box-shadow: ${({ theme }) => theme.box.shadow.top};
     cursor: pointer;
-  }
 
-  & > *:nth-child(odd) {
-    background-color: ${({ theme }) => theme.brand.shade};
+    &:hover {
+      box-shadow: ${({ theme }) => theme.input.shadow.hover};
+    }
   }
 `
 

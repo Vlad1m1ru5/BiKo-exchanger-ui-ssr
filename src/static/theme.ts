@@ -14,7 +14,7 @@ const theme: Theme = {
   brand: {
     background: '#fcfcfc',
     color: '#121212',
-    shade: '#f9f9f9'
+    shade: '#dedede'
   },
   input: {
     shadow: {

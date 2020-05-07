@@ -11,6 +11,7 @@ interface Credentials {
 
 interface FileMetadata {
   birthtime: Date
+  id: string
   mtime: Date
   name: string
   owner: string
