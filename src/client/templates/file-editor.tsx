@@ -1,3 +1,4 @@
+
 import Group from 'client/components/group'
 import Modal from 'client/components/modal'
 import React, { useState, useEffect } from 'react'
@@ -35,7 +36,8 @@ const FileEditor: React.FC<Props> = ({
           <Page pageNumber={1} />
         </Document>
       )}
-    </Modal>)
+    </Modal>
+  )
 }
 
 const mapStateToProps = ({ openFileId, token }: Store) => ({
