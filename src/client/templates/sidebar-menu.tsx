@@ -7,7 +7,6 @@ import Menu from 'client/components/menu'
 import Prompt from 'client/components/prompt'
 import React from 'react'
 import Sidebar from 'client/components/sidebar'
-import svgArrow from 'assets/icons/Arrow.svg'
 import svgArrowLeft from 'assets/icons/Arrow-Left.svg'
 import svgExit from 'assets/icons/Exit.svg'
 import svgFeed from 'assets/icons/Feed.svg'
@@ -75,16 +74,7 @@ const SidebarMenu: React.FC<Props> = ({
           )}
         <Box level='top'>
           <Group direction='row'>
-            {!token && (
-              <Prompt title='Войти'>
-                <SpecialButton
-                  onClick={goToLogin}
-                  spec='help'  
-                >
-                  <Icon src={svgArrow} />
-                </SpecialButton>
-              </Prompt>
-            ) || (
+            {token && (
               <Prompt title='Выйти'>
                 <SpecialButton
                   onClick={clickExit}

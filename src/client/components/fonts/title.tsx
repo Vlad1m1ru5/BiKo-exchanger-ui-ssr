@@ -4,6 +4,7 @@ const Title = styled.h2`
   font-size: 20px;
   font-weight: 600;
   line-height: 27px;
+  white-space: pre;
 `
 
 export default Title

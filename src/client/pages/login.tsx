@@ -11,7 +11,7 @@ import TopbarMenu from 'client/templates/topbar-menu'
 import Warning from 'client/components/warning'
 import api from 'client/api';
 import srcAdd from 'assets/icons/Add.svg'
-import srcArrow from 'assets/icons/Arrow.svg'
+import srcChar from 'assets/icons/Char.svg'
 import { Subtitle, Title } from 'client/components/fonts'
 import { connect } from 'react-redux'
 import { isValidName, isValidPassword } from 'client/utils'
@@ -155,7 +155,7 @@ const Login: React.FC<Props> = ({
               onClick={clickEnter}
               spec='help'
             >
-            <Icon src={srcArrow} />
+            <Icon src={srcChar} />
             </SpecialButton>
           </Prompt>
           <Prompt title='Зарегистрироваться'>
