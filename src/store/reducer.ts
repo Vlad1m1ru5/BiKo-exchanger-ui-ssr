@@ -6,6 +6,7 @@ type Actions = ActionCombine<typeof actions>
 const initialState: Store = {
   token: '',
   isOpenMenu: false,
+  isOpenFileEditor: false,
   openFileId: '',
   userName: '',
   userPassword: ''
@@ -29,6 +30,11 @@ const reducer: Reducer<Store, Actions> = (state = initialState, action) => {
       return {
         ...state,
         isOpenMenu: !state.isOpenMenu
+      }
+    case 'SET_IS_OPEN_FILE_EDITOR':
+      return {
+        ...state,
+        isOpenFileEditor: !state.isOpenFileEditor
       }
     case 'SET_USER_NAME':
       return {

@@ -12,12 +12,14 @@ import svgSearch from 'assets/icons/Search.svg'
 import { Subtitle, Title } from 'client/components/fonts'
 import { connect } from 'react-redux'
 import { getDate } from 'client/utils'
-import { setOpenFileId } from 'store/actions'
+import { setOpenFileId, setIsOpenFileEditor } from 'store/actions'
 
 const FileEditor = React.lazy(() => import('client/templates/file-editor'))
 const Table = React.lazy(() => import('client/templates/table'))
 
 interface Props {
+  isOpenFileEditor: boolean
+  setIsOpenFileEditor: action
   setOpenFileId: action
   token: string
   userName: string
@@ -29,6 +31,8 @@ interface Tags {
 }
 
 const Feed: React.FC<Props> = ({
+  isOpenFileEditor,
+  setIsOpenFileEditor,
   setOpenFileId,
   token,
   userName
@@ -36,7 +40,6 @@ const Feed: React.FC<Props> = ({
   const [error, setError] = useState<Error | null>(null)
   const [filesMetadataList, setFilesMetadataList] = useState<FileMetadata[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [isOpenFileEditor, setIsOpenFileEditor] = useState<boolean>(false)
   const [tags, setTags] = useState<Tags>({
     applyed: [],
     alias: ''
@@ -147,12 +150,18 @@ const Feed: React.FC<Props> = ({
   )
 }
 
-const mapStateToProps = ({ token, userName }: Store) => ({
+const mapStateToProps = ({
+  token, 
+  isOpenFileEditor,
+  userName
+}: Store) => ({
   token,
+  isOpenFileEditor,
   userName
 })
 
 const mapDispatchToProps = {
+  setIsOpenFileEditor,
   setOpenFileId
 }
 
