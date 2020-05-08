@@ -11,7 +11,7 @@ import srcArrow from 'assets/icons/Arrow.svg'
 import srcArrowLeft from 'assets/icons/Arrow-Left.svg'
 import srcClose from 'assets/icons/Close.svg'
 import { Document, Page } from 'react-pdf/dist/entry.webpack'
-import { Headline } from 'client/components/fonts'
+import { Headline, Caption } from 'client/components/fonts'
 import { connect } from 'react-redux'
 import { setIsOpenFileEditor } from 'store/actions'
 
@@ -58,6 +58,19 @@ const FileEditor: React.FC<Props> = ({
     })
   }
 
+  const handleNumPageInc = (inc: number) => () => {
+    const current = pages.current + inc
+
+    if (current > 0 &&
+        current <= pages.total  
+    ) {
+      setPages({
+        ...pages,
+        current
+      })
+    }
+  }
+
   return (
     <Modal>
       <Topbar>
@@ -66,23 +79,24 @@ const FileEditor: React.FC<Props> = ({
         </Group>
         <Group direction='row'>
           <Prompt title='Назад'>
-            <Button onClick={() => {}}>
+            <Button onClick={handleNumPageInc(-1)}>
               <Icon src={srcArrowLeft}/>
             </Button>
           </Prompt>
+          <Caption>{pages.current} / {pages.total}</Caption>
           <Prompt title='Вперёд'>
-            <Button onClick={() => {}}>
+            <Button onClick={handleNumPageInc(1)}>
               <Icon src={srcArrow}/>
             </Button>
           </Prompt>
-        </Group>
-        <Group direction='row'>
-          <SpecialButton 
-            onClick={setIsOpenFileEditor}
-            spec='danger'
-          >
-            <Icon src={srcClose} />
-          </SpecialButton>
+          <Prompt title='Закрыть'>
+            <SpecialButton
+              onClick={setIsOpenFileEditor}
+              spec='danger'
+            >
+              <Icon src={srcClose} />
+            </SpecialButton>
+          </Prompt>
         </Group>
       </Topbar>
       {!!file && (
@@ -94,7 +108,7 @@ const FileEditor: React.FC<Props> = ({
             cMapPacked: true,
           }}
         >
-          <Page pageNumber={1} />
+          <Page pageNumber={pages.current} />
         </Document>
       )}
     </Modal>

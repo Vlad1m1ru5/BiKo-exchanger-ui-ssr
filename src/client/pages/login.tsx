@@ -155,7 +155,7 @@ const Login: React.FC<Props> = ({
               onClick={clickEnter}
               spec='help'
             >
-            <Icon src={srcChar} />
+              <Icon src={srcChar} />
             </SpecialButton>
           </Prompt>
           <Prompt title='Зарегистрироваться'>
