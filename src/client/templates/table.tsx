@@ -9,16 +9,19 @@ import {
 
 interface Props {
   headers: string[]
-  items: { 
-    [key: string]: string
+  items: {
+    onClick: action
+    values: { [key: string]: string }
   }[]
 }
 
 const Table: React.FC<Props> = ({ headers, items }) => {
   const thsList = headers.map(header => <TableCell key={header}>{header}</TableCell>)
   const trsList = items.map((item, index) => {
-    const tdsList = Object.keys(item)
-      .map(key => item[key])
+    const { onClick, values } = item
+
+    const tdsList = Object.keys(values)
+      .map(key => values[key])
       .map(value => (
         <TableCell
           key={value}
@@ -28,6 +31,7 @@ const Table: React.FC<Props> = ({ headers, items }) => {
     return (
       <TableRow
         key={index}
+        onClick={onClick}
       >{tdsList}</TableRow>)
   })
 

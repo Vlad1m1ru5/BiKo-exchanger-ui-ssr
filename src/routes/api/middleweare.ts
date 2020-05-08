@@ -62,3 +62,14 @@ export const isAuthUser: RequestHandler = async (req, res, next) => {
 
   next()
 }
+
+export const isValidFileId: RequestHandler = async (req, res, next) => {
+  const { id } = req.query
+
+  if (typeof id !== 'string') {
+    res.status(500)
+    res.send('Не удалось обработать id файла.')
+  }
+
+  next()
+}

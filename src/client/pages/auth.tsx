@@ -129,7 +129,7 @@ const Auth: React.FC = () => {
             <Warning
               isVisible={inputName.isInvalid}
               title={titleWarningInputName}  
-            >*</Warning><br />
+            >*</Warning>
             <Input
               onChange={changeInputName}
               type='text'
@@ -142,7 +142,7 @@ const Auth: React.FC = () => {
             <Warning
               isVisible={inputEmail.isInvalid}
               title={titleWarningInputEmail}
-            >*</Warning><br />
+            >*</Warning>
             <Input
               onChange={changeInputEmail}
               type='email'
@@ -155,7 +155,7 @@ const Auth: React.FC = () => {
           <Warning
             isVisible={inputPassword.isInvalid}
             title={titleWarningInputPassword}
-          >*</Warning><br />
+          >*</Warning>
           <Input
             onChange={changeInputPassword}
             type='password'
@@ -168,7 +168,7 @@ const Auth: React.FC = () => {
           <Warning
             isVisible={inputPassword.isInvalid}
             title={titleWarningInputPasswordDuplicate}
-          >*</Warning><br />
+          >*</Warning>
           <Input
             onChange={comparePasswords}
             type='password'

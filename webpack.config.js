@@ -17,7 +17,12 @@ const config = {
   },
   devtool: 'eval-source-map',
   entry: {
-    app: ["./src/client/index.tsx"]
+    app: ["./src/client/index.tsx"],
+    auth: ['./src/client/pages/auth.tsx'],
+    feed: ['./src/client/pages/feed.tsx'],
+    finder: ['./src/client/pages/finder.tsx'],
+    login: ['./src/client/pages/login.tsx'],
+    settings: ['./src/client/pages/settings.tsx'],
   },
   module: {
     rules: [
@@ -78,7 +83,14 @@ const config = {
   plugins: [
     new webpack.HashedModuleIdsPlugin(),
     new HtmlWebpackPlugin({
-      chunks: ['app'],
+      chunks: [
+        'app',
+        'auth',
+        'feed',
+        'finder',
+        'login',
+        'settings'
+      ],
       template: './src/client/index.html',
     })
   ],
