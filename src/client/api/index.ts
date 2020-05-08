@@ -17,9 +17,14 @@ const api = {
     const { data } = await axios.get<string>(`/api/file`, config)
     return data
   },
+  getFilesOptions: async (token: string) => {
+    const config = { headers: { token } }
+    const { data } = await axios.get<FileOptions[]>('/api/files/options', config)
+    return data
+  },
   getFilesMetadata: async (token: string) => {
     const config = { headers: { token } }
-    const { data } = await axios.get<FileMetadata[]>('/api/files', config)
+    const { data } = await axios.get<FileMetadata[]>('/api/files/metadata', config)
     return data
   }
 }

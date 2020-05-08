@@ -1,7 +1,8 @@
 import Box from 'client/components/box'
-import Button, { SpecialButton} from 'client/components/button'
+import Button, { SpecialButton } from 'client/components/button'
 import Icon from 'client/components/icon'
 import Input from 'client/components/input'
+import FileOption from 'client/templates/file-option'
 import Group from 'client/components/group'
 import React, { useState, useEffect } from 'react'
 import Page from 'client/components/page'
@@ -11,9 +12,8 @@ import TopbarMenu from 'client/templates/topbar-menu'
 import api from 'client/api'
 import srcAdd from 'assets/icons/Add.svg'
 import srcSearch from 'assets/icons/Search.svg'
-import { Subtitle, Title } from 'client/components/fonts'
+import { Subtitle, Title, Description, Caption } from 'client/components/fonts'
 import { connect } from 'react-redux'
-import { setIsOpenFileEditor }from 'store/actions'
 
 interface Props {
   token: string
@@ -24,17 +24,17 @@ const Finder: React.FC<Props> = ({
 }) => {
   const [error, setError] = useState<Error | null>(null)
   const [fileName, setFileName] = useState<string>('')
-  const [filesMetadataList, setFilesMetadataList] = useState<FileMetadata[]>([])
+  const [filesOptionsList, setFilesOptionsList] = useState<FileOptions[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    const loadFilesMetadataList = async () => {
+    const loadFilesOptionsList = async () => {
       try {
-        const filesMetadataList = await api.getFilesMetadata(token)
-        const fielsMetadataListByFilename = filesMetadataList
+        const filesOptionsLits = await api.getFilesOptions(token)
+        const fielsOptionsListByFileName = filesOptionsLits
           .filter(({ name }) => name.match(fileName))
 
-        setFilesMetadataList(fielsMetadataListByFilename)
+        setFilesOptionsList(fielsOptionsListByFileName)
         setError(null)
       } catch (error) {
         setError(error)
@@ -44,7 +44,7 @@ const Finder: React.FC<Props> = ({
     }
 
     if (isLoading) {
-      loadFilesMetadataList()
+      loadFilesOptionsList()
     }
 
   }, [isLoading])
@@ -58,14 +58,32 @@ const Finder: React.FC<Props> = ({
 
   const startLoadgin = () => { setIsLoading(true) }
 
-  const cards = filesMetadataList.length ?
-    filesMetadataList.map(({ id, name }) => (
+  const getFileOptionCard = ({ id, name, options, tags }: FileOptions) => {
+    const tagsCaptionsList = tags.map((tag, index) => (
+      <Caption key={index}>{tag}</Caption>
+    ))
+
+    const optionsButtonsList = options.map((option, index) => (
+      <FileOption
+        id={id}
+        key={index}
+        option={option}
+      />
+    ))
+
+    return (
       <Box key={id} level='top'>
         <Group direction='column'>
-          name
+          <Description>{name}</Description>
+          <Group direction='row'>{optionsButtonsList}</Group>
+          <Group direction='row'>{tagsCaptionsList}</Group>
         </Group>
       </Box>
-    )) :
+    )
+  }
+
+  const cards = filesOptionsList.length ?
+    filesOptionsList.map(getFileOptionCard) :
     ''
 
   return (

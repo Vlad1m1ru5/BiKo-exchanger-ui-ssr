@@ -29,7 +29,37 @@ router.get('/file', isAuthRequest, isValidFileId, (req, res) => {
   fs.readFile(path, 'base64', callback)
 })
 
-router.get('/files', isAuthRequest, (req, res) => {
+router.get('/files/options', isAuthRequest, (req, res) => {
+  try {
+    const filesMetadataList: FileOptions[] = [
+      {
+        id: 'first-uuid',
+        name: 'first-file.docx',
+        options: [
+          'read',
+          'share'
+        ],
+        tags: ['tag']
+      },
+      {
+        id: 'second-uuid',
+        name: 'second-file.docx',
+        options: [
+          'read',
+          'share'
+        ],
+        tags: ['tag', 'tag2'],
+      }
+    ]
+
+    res.send(filesMetadataList)
+  } catch (error) {
+    res.status(500)
+    res.send('Ошибка чтения файлов.')
+  }
+})
+
+router.get('/files/metadata', isAuthRequest, (req, res) => {
   try {
     const filesMetadataList: FileMetadata[] = [
       {

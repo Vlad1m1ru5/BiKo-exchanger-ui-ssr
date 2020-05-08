@@ -3,10 +3,19 @@ declare module '*.woff'
 declare module '*.woff2'
 
 type action = (args: any) => void
+type option = 'delete' | 'print' | 'share' | 'read' | 'write'
+type spec = 'danger' | 'help' | ''
 
 interface Credentials {
   password: string
   username: string
+}
+
+interface FileOptions {
+  id: string
+  name: string
+  options: option[]
+  tags: string[]
 }
 
 interface FileMetadata {

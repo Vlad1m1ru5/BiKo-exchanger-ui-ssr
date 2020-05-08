@@ -17,7 +17,7 @@ const Button = styled.button<{
   }
 `
 
-export const SpecialButton = styled(Button)<{ spec: 'danger' | 'help', theme: Theme }>`
+export const SpecialButton = styled(Button)<{ spec: spec, theme: Theme }>`
   border: 2px solid ${({ spec, theme }) => {
     switch (spec) {
       case 'danger':
