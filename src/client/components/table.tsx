@@ -7,7 +7,7 @@ export const TableWrapper = styled.table<{ theme: Theme }>`
   margin: ${({ theme }) => theme.atom.margin};
   width: 100%;
 
-  * {
+  & > * {
     border-bottom: 1px solid transparent;
     border-top: 1px solid transparent;
   }

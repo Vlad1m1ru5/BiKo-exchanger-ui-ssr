@@ -11,7 +11,7 @@ interface Props {
   headers: string[]
   items: {
     onClick: action
-    values: { [key: string]: string }
+    values: { [key: string]: any }
   }[]
 }
 
@@ -21,11 +21,8 @@ const Table: React.FC<Props> = ({ headers, items }) => {
     const { onClick, values } = item
 
     const tdsList = Object.keys(values)
-      .map(key => values[key])
-      .map(value => (
-        <TableCell
-          key={value}
-        >{value}</TableCell>
+      .map((key, index) => (
+        <TableCell key={index}>{values[key]}</TableCell>
       ))
 
     return (
