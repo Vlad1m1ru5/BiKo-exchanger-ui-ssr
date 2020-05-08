@@ -2,8 +2,10 @@
 import Group from 'client/components/group'
 import Modal from 'client/components/modal'
 import React, { useState, useEffect } from 'react'
+import Topbar from 'client/components/topbar'
 import api from 'client/api'
 import { Document, Page } from 'react-pdf/dist/entry.webpack'
+import { Subtitle } from 'client/components/fonts'
 import { connect } from 'react-redux'
 
 interface Props {
@@ -28,9 +30,11 @@ const FileEditor: React.FC<Props> = ({
 
   return (
     <Modal>
-      <Group direction='row'>
-        <h3>{openFileId}</h3>
-      </Group>
+      <Topbar>
+        <Group direction='row'>
+          <Subtitle>{openFileId}</Subtitle>
+        </Group>
+      </Topbar>
       {!!file && (
         <Document file={file}>
           <Page pageNumber={1} />

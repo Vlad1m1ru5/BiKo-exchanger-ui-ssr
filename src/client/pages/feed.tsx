@@ -9,6 +9,7 @@ import SidebarMenu from 'client/templates/sidebar-menu'
 import TopbarMenu from 'client/templates/topbar-menu'
 import api from 'client/api'
 import svgSearch from 'assets/icons/Search.svg'
+import { Subtitle, Title } from 'client/components/fonts'
 import { connect } from 'react-redux'
 import { getDate } from 'client/utils'
 import { setOpenFileId } from 'store/actions'
@@ -112,7 +113,7 @@ const Feed: React.FC<Props> = ({
   return (
     <Page>
       <TopbarMenu>
-        <h2>Лента</h2>
+        <Title>Лента</Title>
         <Item>
           <Input
             onChange={changeTagsSuper}
@@ -125,9 +126,9 @@ const Feed: React.FC<Props> = ({
       </TopbarMenu>
       <SidebarMenu />
       <Group direction='column'>
-        {!!error && <h3>{error.message}</h3>}
+        {!!error && <Subtitle>{error.message}</Subtitle>}
         {isLoading && (
-          <h3>Загрузка</h3>
+          <Subtitle>Загрузка</Subtitle>
         ) || (
           <Suspense fallback='Подождите...'>
             <Table 

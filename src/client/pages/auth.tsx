@@ -4,10 +4,11 @@ import Input from 'client/components/input'
 import Group from 'client/components/group'
 import Label from 'client/components/label'
 import Page from 'client/components/page'
+import Prompt from 'client/components/prompt'
 import React, { useState } from 'react'
 import SidebarMenu from 'client/templates/sidebar-menu'
+import { Content, Title } from 'client/components/fonts'
 import TopbarMenu from 'client/templates/topbar-menu'
-import Title from 'client/components/title'
 import Warning from 'client/components/warning'
 import srcArrow from 'assets/icons/Arrow.svg'
 import { isValidEmail, isValidName, isValidPassword } from 'client/utils'
@@ -119,39 +120,39 @@ const Auth: React.FC = () => {
   return (
      <Page>
       <TopbarMenu>
-        <h2>Создание аккаунта</h2>
+        <Title>Создание аккаунта</Title>
       </TopbarMenu>
       <SidebarMenu />
       <Group direction='column'>
       <Group direction='row'>
-          <Label>
-            Имя пользователя:&nbsp;
-            <Warning
-              isVisible={inputName.isInvalid}
-              title={titleWarningInputName}  
-            >*</Warning>
-            <Input
-              onChange={changeInputName}
-              type='text'
-            />
-          </Label>
-        </Group>
-        <Group direction='row'>
-          <Label>
-            Электронная почта:&nbsp;
-            <Warning
-              isVisible={inputEmail.isInvalid}
-              title={titleWarningInputEmail}
-            >*</Warning>
-            <Input
-              onChange={changeInputEmail}
-              type='email'
-            />
-          </Label>
-        </Group>
+        <Label>
+        <Content>Имя пользователя:&nbsp;</Content>
+          <Warning
+            isVisible={inputName.isInvalid}
+            title={titleWarningInputName}  
+          >*</Warning>
+          <Input
+            onChange={changeInputName}
+            type='text'
+          />
+        </Label>
+      </Group>
       <Group direction='row'>
         <Label>
-          Пароль:&nbsp;
+          <Content>Электронная почта:&nbsp;</Content>
+          <Warning
+            isVisible={inputEmail.isInvalid}
+            title={titleWarningInputEmail}
+          >*</Warning>
+          <Input
+            onChange={changeInputEmail}
+            type='email'
+          />
+        </Label>
+      </Group>
+      <Group direction='row'>
+        <Label>
+          <Content>Пароль:&nbsp;</Content>
           <Warning
             isVisible={inputPassword.isInvalid}
             title={titleWarningInputPassword}
@@ -164,7 +165,7 @@ const Auth: React.FC = () => {
       </Group>
       <Group direction='row'>
         <Label>
-          Повтор пароля:&nbsp;
+          <Content>Повтор пароля:&nbsp;</Content>
           <Warning
             isVisible={inputPassword.isInvalid}
             title={titleWarningInputPasswordDuplicate}
@@ -175,11 +176,11 @@ const Auth: React.FC = () => {
           />
         </Label>
       </Group>
-      <Title title='Подтвердить'>
+      <Prompt title='Подтвердить'>
         <Button onClick={clickConfirm}>
           <Icon src={srcArrow}/>
         </Button>
-      </Title>
+      </Prompt>
       </Group>
      </Page>
   )

@@ -4,17 +4,18 @@ import Icon from 'client/components/icon'
 import Input from 'client/components/input'
 import Label from 'client/components/label'
 import Page from 'client/components/page'
+import Prompt from 'client/components/prompt'
 import React, { useState } from 'react'
 import SidebarMenu from 'client/templates/sidebar-menu'
-import Title from 'client/components/title'
 import TopbarMenu from 'client/templates/topbar-menu'
 import Warning from 'client/components/warning'
-import { setToken, setUserName, setUserPassword } from 'store/actions'
 import api from 'client/api';
 import srcAdd from 'assets/icons/Add.svg'
 import srcArrow from 'assets/icons/Arrow.svg'
+import { Subtitle, Title, Content } from 'client/components/fonts'
 import { connect } from 'react-redux'
 import { isValidName, isValidPassword } from 'client/utils'
+import { setToken, setUserName, setUserPassword } from 'store/actions'
 import { useHistory } from 'react-router-dom'
 
 interface Props {
@@ -118,13 +119,13 @@ const Login: React.FC<Props> = ({
   return (
     <Page>
       <TopbarMenu>
-        <h2>Вход</h2>
+        <Title>Вход</Title>
       </TopbarMenu>
       <SidebarMenu />
       <Group direction='column'>
         <Group direction='row'>
           <Label>
-            Имя пользователя:&nbsp;
+            <Content>Имя пользователя:&nbsp;</Content>
             <Warning
               isVisible={inputName.isInvalid}
               title={titleWarningInputName}
@@ -137,7 +138,7 @@ const Login: React.FC<Props> = ({
         </Group>
         <Group direction='row'>
           <Label>
-            Пароль:&nbsp;
+            <Content>Пароль:&nbsp;</Content>
             <Warning
               isVisible={inputPassword.isInvalid}
               title={titleWarningInputPassword}
@@ -149,22 +150,22 @@ const Login: React.FC<Props> = ({
           </Label>
         </Group>
         <Group direction='row'>
-          <Title title='Войти'>
+          <Prompt title='Войти'>
             <SpecialButton 
               onClick={clickEnter}
               spec='help'
             >
             <Icon src={srcArrow} />
             </SpecialButton>
-          </Title>
-          <Title title='Зарегистрироваться'>
+          </Prompt>
+          <Prompt title='Зарегистрироваться'>
             <Button onClick={clickRegister}>
             <Icon src={srcAdd} />
             </Button>
-          </Title>
+          </Prompt>
         </Group>
         {error !== null && (
-          <h3>{error.message}</h3>
+          <Subtitle>{error.message}</Subtitle>
         )}
       </Group>
     </Page>

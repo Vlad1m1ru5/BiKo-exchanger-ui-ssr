@@ -4,9 +4,9 @@ import Icon from 'client/components/icon'
 import Item from 'client/components/item'
 import Group from 'client/components/group'
 import Menu from 'client/components/menu'
+import Prompt from 'client/components/prompt'
 import React from 'react'
 import Sidebar from 'client/components/sidebar'
-import Title from 'client/components/title'
 import svgArrow from 'assets/icons/Arrow.svg'
 import svgArrowLeft from 'assets/icons/Arrow-Left.svg'
 import svgExit from 'assets/icons/Exit.svg'
@@ -75,29 +75,29 @@ const SidebarMenu: React.FC<Props> = ({
         <Box level='top'>
           <Group direction='row'>
             {!token && (
-              <Title title='Войти'>
+              <Prompt title='Войти'>
                 <SpecialButton
                   onClick={goToLogin}
                   spec='help'  
                 >
                   <Icon src={svgArrow} />
                 </SpecialButton>
-              </Title>
+              </Prompt>
             ) || (
-              <Title title='Выйти'>
+              <Prompt title='Выйти'>
                 <SpecialButton
                   onClick={clickExit}
                   spec='danger'
                 >
                   <Icon src={svgExit} />
                 </SpecialButton>
-              </Title>
+              </Prompt>
             )}
-            <Title title='Закрыть'>
-                <Button onClick={setIsOpenMenu}>
-                  <Icon src={svgArrowLeft} />
-                </Button>
-              </Title>
+            <Prompt title='Закрыть'>
+              <Button onClick={setIsOpenMenu}>
+                <Icon src={svgArrowLeft} />
+              </Button>
+            </Prompt>
           </Group>
         </Box>
       </Group>

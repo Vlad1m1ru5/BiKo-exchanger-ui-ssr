@@ -1,8 +1,9 @@
 import Button from 'client/components/button'
+import { Headline } from 'client/components/fonts'
 import Icon from 'client/components/icon'
 import Group from 'client/components/group'
 import React from 'react'
-import Title from 'client/components/title'
+import Prompt from 'client/components/prompt'
 import Topbar from 'client/components/topbar'
 import srcHamburger from 'assets/icons/Hamburger.svg'
 import { setIsOpenMenu } from 'store/actions'
@@ -18,12 +19,12 @@ const TopbarMenu: React.FC<Props> = ({
 }) => (
   <Topbar>
     <Group direction='row'>
-      <Title title='Меню'>
+      <Prompt title='Меню'>
         <Button onClick={setIsOpenMenu}>
         <Icon src={srcHamburger} />
         </Button>
-      </Title>
-      <h1>BIKO</h1>
+      </Prompt>
+      <Headline>BIKO</Headline>
     </Group>
     <Group direction='row'>
       {children}
