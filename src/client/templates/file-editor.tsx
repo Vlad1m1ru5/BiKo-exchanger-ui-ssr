@@ -1,4 +1,4 @@
-
+import 'react-pdf/dist/Page/AnnotationLayer.css';
 import Group from 'client/components/group'
 import Modal from 'client/components/modal'
 import React, { useState, useEffect } from 'react'
@@ -36,7 +36,13 @@ const FileEditor: React.FC<Props> = ({
         </Group>
       </Topbar>
       {!!file && (
-        <Document file={file}>
+        <Document 
+          file={file}
+          options={{
+            cMapUrl: 'cmaps/',
+            cMapPacked: true,
+          }}
+        >
           <Page pageNumber={1} />
         </Document>
       )}

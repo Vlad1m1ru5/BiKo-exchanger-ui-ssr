@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const config = {
@@ -56,6 +57,13 @@ const config = {
             }
           }
         ]
+      },
+      {
+        test: /\.(css)$/,
+        use : [
+          'style-loader',
+          'css-loader'
+        ]
       }
     ]
   },
@@ -82,6 +90,12 @@ const config = {
   },
   plugins: [
     new webpack.HashedModuleIdsPlugin(),
+    new CopyWebpackPlugin([
+      {
+        from: 'node_modules/pdfjs-dist/cmaps/',
+        to: 'cmaps/'
+      },
+    ]),
     new HtmlWebpackPlugin({
       chunks: [
         'app',
