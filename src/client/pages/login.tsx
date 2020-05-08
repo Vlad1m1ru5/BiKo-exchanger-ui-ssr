@@ -12,7 +12,7 @@ import Warning from 'client/components/warning'
 import api from 'client/api';
 import srcAdd from 'assets/icons/Add.svg'
 import srcArrow from 'assets/icons/Arrow.svg'
-import { Subtitle, Title, Content } from 'client/components/fonts'
+import { Subtitle, Title } from 'client/components/fonts'
 import { connect } from 'react-redux'
 import { isValidName, isValidPassword } from 'client/utils'
 import { setToken, setUserName, setUserPassword } from 'store/actions'
@@ -125,7 +125,7 @@ const Login: React.FC<Props> = ({
       <Group direction='column'>
         <Group direction='row'>
           <Label>
-            <Content>Имя пользователя:&nbsp;</Content>
+            Имя пользователя:&nbsp;
             <Warning
               isVisible={inputName.isInvalid}
               title={titleWarningInputName}
@@ -138,7 +138,7 @@ const Login: React.FC<Props> = ({
         </Group>
         <Group direction='row'>
           <Label>
-            <Content>Пароль:&nbsp;</Content>
+            Пароль:&nbsp;
             <Warning
               isVisible={inputPassword.isInvalid}
               title={titleWarningInputPassword}

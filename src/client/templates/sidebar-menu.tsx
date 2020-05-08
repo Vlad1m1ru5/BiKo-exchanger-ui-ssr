@@ -13,6 +13,7 @@ import svgExit from 'assets/icons/Exit.svg'
 import svgFeed from 'assets/icons/Feed.svg'
 import svgFinder from 'assets/icons/Finder.svg'
 import svgSettings from 'assets/icons/Settings.svg'
+import { Description } from 'client/components/fonts'
 import { connect } from 'react-redux'
 import { setToken, setIsOpenMenu } from 'store/actions'
 import { useHistory, Link } from 'react-router-dom'
@@ -55,19 +56,19 @@ const SidebarMenu: React.FC<Props> = ({
               <Link to='/feed'>
                 <Item>
                   <Icon src={svgFeed}/>
-                  Лента  
+                  <Description>Лента</Description>
                 </Item>
               </Link>
               <Link to='/finder'>
                 <Item>
                   <Icon src={svgFinder}/>
-                  Поисковик
+                  <Description>Поисковик</Description>
                 </Item>
               </Link>
               <Link to='/settings'>
                 <Item>
                   <Icon src={svgSettings}/>
-                  Настройки
+                  <Description>Настройки</Description>
                 </Item>
               </Link>
             </Menu>

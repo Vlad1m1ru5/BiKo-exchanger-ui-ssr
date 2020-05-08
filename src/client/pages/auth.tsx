@@ -7,7 +7,7 @@ import Page from 'client/components/page'
 import Prompt from 'client/components/prompt'
 import React, { useState } from 'react'
 import SidebarMenu from 'client/templates/sidebar-menu'
-import { Content, Title } from 'client/components/fonts'
+import { Title } from 'client/components/fonts'
 import TopbarMenu from 'client/templates/topbar-menu'
 import Warning from 'client/components/warning'
 import srcArrow from 'assets/icons/Arrow.svg'
@@ -126,7 +126,7 @@ const Auth: React.FC = () => {
       <Group direction='column'>
       <Group direction='row'>
         <Label>
-        <Content>Имя пользователя:&nbsp;</Content>
+          Имя пользователя:&nbsp;
           <Warning
             isVisible={inputName.isInvalid}
             title={titleWarningInputName}  
@@ -139,7 +139,7 @@ const Auth: React.FC = () => {
       </Group>
       <Group direction='row'>
         <Label>
-          <Content>Электронная почта:&nbsp;</Content>
+          Электронная почта:&nbsp;
           <Warning
             isVisible={inputEmail.isInvalid}
             title={titleWarningInputEmail}
@@ -152,7 +152,7 @@ const Auth: React.FC = () => {
       </Group>
       <Group direction='row'>
         <Label>
-          <Content>Пароль:&nbsp;</Content>
+          Пароль:&nbsp;
           <Warning
             isVisible={inputPassword.isInvalid}
             title={titleWarningInputPassword}
@@ -165,7 +165,7 @@ const Auth: React.FC = () => {
       </Group>
       <Group direction='row'>
         <Label>
-          <Content>Повтор пароля:&nbsp;</Content>
+          Повтор пароля:&nbsp;
           <Warning
             isVisible={inputPassword.isInvalid}
             title={titleWarningInputPasswordDuplicate}

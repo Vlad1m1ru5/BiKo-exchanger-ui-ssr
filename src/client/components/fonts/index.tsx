@@ -1,15 +1,13 @@
 import Caption from './caption'
-import Content from './content'
 import Headline from './headline'
-import Menu from './menu'
+import Description from './description'
 import Subtitle from './subtitle'
 import Title from './title'
 
 export {
   Caption,
-  Content,
+  Description,
   Headline,
-  Menu,
   Subtitle,
   Title
 }

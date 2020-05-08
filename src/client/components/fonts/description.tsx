@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
-const Content = styled.span`
+const Description = styled.span`
   font-size: 14px;
+  font-weight: 600;
   line-height: 19px;
 `
 
-export default Content
+export default Description
