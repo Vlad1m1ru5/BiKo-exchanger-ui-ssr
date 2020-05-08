@@ -15,7 +15,7 @@ import svgSettings from 'assets/icons/Settings.svg'
 import { Description } from 'client/components/fonts'
 import { connect } from 'react-redux'
 import { setToken, setIsOpenMenu } from 'store/actions'
-import { useHistory, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 interface Props {
   token: string
@@ -32,14 +32,13 @@ const SidebarMenu: React.FC<Props> = ({
   setIsOpenMenu,
   userName
 }) => {
-  const history = useHistory()
-
-  const goToLogin = () => {
-    history.push('/login')
-  }
 
   const clickExit = () => {
     setToken('')
+  }
+
+  const closeSidebar = () => {
+    setIsOpenMenu(false)
   }
 
   return (
@@ -85,7 +84,7 @@ const SidebarMenu: React.FC<Props> = ({
               </Prompt>
             )}
             <Prompt title='Закрыть'>
-              <Button onClick={setIsOpenMenu}>
+              <Button onClick={closeSidebar}>
                 <Icon src={svgArrowLeft} />
               </Button>
             </Prompt>

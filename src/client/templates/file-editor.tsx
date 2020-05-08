@@ -71,6 +71,10 @@ const FileEditor: React.FC<Props> = ({
     }
   }
 
+  const closeFileEditor = () => {
+    setIsOpenFileEditor(false)
+  }
+
   return (
     <Modal>
       <Topbar>
@@ -91,7 +95,7 @@ const FileEditor: React.FC<Props> = ({
           </Prompt>
           <Prompt title='Закрыть'>
             <SpecialButton
-              onClick={setIsOpenFileEditor}
+              onClick={closeFileEditor}
               spec='danger'
             >
               <Icon src={srcClose} />

@@ -58,8 +58,14 @@ const Feed: React.FC<Props> = ({
       }
     }
 
-    loadFilesMetadataList()
-  }, [])
+    if (isLoading) {
+      loadFilesMetadataList()
+    }
+
+    return () => {
+      setIsOpenFileEditor(false)
+    }
+  }, [isLoading])
 
   const changeTagsSuper = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget

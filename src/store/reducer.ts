@@ -29,12 +29,12 @@ const reducer: Reducer<Store, Actions> = (state = initialState, action) => {
     case 'SET_IS_OPEN_MENU':
       return {
         ...state,
-        isOpenMenu: !state.isOpenMenu
+        isOpenMenu: payload
       }
     case 'SET_IS_OPEN_FILE_EDITOR':
       return {
         ...state,
-        isOpenFileEditor: !state.isOpenFileEditor
+        isOpenFileEditor: payload
       }
     case 'SET_USER_NAME':
       return {
