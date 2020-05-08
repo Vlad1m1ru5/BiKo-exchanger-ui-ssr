@@ -120,6 +120,7 @@ const Feed: React.FC<Props> = ({
         <Item>
           <Input
             onChange={changeTagsSuper}
+            placeholder='Тэги'
             type='text'
           />
           <Button onClick={applyTags}>
