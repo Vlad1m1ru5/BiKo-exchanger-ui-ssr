@@ -16,12 +16,10 @@ import { connect } from 'react-redux'
 import { setIsOpenFileEditor }from 'store/actions'
 
 interface Props {
-  setIsOpenFileEditor: action
   token: string
 }
 
 const Finder: React.FC<Props> = ({
-  setIsOpenFileEditor,
   token
 }) => {
   const [error, setError] = useState<Error | null>(null)
@@ -49,10 +47,7 @@ const Finder: React.FC<Props> = ({
       loadFilesMetadataList()
     }
 
-    return () => {
-      setIsOpenFileEditor(false)
-    }
-  }, [setIsLoading])
+  }, [isLoading])
 
   const loadFile = () => { }
 
@@ -119,8 +114,4 @@ const mapStateToProps = ({ token }: Store) => ({
   token
 })
 
-const mapDispatchToProps = {
-  setIsOpenFileEditor
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Finder)
+export default connect(mapStateToProps)(Finder)
