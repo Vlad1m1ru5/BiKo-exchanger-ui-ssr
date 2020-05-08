@@ -7,15 +7,21 @@ import srcClose from 'assets/icons/Close.svg'
 import srcHide from 'assets/icons/Hide.svg'
 import srcSquare from 'assets/icons/Square.svg'
 import srcSearch from 'assets/icons/Search.svg'
+import { connect } from 'react-redux'
+import { setOpenFileId, setOpenFileOption } from 'store/actions'
 
 interface Props {
   id: string
   option: option
+  setOpenFileId: action
+  setOpenFileOption: action
 }
 
 const FileOption: React.FunctionComponent<Props> = ({
   id,
-  option
+  option,
+  setOpenFileId,
+  setOpenFileOption
 }) => {
   const [handleOnClick, setHandleOnClick] = useState<action>(() => {})
   const [spec, setSpec] = useState<spec>('')
@@ -28,7 +34,10 @@ const FileOption: React.FunctionComponent<Props> = ({
   
   const readFile = () => {}
   
-  const shareFile = () => {}
+  const shareFile = () => {
+    setOpenFileId(id)
+    setOpenFileOption('share')
+  }
 
   const writeFile = () => {}
 
@@ -53,7 +62,7 @@ const FileOption: React.FunctionComponent<Props> = ({
         setTile('Открыть')
         break
       case 'share':
-        setHandleOnClick(shareFile)
+        setHandleOnClick(() => shareFile)
         setSpec('')
         setSrc(srcAdd)
         setTile('Поделиться')
@@ -81,4 +90,9 @@ const FileOption: React.FunctionComponent<Props> = ({
   )
 }
 
-export default FileOption
+const mapDispatchToProps = {
+  setOpenFileId,
+  setOpenFileOption
+}
+
+export default connect(null, mapDispatchToProps)(FileOption)

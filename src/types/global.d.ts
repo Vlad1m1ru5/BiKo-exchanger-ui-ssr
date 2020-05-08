@@ -3,7 +3,7 @@ declare module '*.woff'
 declare module '*.woff2'
 
 type action = (args: any) => void
-type option = 'delete' | 'print' | 'share' | 'read' | 'write'
+type option = 'delete' | 'print' | 'share' | 'read' | 'write' | ''
 type spec = 'danger' | 'help' | ''
 
 interface Credentials {
@@ -33,6 +33,17 @@ interface Input {
   value: string
 }
 
+interface Option {
+  isDisabled?: boolean
+  label: string
+  value: string
+}
+
 interface RegistrationCredentials extends Credentials {
   email: string
+}
+
+interface User {
+  id: string
+  name: string
 }

@@ -22,6 +22,7 @@ interface Store {
   isOpenMenu: boolean
   isOpenFileEditor: boolean
   openFileId: string
+  openFileOption: option
   userName: string
   userPassword: string
 }

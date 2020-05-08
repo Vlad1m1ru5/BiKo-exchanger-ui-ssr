@@ -4,7 +4,7 @@ import Input from 'client/components/input'
 import Item from 'client/components/item'
 import FileOption from 'client/templates/file-option'
 import Group from 'client/components/group'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import Page from 'client/components/page'
 import Prompt from 'client/components/prompt'
 import SidebarMenu from 'client/templates/sidebar-menu'
@@ -15,13 +15,16 @@ import srcSearch from 'assets/icons/Search.svg'
 import { Subtitle, Title, Caption } from 'client/components/fonts'
 import { connect } from 'react-redux'
 
+const FileShare = React.lazy(() => import('client/templates/file-share'))
 const Table = React.lazy(() => import('client/templates/table'))
 
 interface Props {
+  openFileOption: option
   token: string
 }
 
 const Finder: React.FC<Props> = ({
+  openFileOption,
   token
 }) => {
   const [error, setError] = useState<Error | null>(null)
@@ -120,18 +123,29 @@ const Finder: React.FC<Props> = ({
         {isLoading && (
           <Subtitle>Загрузка...</Subtitle>
         ) || (
-          <Table 
-            headers={headers}
-            items={items}
-          />
+          <Suspense fallback='Подождите...'>
+            <Table 
+              headers={headers}
+              items={items}
+            />
+          </Suspense>
+        )}
+        {!!openFileOption && (
+          <Suspense fallback='Подождите...'>
+            <FileShare />
+          </Suspense>
         )}
       </Group>
     </Page>
   )
 }
 
-const mapStateToProps = ({ token }: Store) => ({
-  token
+const mapStateToProps = ({
+  token,
+  openFileOption
+}: Store) => ({
+  token,
+  openFileOption
 })
 
 export default connect(mapStateToProps)(Finder)

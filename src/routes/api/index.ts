@@ -9,10 +9,6 @@ import {
 
 const router = express.Router()
 
-router.post('/auth', isAuthUser, (req, res) => {
-  res.send('some-unic-token')
-})
-
 router.get('/file', isAuthRequest, isValidFileId, (req, res) => {
   const path = '/home/vladimir/Projects/back/BiKo-exchanger-ui-ssr/src/routes/api/test-doc.pdf'
   const { id } = req.query
@@ -94,5 +90,42 @@ router.get('/login', isCreatedUser, (req, res) => {
   res.send({ username, password })
 })
 
+router.get('/users', isAuthRequest, (req, res) => {
+  const { userName } = req.query
+
+  const users: User[] = [
+    {
+      id: '123',
+      name: 'John'
+    },
+    {
+      id: '456',
+      name: 'Smith'
+    },
+    {
+      id: '789',
+      name: 'Alex'
+    },
+    {
+      id: '012',
+      name: 'Vanse'
+    }
+  ]
+
+  const data = users.filter(({ name }) => name !== userName)
+
+  res.send(data)
+})
+
+router.post('/auth', isAuthUser, (req, res) => {
+  res.send('some-unic-token')
+})
+
+router.post('/file', isAuthRequest, (req, res) => {
+  const { id, option, usersIds } = req.params
+
+  res.status(200)
+  res.send()
+})
 
 export default router

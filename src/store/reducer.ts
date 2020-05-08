@@ -8,6 +8,7 @@ const initialState: Store = {
   isOpenMenu: false,
   isOpenFileEditor: false,
   openFileId: '',
+  openFileOption: '',
   userName: '',
   userPassword: ''
 };
@@ -25,6 +26,11 @@ const reducer: Reducer<Store, Actions> = (state = initialState, action) => {
       return {
         ...state,
         openFileId: payload
+      }
+    case 'SET_OPEN_FILE_OPTION':
+      return {
+        ...state,
+        openFileOption: payload
       }
     case 'SET_IS_OPEN_MENU':
       return {

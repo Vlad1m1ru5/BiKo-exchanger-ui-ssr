@@ -9,7 +9,13 @@ const api = {
     const { data } = await axios.post<string>('/api/auth', credentials)
     return data
   },
-  getFileById: async ({ id, token }: { id: string, token: string }) => {
+  getFileById: async ({
+    id,
+    token
+  }: {
+    id: string
+    token: string
+  }) => {
     const config = { 
       headers: { token },
       params: { id }
@@ -25,6 +31,34 @@ const api = {
   getFilesMetadata: async (token: string) => {
     const config = { headers: { token } }
     const { data } = await axios.get<FileMetadata[]>('/api/files/metadata', config)
+    return data
+  },
+  getUsers: async ({
+    token,
+    userName
+  }: {
+    token: string
+    userName: string
+  }) => {
+    const config = {
+      headers: { token },
+      params: { userName } }
+    const { data } = await axios.get<User[]>('/api/users', config)
+    return data
+  },
+  setUsersOptionByFileId: async ({
+    id,
+    option,
+    token,
+    usersIds
+  }: {
+    id: string,
+    option: option
+    token: string
+    usersIds: string[]
+  }) => {
+    const config = { headers: { token } }
+    const { data } = await axios.post('/api/file', { id, option, usersIds }, config)
     return data
   }
 }

@@ -124,63 +124,63 @@ const Auth: React.FC = () => {
       </TopbarMenu>
       <SidebarMenu />
       <Group direction='column'>
-      <Group direction='row'>
-        <Label>
-          Имя пользователя:&nbsp;
-          <Warning
-            isVisible={inputName.isInvalid}
-            title={titleWarningInputName}  
-          >*</Warning>
-          <Input
-            onChange={changeInputName}
-            type='text'
-          />
-        </Label>
-      </Group>
-      <Group direction='row'>
-        <Label>
-          Электронная почта:&nbsp;
-          <Warning
-            isVisible={inputEmail.isInvalid}
-            title={titleWarningInputEmail}
-          >*</Warning>
-          <Input
-            onChange={changeInputEmail}
-            type='email'
-          />
-        </Label>
-      </Group>
-      <Group direction='row'>
-        <Label>
-          Пароль:&nbsp;
-          <Warning
-            isVisible={inputPassword.isInvalid}
-            title={titleWarningInputPassword}
-          >*</Warning>
-          <Input
-            onChange={changeInputPassword}
-            type='password'
-          />
-        </Label>
-      </Group>
-      <Group direction='row'>
-        <Label>
-          Повтор пароля:&nbsp;
-          <Warning
-            isVisible={inputPassword.isInvalid}
-            title={titleWarningInputPasswordDuplicate}
-          >*</Warning>
-          <Input
-            onChange={comparePasswords}
-            type='password'
-          />
-        </Label>
-      </Group>
-      <Prompt title='Подтвердить'>
-        <Button onClick={clickConfirm}>
-          <Icon src={srcArrow}/>
-        </Button>
-      </Prompt>
+        <Group direction='row'>
+          <Label>
+            Имя пользователя:&nbsp;
+            <Warning
+              isVisible={inputName.isInvalid}
+              title={titleWarningInputName}  
+            >*</Warning>
+            <Input
+              onChange={changeInputName}
+              type='text'
+            />
+          </Label>
+        </Group>
+        <Group direction='row'>
+          <Label>
+            Электронная почта:&nbsp;
+            <Warning
+              isVisible={inputEmail.isInvalid}
+              title={titleWarningInputEmail}
+            >*</Warning>
+            <Input
+              onChange={changeInputEmail}
+              type='email'
+            />
+          </Label>
+        </Group>
+        <Group direction='row'>
+          <Label>
+            Пароль:&nbsp;
+            <Warning
+              isVisible={inputPassword.isInvalid}
+              title={titleWarningInputPassword}
+            >*</Warning>
+            <Input
+              onChange={changeInputPassword}
+              type='password'
+            />
+          </Label>
+        </Group>
+        <Group direction='row'>
+          <Label>
+            Повтор пароля:&nbsp;
+            <Warning
+              isVisible={inputPassword.isInvalid}
+              title={titleWarningInputPasswordDuplicate}
+            >*</Warning>
+            <Input
+              onChange={comparePasswords}
+              type='password'
+            />
+          </Label>
+        </Group>
+        <Prompt title='Подтвердить'>
+          <Button onClick={clickConfirm}>
+            <Icon src={srcArrow}/>
+          </Button>
+        </Prompt>
       </Group>
      </Page>
   )
