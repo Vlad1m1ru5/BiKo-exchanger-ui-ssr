@@ -1,24 +1,34 @@
 import Button from 'client/components/button'
-import { Headline } from 'client/components/fonts'
+import Concealer from 'client/components/concealer'
 import Icon from 'client/components/icon'
 import Group from 'client/components/group'
-import React from 'react'
 import Prompt from 'client/components/prompt'
+import React, { useState, useEffect } from 'react'
 import Topbar from 'client/components/topbar'
 import srcHamburger from 'assets/icons/Hamburger.svg'
+import { Headline } from 'client/components/fonts'
 import { setIsOpenMenu } from 'store/actions'
 import { connect } from 'react-redux'
 
 interface Props {
   isOpenMenu: boolean
   setIsOpenMenu: action
+  token: string
 }
 
 const TopbarMenu: React.FC<Props> = ({
   children,
   isOpenMenu,
-  setIsOpenMenu
+  setIsOpenMenu,
+  token
 }) => {
+  const [visibility, setVisibility] = useState<'hidden' | 'visible'>('hidden')
+
+  useEffect(() => {
+    const visibility = !!token ? 'visible' : 'hidden'
+    setVisibility(visibility)
+  }, [token])
+
   const openMenu = () => {
     setIsOpenMenu(!isOpenMenu)
   }
@@ -26,11 +36,13 @@ const TopbarMenu: React.FC<Props> = ({
   return (
     <Topbar>
       <Group direction='row'>
-        <Prompt title='Меню'>
-          <Button onClick={openMenu}>
-          <Icon src={srcHamburger} />
-          </Button>
-        </Prompt>
+        <Concealer visibility={visibility}>
+          <Prompt title='Меню'>
+            <Button onClick={openMenu}>
+            <Icon src={srcHamburger} />
+            </Button>
+          </Prompt>
+        </Concealer>
         <Headline>BIKO</Headline>
       </Group>
       <Group direction='row'>
@@ -40,8 +52,9 @@ const TopbarMenu: React.FC<Props> = ({
   )
 }
 
-const mapStateToProps = ({ isOpenMenu }: Store) => ({
-  isOpenMenu
+const mapStateToProps = ({ isOpenMenu, token }: Store) => ({
+  isOpenMenu,
+  token
 })
 
 const mapDispatchToProps = {

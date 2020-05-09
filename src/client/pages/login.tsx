@@ -129,7 +129,7 @@ const Login: React.FC<Props> = ({
             <Warning
               isVisible={inputName.isInvalid}
               title={titleWarningInputName}
-            >*</Warning><br />
+            >*</Warning>
             <Input
               onChange={changeInputName}
               type='text'
@@ -142,7 +142,7 @@ const Login: React.FC<Props> = ({
             <Warning
               isVisible={inputPassword.isInvalid}
               title={titleWarningInputPassword}
-            >*</Warning><br />
+            >*</Warning>
             <Input 
               onChange={changeInputPassword}
               type='password'
