@@ -72,7 +72,7 @@ const Auth: React.FC = () => {
 
   const comparePasswords = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget
-    const isInvalid = value === inputPassword.value
+    const isInvalid = value !== inputPassword.value
 
     setInputPasswordDuplicate({
       ...inputPasswordDuplicate,
@@ -167,7 +167,7 @@ const Auth: React.FC = () => {
           <Label>
             Повтор пароля:&nbsp;
             <Warning
-              isVisible={inputPassword.isInvalid}
+              isVisible={inputPasswordDuplicate.isInvalid}
               title={titleWarningInputPasswordDuplicate}
             >*</Warning>
             <Input

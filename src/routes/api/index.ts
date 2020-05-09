@@ -30,7 +30,7 @@ router.get('/files/options', isAuthRequest, (req, res) => {
     const filesMetadataList: FileOptions[] = [
       {
         id: 'first-uuid',
-        name: 'first-file.docx',
+        name: 'test.pdf',
         options: [
           'read',
           'share'
@@ -62,7 +62,7 @@ router.get('/files/metadata', isAuthRequest, (req, res) => {
         id: 'first-uuid',
         birthtime: new Date(),
         mtime: new Date(),
-        name: 'first-file.docx',
+        name: 'test.pdf',
         owner: 'User',
         tags: ['tag'],
         size: 815
