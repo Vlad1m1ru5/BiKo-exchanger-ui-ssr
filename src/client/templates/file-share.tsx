@@ -7,7 +7,7 @@ import Prompt from 'client/components/prompt'
 import React, { useState, useEffect } from 'react'
 import Select from 'client/components/select'
 import Topbar from 'client/components/topbar'
-import api from 'client/api'
+import { filesApi, usersApi } from 'client/api'
 import srcArrow from 'assets/icons/Arrow.svg'
 import srcClose from 'assets/icons/Close.svg'
 import { Headline } from 'client/components/fonts'
@@ -32,7 +32,7 @@ const FileShare: React.FunctionComponent<Props> = ({
 
   useEffect(() => {
     const loadUsers = async () => {
-      const users = await api.getUsers({ token, userName })
+      const users = await usersApi.getUsers({ token, userName })
       const options = users.map(({ id, name }) => ({
         label: name,
         value: id
@@ -51,8 +51,7 @@ const FileShare: React.FunctionComponent<Props> = ({
     const option = 'read'
     const usersIds = users.map(({ id }) => id)
 
-    api
-      .setUsersOptionByFileId({ id, option, token, usersIds })
+    filesApi.setUsersOptionByFileId({ id, option, token, usersIds })
       .then(closeFileShare)
   }
 

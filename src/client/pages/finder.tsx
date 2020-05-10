@@ -9,7 +9,7 @@ import Page from 'client/components/page'
 import Prompt from 'client/components/prompt'
 import SidebarMenu from 'client/templates/sidebar-menu'
 import TopbarMenu from 'client/templates/topbar-menu'
-import api from 'client/api'
+import { filesApi } from 'client/api'
 import srcAdd from 'assets/icons/Add.svg'
 import srcSearch from 'assets/icons/Search.svg'
 import { Subtitle, Title, Caption } from 'client/components/fonts'
@@ -35,7 +35,7 @@ const Finder: React.FC<Props> = ({
   useEffect(() => {
     const loadFilesOptionsList = async () => {
       try {
-        const filesOptionsLits = await api.getFilesOptions(token)
+        const filesOptionsLits = await filesApi.getFilesOptions(token)
         const fielsOptionsListByFileName = filesOptionsLits
           .filter(({ name }) => name.match(fileName))
 

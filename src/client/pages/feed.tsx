@@ -7,7 +7,7 @@ import Page from 'client/components/page'
 import React, { useEffect, useState, Suspense } from 'react'
 import SidebarMenu from 'client/templates/sidebar-menu'
 import TopbarMenu from 'client/templates/topbar-menu'
-import api from 'client/api'
+import { filesApi } from 'client/api'
 import svgSearch from 'assets/icons/Search.svg'
 import { Subtitle, Title } from 'client/components/fonts'
 import { connect } from 'react-redux'
@@ -48,7 +48,7 @@ const Feed: React.FC<Props> = ({
   useEffect(() => {
     const loadFilesMetadataList = async () => {
       try {
-        const filesMetadataList = await api.getFilesMetadata(token)
+        const filesMetadataList = await filesApi.getFilesMetadata(token)
         setFilesMetadataList(filesMetadataList)
         setError(null)
       } catch (error) {

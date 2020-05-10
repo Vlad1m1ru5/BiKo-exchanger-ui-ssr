@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { RequestHandler } from 'express'
 
-const api = process.env.API
+const backApi = process.env.API
 
 export const isAuthRequest: RequestHandler = async (req, res, next) => {
   const { token } = req.headers
@@ -27,7 +27,7 @@ export const isCreatedUser: RequestHandler = async (req, res, next) => {
   next()
 
   try {
-    const { data, status } = await axios.post(`${api}/login`, { username, password })
+    const { data, status } = await axios.post(`${backApi}/login`, { username, password })
 
     if (status === 504) {
       res.status(504)
@@ -64,7 +64,7 @@ export const isAuthUser: RequestHandler = async (req, res, next) => {
 }
 
 export const isValidFileId: RequestHandler = async (req, res, next) => {
-  const { id } = req.query
+  const { id } = req.params
 
   if (typeof id !== 'string') {
     res.status(500)

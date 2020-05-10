@@ -9,7 +9,7 @@ import React, { useState } from 'react'
 import SidebarMenu from 'client/templates/sidebar-menu'
 import TopbarMenu from 'client/templates/topbar-menu'
 import Warning from 'client/components/warning'
-import api from 'client/api';
+import { usersApi } from 'client/api';
 import srcAdd from 'assets/icons/Add.svg'
 import srcChar from 'assets/icons/Char.svg'
 import { Subtitle, Title } from 'client/components/fonts'
@@ -92,9 +92,8 @@ const Login: React.FC<Props> = ({
       setUserName(username)
       setUserPassword(password)
 
-      api
-        .getAuthorization({ username, password })
-        .then(api.getAuthentication)
+      usersApi.getAuthorization({ username, password })
+        .then(usersApi.getAuthentication)
         .then(setToken)
         .catch(setError)
     }

@@ -6,7 +6,7 @@ import Modal from 'client/components/modal'
 import Prompt from 'client/components/prompt'
 import React, { useState, useEffect } from 'react'
 import Topbar from 'client/components/topbar'
-import api from 'client/api'
+import { filesApi } from 'client/api'
 import srcArrow from 'assets/icons/Arrow.svg'
 import srcArrowLeft from 'assets/icons/Arrow-Left.svg'
 import srcClose from 'assets/icons/Close.svg'
@@ -43,7 +43,7 @@ const FileEditor: React.FC<Props> = ({
 
   useEffect(() => {
     const loadFileById = async (id: string, token: string) => {
-      const file = await api.getFileById({ id, token })
+      const file = await filesApi.getFileById({ id, token })
       setFile(file)
     }
 
