@@ -37,7 +37,7 @@ const Feed: React.FC<Props> = ({
   token,
   userName
 }) => {
-  const [error, setError] = useState<Error | null>(null)
+  const [error, setError] = useState<ApplicationError | null>(null)
   const [filesMetadataList, setFilesMetadataList] = useState<FileMetadata[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [tags, setTags] = useState<Tags>({
@@ -136,7 +136,7 @@ const Feed: React.FC<Props> = ({
       </TopbarMenu>
       <SidebarMenu />
       <Group direction='column'>
-        {!!error && <Subtitle>{error.message}</Subtitle>}
+        {!!error && <Subtitle>{error.response.data}</Subtitle>}
         {isLoading && (
           <Subtitle>Загрузка</Subtitle>
         ) || (

@@ -41,7 +41,7 @@ const Login: React.FC<Props> = ({
     isInvalid: false
   })
 
-  const [error, setError] = useState<Error | null>(null)
+  const [error, setError] = useState<ApplicationError | null>(null)
 
   const changeInputName = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value
@@ -164,7 +164,7 @@ const Login: React.FC<Props> = ({
           </Prompt>
         </Group>
         {error !== null && (
-          <Subtitle>{error.message}</Subtitle>
+          <Subtitle>{error.response.data}</Subtitle>
         )}
       </Group>
     </Page>

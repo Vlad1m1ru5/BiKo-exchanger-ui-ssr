@@ -21,6 +21,18 @@ const usersApi = {
     const config = { headers: { token } }
     const { data } = await axios.get<User[]>(`${path}/all/${userName}`, config)
     return data
+  },
+  setNewUser: async ({
+    email,
+    password,
+    username
+  }: {
+    email: string
+    password: string
+    username: string
+  }) => {
+    const { data } = await axios.post(`${path}/registration`, { email, password, username })
+    return data
   }
 }
 

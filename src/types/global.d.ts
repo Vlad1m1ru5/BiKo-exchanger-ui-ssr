@@ -11,6 +11,12 @@ interface Credentials {
   username: string
 }
 
+interface ApplicationError extends Error {
+  response: {
+    data: string
+  }
+}
+
 interface FileOptions {
   id: string
   name: string

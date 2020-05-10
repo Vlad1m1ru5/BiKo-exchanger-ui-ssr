@@ -27,7 +27,7 @@ const Finder: React.FC<Props> = ({
   openFileOption,
   token
 }) => {
-  const [error, setError] = useState<Error | null>(null)
+  const [error, setError] = useState<ApplicationError | null>(null)
   const [fileName, setFileName] = useState<string>('')
   const [filesOptionsList, setFilesOptionsList] = useState<FileOptions[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -119,7 +119,7 @@ const Finder: React.FC<Props> = ({
       </TopbarMenu>
       <SidebarMenu />
       <Group direction='column'>
-        {!!error && <Subtitle>{error.message}</Subtitle>}
+        {!!error && <Subtitle>{error.response.data}</Subtitle>}
         {isLoading && (
           <Subtitle>Загрузка...</Subtitle>
         ) || (

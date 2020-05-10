@@ -4,12 +4,27 @@ import {
   isAuthRequest,
   isAuthUser,
   isCreatedUser,
+  isNewUser
 } from 'middleware/index';
+import axios from 'axios';
 
+const backApi = process.env.API
 const usersRouter = express.Router()
 
 usersRouter.post('/auth', isAuthUser, (req, res) => {
   res.send('some-unic-token')
+})
+
+usersRouter.post('/registration', isNewUser, async (req, res) => {
+  const { email, password, username } = req.body
+
+  try {
+    const { data } = await axios.post(`${backApi}/registration`, { username, password, email })
+    res.send(data)
+  } catch (err) {
+    res.status(500)
+    res.send('Ошибка регистрации')
+  }
 })
 
 usersRouter.get('/login', isCreatedUser, (req, res) => {

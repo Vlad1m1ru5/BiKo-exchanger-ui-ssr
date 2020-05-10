@@ -7,15 +7,22 @@ import Page from 'client/components/page'
 import Prompt from 'client/components/prompt'
 import React, { useState } from 'react'
 import SidebarMenu from 'client/templates/sidebar-menu'
-import { Title } from 'client/components/fonts'
+import { Title, Subtitle } from 'client/components/fonts'
 import TopbarMenu from 'client/templates/topbar-menu'
 import Warning from 'client/components/warning'
 import srcArrow from 'assets/icons/Arrow.svg'
-import { isValidEmail, isValidName, isValidPassword } from 'client/utils'
+import {
+  isValidEmail,
+  isValidName,
+  isValidPassword
+} from 'client/utils'
 import { useHistory } from 'react-router-dom'
+import { usersApi } from 'client/api/index'
 
 const Auth: React.FC = () => {
   const history = useHistory()
+
+  const [error, setError] = useState<ApplicationError | null>(null)
 
   const [inputName, setInputName] = useState<Input>({
     isInvalid: false,
@@ -90,7 +97,13 @@ const Auth: React.FC = () => {
       return
     }
 
-    history.push('/login')
+    const email = inputEmail.value
+    const password = inputPassword.value
+    const username = inputName.value
+
+    usersApi.setNewUser({ email, password, username })
+      .then(() => { history.push('/login') })
+      .catch(setError)
   }
 
   const titleWarningInputName = `
@@ -181,6 +194,9 @@ const Auth: React.FC = () => {
             <Icon src={srcArrow}/>
           </Button>
         </Prompt>
+        {error !== null && (
+          <Subtitle>{error.response.data}</Subtitle>
+        )}
       </Group>
      </Page>
   )
