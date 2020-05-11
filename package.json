@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --hot --watch --open",
+    "dev": "webpack-dev-server --compress --hot --open --watch",
     "server": "cross-env TS_NODE_FILES=true PORT=3030 API=http://localhost:8080 nodemon -r tsconfig-paths/register src/server.ts",
     "webpack": "webpack -wd --hot"
   },

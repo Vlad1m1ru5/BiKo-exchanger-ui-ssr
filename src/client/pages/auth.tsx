@@ -102,7 +102,10 @@ const Auth: React.FC = () => {
     const username = inputName.value
 
     usersApi.setNewUser({ email, password, username })
-      .then(() => { history.push('/login') })
+      .then(() => {
+        alert(`Проверьте воходящие сообщения на почту: ${email}`)
+        history.push('/login')
+      })
       .catch(setError)
   }
 

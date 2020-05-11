@@ -1,12 +1,11 @@
+import axios from 'axios';
 import express from 'express'
-
 import {
   isAuthRequest,
   isAuthUser,
   isCreatedUser,
   isNewUser
 } from 'middleware/index';
-import axios from 'axios';
 
 const backApi = process.env.API
 const usersRouter = express.Router()
@@ -19,7 +18,7 @@ usersRouter.post('/registration', isNewUser, async (req, res) => {
   const { email, password, username } = req.body
 
   try {
-    const { data } = await axios.post(`${backApi}/registration`, { username, password, email })
+    const { data } = await axios.post(`${backApi}/registration`, { username, password, email })  
     res.send(data)
   } catch (err) {
     res.status(500)
