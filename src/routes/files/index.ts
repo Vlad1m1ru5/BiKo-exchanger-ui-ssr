@@ -1,3 +1,4 @@
+import axios from 'axios'
 import express from 'express'
 import fs from 'fs'
 import path from 'path';
@@ -6,6 +7,7 @@ import {
   isValidFileId
 } from 'middleware/index';
 
+const backApi = process.env.API
 const filesRouter = express.Router()
 
 filesRouter.get('/data/:id', isAuthRequest, isValidFileId, (req, res) => {
@@ -92,6 +94,19 @@ filesRouter.post('/authoreties', isAuthRequest, (req, res) => {
 
   res.status(200)
   res.send()
+})
+
+filesRouter.post('/create', isAuthRequest, async (req, res) => {
+  const { file, name } = req.body
+  const tags = []
+
+  try {
+    const { data } = await axios.post(`${backApi}/addFile`)
+    res.send(data)
+  } catch (error) {
+    res.status(500)
+    res.send('Ошибка загрузки файла.')
+  }
 })
 
 export default filesRouter

@@ -82,17 +82,19 @@ const FileEditor: React.FC<Props> = ({
           <Headline>{openFileId}</Headline>
         </Group>
         <Group direction='row'>
-          <Prompt title='Назад'>
-            <Button onClick={handleNumPageInc(-1)}>
-              <Icon src={srcArrowLeft}/>
-            </Button>
-          </Prompt>
-          <Caption>{pages.current} / {pages.total}</Caption>
-          <Prompt title='Вперёд'>
-            <Button onClick={handleNumPageInc(1)}>
-              <Icon src={srcArrow}/>
-            </Button>
-          </Prompt>
+          <Group direction='row'>
+            <Prompt title='Назад'>
+              <Button onClick={handleNumPageInc(-1)}>
+                <Icon src={srcArrowLeft}/>
+              </Button>
+            </Prompt>
+            <Caption>{pages.current} / {pages.total}</Caption>
+            <Prompt title='Вперёд'>
+              <Button onClick={handleNumPageInc(1)}>
+                <Icon src={srcArrow}/>
+              </Button>
+            </Prompt>
+          </Group>
           <Prompt title='Закрыть'>
             <SpecialButton
               onClick={closeFileEditor}

@@ -4,9 +4,10 @@ const Button = styled.button<{
   onClick: action,
   theme: Theme
 }>`
+  align-items: center;
   background-color: ${({ theme }) => theme.brand.background};
   border: 2px solid ${({ theme }) => theme.brand.spec.blue};
-  border-radius: 50%;
+  border-radius: ${({ theme }) => theme.atom.size};
   box-shadow: ${({ theme }) => theme.input.shadow.active};
   cursor: pointer;
   display: flex;

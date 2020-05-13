@@ -5,14 +5,14 @@ import Input from 'client/components/input'
 import Label from 'client/components/label'
 import Page from 'client/components/page'
 import Prompt from 'client/components/prompt'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import SidebarMenu from 'client/templates/sidebar-menu'
 import TopbarMenu from 'client/templates/topbar-menu'
 import Warning from 'client/components/warning'
 import { usersApi } from 'client/api';
 import srcAdd from 'assets/icons/Add.svg'
 import srcChar from 'assets/icons/Char.svg'
-import { Subtitle, Title } from 'client/components/fonts'
+import { Subtitle, Title, Caption } from 'client/components/fonts'
 import { connect } from 'react-redux'
 import { isValidName, isValidPassword } from 'client/utils'
 import { setToken, setUserName, setUserPassword } from 'store/actions'
@@ -22,12 +22,16 @@ interface Props {
   setToken: action
   setUserName: action
   setUserPassword: action
+  userName: string
+  userPassword: string
 }
 
 const Login: React.FC<Props> = ({ 
   setToken,
   setUserName,
-  setUserPassword
+  setUserPassword,
+  userName,
+  userPassword
 }) => {
   const history = useHistory()
 
@@ -42,6 +46,16 @@ const Login: React.FC<Props> = ({
   })
 
   const [error, setError] = useState<ApplicationError | null>(null)
+
+  useEffect(() => {
+    if (userName) {
+      setInputName({ ...inputName, value: userName })
+    }
+
+    if (userPassword) {
+      setInputPassword({ ...inputName, value: userPassword })
+    } 
+  }, [])
 
   const changeInputName = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value
@@ -132,6 +146,7 @@ const Login: React.FC<Props> = ({
             <Input
               onChange={changeInputName}
               type='text'
+              value={inputName.value}
             />
           </Label>
         </Group>
@@ -145,24 +160,25 @@ const Login: React.FC<Props> = ({
             <Input 
               onChange={changeInputPassword}
               type='password'
+              value={inputPassword.value}
             />
           </Label>
         </Group>
-        <Group direction='row'>
           <Prompt title='Войти'>
             <SpecialButton 
               onClick={clickEnter}
               spec='help'
             >
               <Icon src={srcChar} />
+              <Caption>Авторизоваться</Caption>
             </SpecialButton>
           </Prompt>
           <Prompt title='Зарегистрироваться'>
             <Button onClick={clickRegister}>
-            <Icon src={srcAdd} />
+              <Icon src={srcAdd} />
+              <Caption>Присоединиться</Caption>
             </Button>
           </Prompt>
-        </Group>
         {error !== null && (
           <Subtitle>{error.response.data}</Subtitle>
         )}
@@ -171,10 +187,15 @@ const Login: React.FC<Props> = ({
   )
 }
 
+const mapStateToProps = ({ userName, userPassword }: Store) => ({
+  userName,
+  userPassword
+})
+
 const mapDispatchToProps = {
   setToken,
   setUserName,
   setUserPassword
 }
 
-export default connect(null, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

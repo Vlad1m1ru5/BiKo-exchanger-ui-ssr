@@ -14,17 +14,23 @@ import srcAdd from 'assets/icons/Add.svg'
 import srcSearch from 'assets/icons/Search.svg'
 import { Subtitle, Title, Caption } from 'client/components/fonts'
 import { connect } from 'react-redux'
+import { setIsOpenFileLoad } from 'store/actions'
 
+const FileLoad = React.lazy(() => import('client/templates/file-load'))
 const FileShare = React.lazy(() => import('client/templates/file-share'))
 const Table = React.lazy(() => import('client/templates/table'))
 
 interface Props {
+  isOpenFileLoad: boolean
   openFileOption: option
+  setIsOpenFileLoad: action
   token: string
 }
 
 const Finder: React.FC<Props> = ({
+  isOpenFileLoad,
   openFileOption,
+  setIsOpenFileLoad,
   token
 }) => {
   const [error, setError] = useState<ApplicationError | null>(null)
@@ -54,7 +60,9 @@ const Finder: React.FC<Props> = ({
 
   }, [isLoading])
 
-  const loadFile = () => { }
+  const openFileLoad = () => {
+    setIsOpenFileLoad(!isOpenFileLoad)
+   }
 
   const changeFileName = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileName = event.currentTarget.value
@@ -99,7 +107,7 @@ const Finder: React.FC<Props> = ({
         <Item>
           <Prompt title='Загрузить'>
             <SpecialButton
-              onClick={loadFile}
+              onClick={openFileLoad}
               spec='help'
             >
               <Icon src={srcAdd} />
@@ -135,17 +143,28 @@ const Finder: React.FC<Props> = ({
             <FileShare />
           </Suspense>
         )}
+        {isOpenFileLoad && (
+          <Suspense fallback='Подождите...'>
+            <FileLoad />
+          </Suspense>
+        )}
       </Group>
     </Page>
   )
 }
 
 const mapStateToProps = ({
+  isOpenFileLoad,
   token,
   openFileOption
 }: Store) => ({
+  isOpenFileLoad,
   token,
   openFileOption
 })
 
-export default connect(mapStateToProps)(Finder)
+const mapDispatchToProps = {
+  setIsOpenFileLoad
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Finder)

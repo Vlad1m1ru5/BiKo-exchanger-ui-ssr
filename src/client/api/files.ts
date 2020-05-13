@@ -3,6 +3,19 @@ import axios from 'axios'
 const path = '/api/files'
 
 const filesApi = {
+  createFile: async ({
+    file,
+    name,
+    token
+  }: {
+    file: string
+    name: string
+    token: string
+  }) => {
+    const config = { headers: { token }}
+    const { data } = await axios.post(`${path}/create`, { file, name }, config)
+    return data
+  },
   getFileById: async ({
     id,
     token
