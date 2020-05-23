@@ -61,3 +61,9 @@ export const isValidFileId: RequestHandler = (req, res, next) => {
 
   next()
 }
+
+export const responseToJson = (data: string) => {
+  const datToString = JSON.stringify(data)
+  const tokenObj = datToString.replace(')]}\'', '')
+  return JSON.parse(tokenObj)
+} 

@@ -2,17 +2,13 @@ import axios from 'axios';
 import express from 'express'
 import {
   isAuthRequest,
-  isAuthUser,
   isCreatedUser,
-  isNewUser
+  isNewUser,
+  responseToJson
 } from 'middleware/index';
 
 const backApi = process.env.API
 const usersRouter = express.Router()
-
-usersRouter.post('/auth', isAuthUser, (req, res) => {
-  res.send('some-unic-token')
-})
 
 usersRouter.post('/registration', isNewUser, async (req, res) => {
   const { email, password, username } = req.body
@@ -28,9 +24,19 @@ usersRouter.post('/registration', isNewUser, async (req, res) => {
   }
 })
 
-usersRouter.get('/login', isCreatedUser, (req, res) => {
+usersRouter.get('/login', isCreatedUser, async (req, res) => {
   const { username, password } = req.query
-  res.send({ username, password })
+
+  try {
+    const { data } = await axios.post(`${backApi}/authenticate`, { username, password })
+    const token = responseToJson(data)
+    res.send(token)
+  } catch (error) {
+    const { message, status } = error
+
+    res.status(status)
+    res.send(message)
+  }
 })
 
 usersRouter.get('/all/:userName', isAuthRequest, (req, res) => {

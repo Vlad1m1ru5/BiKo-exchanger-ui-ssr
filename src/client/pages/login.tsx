@@ -106,8 +106,8 @@ const Login: React.FC<Props> = ({
       setUserName(username)
       setUserPassword(password)
 
-      usersApi.getAuthorization({ username, password })
-        .then(usersApi.getAuthentication)
+      usersApi
+        .getAuthorization({ username, password })
         .then(setToken)
         .catch(setError)
     }
