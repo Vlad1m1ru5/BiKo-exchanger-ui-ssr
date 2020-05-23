@@ -1,5 +1,5 @@
 import axios from 'axios'
-import express from 'express'
+import express, { ErrorRequestHandler } from 'express'
 import fs from 'fs'
 import path from 'path';
 import {
@@ -54,58 +54,75 @@ filesRouter.get('/metadata', isAuthRequest, (req, res) => {
 
     res.send(filesMetadataList)
   } catch (error) {
-    res.status(500)
-    res.send('Ошибка чтения файлов.')
+    const { message, status } = error
+
+    res.status(status)
+    res.send(message)
   }
 })
 
-filesRouter.get('/options', isAuthRequest, (req, res) => {
+filesRouter.get('/options', isAuthRequest, async (req, res) => {
+  const { headers } = req
+  
+  const filesMetadataList: FileOptions[] = [
+    {
+      id: 'first-uuid',
+      name: 'test.pdf',
+      options: [
+        'read',
+        'share'
+      ],
+      tags: ['tag']
+    },
+    {
+      id: 'second-uuid',
+      name: 'second-file.docx',
+      options: [
+        'read',
+        'share'
+      ],
+      tags: ['tag', 'tag2'],
+    }
+  ]
+
   try {
-    const filesMetadataList: FileOptions[] = [
-      {
-        id: 'first-uuid',
-        name: 'test.pdf',
-        options: [
-          'read',
-          'share'
-        ],
-        tags: ['tag']
-      },
-      {
-        id: 'second-uuid',
-        name: 'second-file.docx',
-        options: [
-          'read',
-          'share'
-        ],
-        tags: ['tag', 'tag2'],
-      }
-    ]
+    const { data } = await axios.get<FileOptions[]>(`${backApi}/listFile`, { headers })
 
-    res.send(filesMetadataList)
+    res.send(data)
   } catch (error) {
-    res.status(500)
-    res.send('Ошибка чтения файлов.')
+    res.send(filesMetadataList)
   }
 })
 
-filesRouter.post('/authoreties', isAuthRequest, (req, res) => {
-  const { id, option, usersIds } = req.params
+filesRouter.post('/authoreties', isAuthRequest, async (req, res) => {
+  const { headers, body: { id, option, usersIds } } = req
 
-  res.status(200)
-  res.send()
+  const usernameForShare = usersIds.map((userId: string) => ({ username: userId }))
+
+  try {
+    const { data } = await axios.post(`${backApi}/file/${option}/${id}`, usernameForShare, { headers })
+    res.send(data)
+  } catch (error) {
+    const { message, status } = error
+
+    res.status(status)
+    res.send(message)
+  }
 })
 
 filesRouter.post('/create', isAuthRequest, async (req, res) => {
-  const { file, name } = req.body
-  const tags = []
+  const { headers, body: { formData } } = req
+  const tags = ['']
+  const file = formData || null
 
   try {
-    const { data } = await axios.post(`${backApi}/addFile`)
+    const { data } = await axios.post(`${backApi}/addFile`, { file, tags }, { headers })
     res.send(data)
   } catch (error) {
-    res.status(500)
-    res.send('Ошибка загрузки файла.')
+    const { message, status } = error
+
+    res.status(status)
+    res.send(message)
   }
 })
 

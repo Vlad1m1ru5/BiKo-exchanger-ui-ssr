@@ -20,9 +20,11 @@ usersRouter.post('/registration', isNewUser, async (req, res) => {
   try {
     const { data } = await axios.post(`${backApi}/registration`, { username, password, email })  
     res.send(data)
-  } catch (err) {
-    res.status(500)
-    res.send('Ошибка регистрации')
+  } catch (error) {
+    const { message, status } = error
+
+    res.status(status)
+    res.send(message)
   }
 })
 

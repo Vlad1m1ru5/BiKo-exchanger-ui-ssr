@@ -4,16 +4,19 @@ const path = '/api/files'
 
 const filesApi = {
   createFile: async ({
-    file,
-    name,
+    formData,
     token
   }: {
-    file: string
-    name: string
+    formData: FormData
     token: string
   }) => {
-    const config = { headers: { token }}
-    const { data } = await axios.post(`${path}/create`, { file, name }, config)
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        token
+      }
+    }
+    const { data } = await axios.post(`${path}/create`, formData, config)
     return data
   },
   getFileById: async ({
