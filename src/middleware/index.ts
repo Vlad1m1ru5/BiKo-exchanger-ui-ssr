@@ -66,4 +66,6 @@ export const responseToJson = (data: string) => {
   const datToString = JSON.stringify(data)
   const tokenObj = datToString.replace(')]}\'', '')
   return JSON.parse(tokenObj)
-} 
+}
+
+export const tokenToObj = (token: any) => ({ 'Authorization': `Bearer ${token}` })

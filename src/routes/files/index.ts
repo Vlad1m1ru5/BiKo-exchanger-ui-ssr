@@ -1,15 +1,19 @@
 import axios from 'axios'
 import express from 'express'
+import FormData from 'form-data'
 import fs from 'fs'
 import path from 'path'
+import multer from 'multer'
 
 import {
   isAuthRequest,
-  isValidFileId
+  isValidFileId,
+  tokenToObj
 } from 'middleware/index';
 
 const backApi = process.env.API
 const filesRouter = express.Router()
+const upload = multer()
 
 const filesMetadataList: FileMetadata[] = [
   {
@@ -142,19 +146,34 @@ filesRouter.post('/authoreties', isAuthRequest, async (req, res) => {
   }
 })
 
-filesRouter.post('/create', isAuthRequest, async (req, res) => {
-  const { headers, body: { formData } } = req
-  const tags = ['']
-  const file = formData || null
+filesRouter.post('/create', upload.single('file'), async (req, res) => {
+  const { headers: { token }, body: { tag }, file } = req
+
+  const formData = new FormData()
+  formData.append('file', file.buffer, file.originalname)
+  formData.append('tag', tag)
+
+  const config = { 
+    headers: {
+      ...tokenToObj(token),
+      'Content-Type': `multipart/form-data; boundary=${formData.getBoundary()}`
+    }
+  }
 
   try {
-    const { data } = await axios.post(`${backApi}/addFile`, { file, tags }, { headers })
+    const { data } = await axios.post<string>(`${backApi}/addFile`, formData, config)
     res.send(data)
   } catch (error) {
     const { message, status } = error
 
-    res.status(status)
-    res.send(message)
+    if (message && status) {
+      res.status(status)
+      res.send(message)
+      return
+    }
+        
+    res.status(500)
+    res.send(error)
   }
 })
 

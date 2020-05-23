@@ -4,8 +4,8 @@ const path = '/api/users'
 
 const usersApi = {
   getAuthorization: async (credentials: Credentials) => {
-    const { data } = await axios.get<string>(`${path}/login`, { params: credentials })
-    return data
+    const { data: { token } } = await axios.get<{ token: string }>(`${path}/login`, { params: credentials })
+    return token
   },
   getUsers: async ({
     token,

@@ -24,53 +24,39 @@ interface Props {
 
 interface StagedFile {
   file: File | null
-  name: string
+  path: string
 }
 
 const FileShare: React.FunctionComponent<Props> = ({
   setIsOpenFileLoad,
   token
 }) => {
-  const [formData, setFormData] = useState<FormData | null>(null)
-  const [stagedFile, setStagedFile] = useState<StagedFile>({ file: null, name: '' })
-  const [isSendButtonDisabled, setIsSendButtonDisabled] = useState<boolean>(true)
-
-  useEffect(() => {
-    const formData = new FormData()
-    setFormData(formData)
-  }, [])
-
-  useEffect(() => {
-    if (stagedFile.file !== null) {
-      setIsSendButtonDisabled(false)
-    }
-  }, [stagedFile])
 
   const closeFileLoad = () => { setIsOpenFileLoad(false) }
 
   const receaveFile = ({ currentTarget }: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = currentTarget
+    const { files, value } = currentTarget
 
-    const file = files[0]
-    const { name } = file
-    setStagedFile({ ...stagedFile, file, name })
-  }
-
-  const sendStagedFile = () => {
-    const { file, name } = stagedFile
-
-    if (file === null ||
-        formData === null ||
-        !name
-    ) {
+    if (files === null) {
       return
     }
+    const file = files[0]
+    const fileReader = new FileReader()
 
-    formData.append('file', file, name)
+    fileReader.readAsText(file)
+    fileReader.onload = () => {
+      const file = new Blob([fileReader.result])
+      const formData = new FormData()
+      formData.append('file', file, value)
+      formData.append('tag', 'test-tag')
 
-    filesApi.createFile({ formData, token })
-      .then(() => { alert('Успешная загрузка файла.') })
-      .catch(() => { alert('Ошибка загрузки файла.') })
+      filesApi.createFile({ formData, token })
+        .then(() => { alert('Успешная загрузка файла.') })
+        .catch(() => {  alert('Ошибка загрузки файла.') })
+    }
+    fileReader.onerror = () => {
+      alert('Ошибка чтения файла.')
+    }
   }
 
   return (
@@ -98,15 +84,6 @@ const FileShare: React.FunctionComponent<Props> = ({
             type='file'
             onChange={receaveFile}
           />
-        </Prompt>
-        <Prompt title='Подтвердить'>
-          <SpecialButton
-            disabled={isSendButtonDisabled}
-            onClick={sendStagedFile}
-            spec='help'
-          >
-            <Icon src={srcArrow}/>
-          </SpecialButton>
         </Prompt>
       </Group>
     </Modal>
