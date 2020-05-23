@@ -27,7 +27,7 @@ const filesApi = {
     token: string
   }) => {
     const config = { headers: { token } }
-    const { data } = await axios.get<string>(`${path}/data/${id}`, config)
+    const { data } = await axios.get<{ ext: string, file: string }>(`${path}/data/${id}`, config)
     return data
   },
   getFilesOptions: async (token: string) => {

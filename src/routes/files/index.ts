@@ -1,7 +1,8 @@
 import axios from 'axios'
-import express, { ErrorRequestHandler } from 'express'
+import express from 'express'
 import fs from 'fs'
-import path from 'path';
+import path from 'path'
+
 import {
   isAuthRequest,
   isValidFileId
@@ -10,48 +11,79 @@ import {
 const backApi = process.env.API
 const filesRouter = express.Router()
 
+const filesMetadataList: FileMetadata[] = [
+  {
+    id: 'first-uuid',
+    birthtime: new Date(),
+    mtime: new Date(),
+    name: 'test-doc.pdf',
+    owner: 'User',
+    tags: ['tag'],
+    size: 7.1
+  },
+  {
+    id: 'second-uuid',
+    birthtime: new Date(),
+    mtime: new Date(),
+    name: 'second-file.docx',
+    owner: 'User',
+    tags: ['tag', 'tag2'],
+    size: 8.2
+  }
+]
+
 filesRouter.get('/data/:id', isAuthRequest, isValidFileId, (req, res) => {
   const { id } = req.params
 
-  const callback = (err: any, data: any) => {  
-    if (err) {
-      res.status(500)
-      res.send('Не удалось прочитать файл.')
+  try {
+    const fileMetadata = filesMetadataList.find((fileMetadata) => fileMetadata.id === id)
+
+    if (!fileMetadata) {
+      throw new Error ('Не найден файл.')
     }
 
-    res.send(`data:file/pdf;base64,${data}`)
-  }
+    const { name } = fileMetadata
 
-  fs.readFile(
-    path.resolve(__dirname, 'test-doc.pdf'),
-    'base64',
-    callback
-  )
+    const matches = name.match(/(\.[a-z]+)$/g)
+
+    const callback = (err: any, data: any) => {  
+      if (err) {
+        res.status(500)
+        res.send('Не удалось прочитать файл.')
+        return
+      }
+  
+      if (matches === null) {
+        throw new Error('Не найдено расширение файла.')
+      }
+
+      const ext = matches[0].replace('.', '')
+      const file = `data:file/${ext};base64,${data}`
+
+      res.send({ ext, file })
+    }
+
+    fs.readFile(
+      path.resolve(__dirname, name),
+      'base64',
+      callback
+    )
+  } catch (error) {
+    const { message, status } = error
+
+    if (message && status) {
+      res.status(status)
+      res.send(message)
+      return
+    }
+
+    res.status(500)
+    res.send(error)
+  }
 })
 
 filesRouter.get('/metadata', isAuthRequest, (req, res) => {
   try {
-    const filesMetadataList: FileMetadata[] = [
-      {
-        id: 'first-uuid',
-        birthtime: new Date(),
-        mtime: new Date(),
-        name: 'test.pdf',
-        owner: 'User',
-        tags: ['tag'],
-        size: 7.1
-      },
-      {
-        id: 'second-uuid',
-        birthtime: new Date(),
-        mtime: new Date(),
-        name: 'second-file.docx',
-        owner: 'Users',
-        tags: ['tag', 'tag2'],
-        size: 8.2
-      }
-    ]
-
     res.send(filesMetadataList)
   } catch (error) {
     const { message, status } = error

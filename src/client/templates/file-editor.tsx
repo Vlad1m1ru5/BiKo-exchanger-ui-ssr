@@ -1,18 +1,23 @@
-import 'react-pdf/dist/Page/AnnotationLayer.css';
+import 'react-pdf/dist/Page/AnnotationLayer.css'
+
+import React, { useState, useEffect, Suspense } from 'react'
+import { connect } from 'react-redux'
+import { Document, Page } from 'react-pdf/dist/entry.webpack'
+
 import Button, { SpecialButton } from 'client/components/button'
 import Group from 'client/components/group'
 import Icon from 'client/components/icon'
 import Modal from 'client/components/modal'
 import Prompt from 'client/components/prompt'
-import React, { useState, useEffect } from 'react'
 import Topbar from 'client/components/topbar'
-import { filesApi } from 'client/api'
+import { Headline, Caption } from 'client/components/fonts'
+
 import srcArrow from 'assets/icons/Arrow.svg'
 import srcArrowLeft from 'assets/icons/Arrow-Left.svg'
 import srcClose from 'assets/icons/Close.svg'
-import { Document, Page } from 'react-pdf/dist/entry.webpack'
-import { Headline, Caption } from 'client/components/fonts'
-import { connect } from 'react-redux'
+
+import { filesApi } from 'client/api'
+
 import { setIsOpenFileEditor } from 'store/actions'
 
 interface Pages {
@@ -35,6 +40,7 @@ const FileEditor: React.FC<Props> = ({
   setIsOpenFileEditor,
   token
 }) => {
+  const [ext, setExt] = useState<string>('')
   const [file, setFile] = useState<string>('')
   const [pages, setPages] = useState<Pages>({
     current: 1,
@@ -43,8 +49,9 @@ const FileEditor: React.FC<Props> = ({
 
   useEffect(() => {
     const loadFileById = async (id: string, token: string) => {
-      const file = await filesApi.getFileById({ id, token })
+      const {ext, file } = await filesApi.getFileById({ id, token })
       setFile(file)
+      setExt(ext)
     }
 
     loadFileById(openFileId, token)
@@ -105,8 +112,8 @@ const FileEditor: React.FC<Props> = ({
           </Prompt>
         </Group>
       </Topbar>
-      {!!file && (
-        <Document 
+      {ext === 'pdf' && (
+        <Document
           file={file}
           onLoadSuccess={setTotalPages}
           options={{
