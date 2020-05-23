@@ -1,19 +1,24 @@
+import React, { useState, useEffect, Suspense } from 'react'
+import { connect } from 'react-redux'
+
 import Button, { SpecialButton } from 'client/components/button'
 import Icon from 'client/components/icon'
 import Input from 'client/components/input'
 import Item from 'client/components/item'
-import FileOption from 'client/templates/file-option'
 import Group from 'client/components/group'
-import React, { useState, useEffect, Suspense } from 'react'
 import Page from 'client/components/page'
 import Prompt from 'client/components/prompt'
+import { Subtitle, Title, Caption } from 'client/components/fonts'
+
+import FileOption from 'client/templates/file-option'
 import SidebarMenu from 'client/templates/sidebar-menu'
 import TopbarMenu from 'client/templates/topbar-menu'
+
 import { filesApi } from 'client/api'
+
 import srcAdd from 'assets/icons/Add.svg'
 import srcSearch from 'assets/icons/Search.svg'
-import { Subtitle, Title, Caption } from 'client/components/fonts'
-import { connect } from 'react-redux'
+
 import { setIsOpenFileLoad } from 'store/actions'
 
 const FileLoad = React.lazy(() => import('client/templates/file-load'))
@@ -80,11 +85,10 @@ const Finder: React.FC<Props> = ({
       />
     ))
 
-    const tagsCaptionsList = tags.map((tag, index) => (
-      <Caption key={index}>{tag}</Caption>
-    ))
+    const Options = <Group direction='column'>{optionsButtonsList}</Group>
 
-    const Options = <Group direction='row'>{optionsButtonsList}</Group>
+    const tagsCaptionsList = tags.map((tag, index) => <Caption key={index}>{tag}</Caption>)
+    
     const Tags = <Group direction='row'>{tagsCaptionsList}</Group>
 
     return {

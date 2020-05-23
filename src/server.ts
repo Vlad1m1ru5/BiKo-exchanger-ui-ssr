@@ -2,7 +2,7 @@ import bodyParser from 'body-parser'
 import compression from 'compression'
 import express from 'express'
 import helmet from 'helmet'
-import { MongoClient } from 'mongodb'
+import { MongoClient } from 'mongodb' //mongodb+srv://bikoadmin:<password>@biko-qaex6.gcp.mongodb.net/test?retryWrites=true&w=majority
 import { filesRouter, usersRouter } from './routes'
 
 const app = express();
