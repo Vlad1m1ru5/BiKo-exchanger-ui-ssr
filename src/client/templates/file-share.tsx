@@ -1,18 +1,22 @@
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+
+import { setOpenFileOption } from 'store/actions'
+
+import { filesApi, usersApi } from 'client/api'
+
 import Button from 'client/components/button'
 import Group from 'client/components/group'
 import Icon from 'client/components/icon'
 import Item from 'client/components/item'
 import Modal from 'client/components/modal'
 import Prompt from 'client/components/prompt'
-import React, { useState, useEffect } from 'react'
 import Select from 'client/components/select'
 import Topbar from 'client/components/topbar'
-import { filesApi, usersApi } from 'client/api'
+import { Headline } from 'client/components/fonts'
+
 import srcArrow from 'assets/icons/Arrow.svg'
 import srcClose from 'assets/icons/Close.svg'
-import { Headline } from 'client/components/fonts'
-import { connect } from 'react-redux'
-import { setOpenFileOption } from 'store/actions'
 
 interface Props {
   openFileId: string
@@ -68,8 +72,6 @@ const FileShare: React.FunctionComponent<Props> = ({
     .map(({ name }) => name)
     .join(';\n')
 
-  const usersCount = users.length
-
   return (
     <Modal>
       <Topbar>
@@ -83,15 +85,16 @@ const FileShare: React.FunctionComponent<Props> = ({
         </Item>
       </Topbar>
       <Group direction='row'>
-        Имя пользователя:&nbsp;
+        <Headline>&nbsp;Имя пользователя</Headline>
         <Prompt title={usersNames}>
           <Select
             closeMenuOnSelect={false}
             controlShouldRenderValue={false}
+            hideSelectedOptions={false}
             isMulti={true}
             options={options}
             onChange={setSelectedUsersIds}
-            placeholder={usersCount}
+            renderSelectedOptions={true}
           />
         </Prompt>
         <Prompt title='Подтвердить'>

@@ -1,21 +1,23 @@
+import React from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+
 import Box from 'client/components/box'
-import Button, { SpecialButton } from 'client/components/button'
+import { SpecialButton } from 'client/components/button'
 import Icon from 'client/components/icon'
 import Item from 'client/components/item'
 import Group from 'client/components/group'
 import Menu from 'client/components/menu'
 import Prompt from 'client/components/prompt'
-import React from 'react'
 import Sidebar from 'client/components/sidebar'
-import svgArrowLeft from 'assets/icons/Arrow-Left.svg'
+import { Caption, Description } from 'client/components/fonts'
+
 import svgExit from 'assets/icons/Exit.svg'
 import svgFeed from 'assets/icons/Feed.svg'
 import svgFinder from 'assets/icons/Finder.svg'
 import svgSettings from 'assets/icons/Settings.svg'
-import { Description } from 'client/components/fonts'
-import { connect } from 'react-redux'
+
 import { setToken, setIsOpenMenu } from 'store/actions'
-import { Link } from 'react-router-dom'
 
 interface Props {
   token: string
@@ -35,9 +37,6 @@ const SidebarMenu: React.FC<Props> = ({
 
   const clickExit = () => {
     setToken('')
-  }
-
-  const closeSidebar = () => {
     setIsOpenMenu(false)
   }
 
@@ -80,14 +79,10 @@ const SidebarMenu: React.FC<Props> = ({
                   spec='danger'
                 >
                   <Icon src={svgExit} />
+                  <Caption>Выйти</Caption>
                 </SpecialButton>
               </Prompt>
             )}
-            <Prompt title='Закрыть'>
-              <Button onClick={closeSidebar}>
-                <Icon src={svgArrowLeft} />
-              </Button>
-            </Prompt>
           </Group>
         </Box>
       </Group>

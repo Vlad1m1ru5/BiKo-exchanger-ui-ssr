@@ -24,16 +24,5 @@ const Group = styled.div<{
     }}
   }
 `
-// & > *:not(:last-child) {
-//   ${({ direction, theme }) => {
-//     switch (direction) {
-//       case 'column':
-//         return `margin-bottom: ${theme.atom.margin};`
-//       case 'row':
-//       default:
-//         return `margin-right: ${theme.atom.margin};`
-//     }
-//   }}
-// }
 
 export default Group
