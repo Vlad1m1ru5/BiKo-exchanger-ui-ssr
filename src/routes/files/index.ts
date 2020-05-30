@@ -8,8 +8,7 @@ import multer from 'multer'
 import {
   isAuthRequest,
   isValidFileId,
-  tokenToObj,
-  responseToJson
+  tokenToObj
 } from 'middleware/index';
 
 const backApi = process.env.API
@@ -133,7 +132,11 @@ filesRouter.get('/metadata', isAuthRequest, async (req, res) => {
 })
 
 filesRouter.get('/options', isAuthRequest, async (req, res) => {
-  const { headers } = req
+  const { token } = req.headers
+  const config = {
+    headers: { ...tokenToObj(token) },
+    'Content-Type': 'application/json'
+  }
   
   const filesMetadataList: FileOptions[] = [
     {
@@ -157,11 +160,27 @@ filesRouter.get('/options', isAuthRequest, async (req, res) => {
   ]
 
   try {
-    const { data } = await axios.get<FileOptions[]>(`${backApi}/listFile`, { headers })
+    const { data } = await axios.get<string>(`${backApi}/listFile/forUser`, config)
+    const userOptions = JSON.parse(JSON.parse(data.replace(')]}\'', '')))
+    const filesMetadataList = userOptions.map(({ id, filename: name, options, tag: tags }: any) => ({
+      id,
+      name,
+      options: options.map(({ option }: any) => option),
+      tags
+    }))
 
-    res.send(data)
-  } catch (error) {
     res.send(filesMetadataList)
+  } catch (error) {
+    const { message, status } = error
+
+    if (message && status) {
+      res.status(status)
+      res.send(message)
+      return
+    }
+
+    res.status(500)
+    res.send(error.message)
   }
 })
 
