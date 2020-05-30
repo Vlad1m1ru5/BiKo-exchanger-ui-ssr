@@ -4,13 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --compress --hot --open --watch",
+    "start:dev": "cross-env NODE_ENV=develop webpack-dev-server --compress --hot --open --watch",
+    "start:prod": "cross-env NODE_ENV=production webpack-dev-server --compress --hot --open --watch",
     "server": "cross-env TS_NODE_FILES=true PORT=3030 API=http://localhost:8080 nodemon -r tsconfig-paths/register src/server.ts",
     "webpack": "webpack -wd --hot"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "^7.10.1",
+    "@babel/runtime": "^7.10.1",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
@@ -38,8 +41,7 @@
     "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/plugin-transform-runtime": "^7.9.0",
-    "@babel/polyfill": "^7.8.7",
+    "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",

@@ -8,7 +8,8 @@ import multer from 'multer'
 import {
   isAuthRequest,
   isValidFileId,
-  tokenToObj
+  tokenToObj,
+  responseToJson
 } from 'middleware/index';
 
 const backApi = process.env.API
@@ -82,18 +83,52 @@ filesRouter.get('/data/:id', isAuthRequest, isValidFileId, (req, res) => {
     }
 
     res.status(500)
-    res.send(error)
+    res.send(error.message)
   }
 })
 
-filesRouter.get('/metadata', isAuthRequest, (req, res) => {
+filesRouter.get('/metadata', isAuthRequest, async (req, res) => {
+  const { token } = req.headers
+  const config = {
+    headers: { ...tokenToObj(token) },
+    'Content-Type': 'application/json'
+  }
+
   try {
+    const { data } = await axios.get(`${backApi}/listFile`, config)
+    const files: any[] = JSON.parse(JSON.parse(data.replace(')]}\'', '')))
+    const filesMetadataList = files.map(({
+      author = 'Не найден',
+      data = new Date(),
+      filename,
+      id,
+      size = '-',
+      tag
+    }) => {
+      const mtime = new Date(data)
+
+      return {
+        id,
+        mtime,
+        name: filename,
+        owner: author,
+        tags: tag,
+        size
+      }
+    })
+
     res.send(filesMetadataList)
   } catch (error) {
     const { message, status } = error
 
-    res.status(status)
-    res.send(message)
+    if (message && status) {
+      res.status(status)
+      res.send(message)
+      return
+    }
+        
+    res.status(500)
+    res.send(error.message)
   }
 })
 
@@ -173,7 +208,7 @@ filesRouter.post('/create', upload.single('file'), async (req, res) => {
     }
         
     res.status(500)
-    res.send(error)
+    res.send(error.message)
   }
 })
 

@@ -3,6 +3,8 @@ const webpack = require("webpack");
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const isDevMode = process.env.NODE_ENV
+
 const config = {
   devServer: {
     contentBase: path.join(__dirname, 'public'),
@@ -16,7 +18,7 @@ const config = {
       '/api': 'http://localhost:3030'
     }
   },
-  devtool: 'eval-source-map',
+  devtool: isDevMode ? 'eval-source-map' : '',
   entry: {
     app: ["./src/client/index.tsx"],
     auth: ['./src/client/pages/auth.tsx'],

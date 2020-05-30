@@ -106,7 +106,7 @@ const Feed: React.FC<Props> = ({
         setOpenFileId(id)
         setIsOpenFileEditor(true)
       }
-      const weight = size + 'КБ'
+      const weight = size
 
       return { 
         onClick,

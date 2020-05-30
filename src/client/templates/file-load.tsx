@@ -45,14 +45,20 @@ const FileShare: React.FunctionComponent<Props> = ({
 
     fileReader.readAsText(file)
     fileReader.onload = () => {
-      const file = new Blob([fileReader.result])
+      const { result } = fileReader
+
+      if (result === null) {
+        throw new Error('Пустой файл.')
+      }
+
+      const file = new Blob([result])
       const formData = new FormData()
       formData.append('file', file, value)
       formData.append('tag', 'test-tag')
 
       filesApi.createFile({ formData, token })
         .then(() => { alert('Успешная загрузка файла.') })
-        .catch(() => {  alert('Ошибка загрузки файла.') })
+        .catch(() => { alert('Ошибка загрузки файла.') })
     }
     fileReader.onerror = () => {
       alert('Ошибка чтения файла.')

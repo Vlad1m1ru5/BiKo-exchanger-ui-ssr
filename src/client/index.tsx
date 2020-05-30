@@ -1,3 +1,4 @@
+import '@babel/polyfill'
 import App from './app'
 import GlobalStyles from 'static/global-styles'
 import React from 'react'
