@@ -21,12 +21,14 @@ const filesApi = {
   },
   getFileById: async ({
     id,
-    token
+    token,
+    fileName
   }: {
     id: string
     token: string
+    fileName: string
   }) => {
-    const config = { headers: { token } }
+    const config = { headers: { token, fileName } }
     const { data } = await axios.get<{ ext: string, file: string }>(`${path}/data/${id}`, config)
     return data
   },

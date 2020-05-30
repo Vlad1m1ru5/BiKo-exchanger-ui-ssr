@@ -30,12 +30,14 @@ interface PdfProps {
 }
 
 interface Props {
+  fileName: string
   openFileId: string
   setIsOpenFileEditor: action
   token: string
 }
 
 const FileEditor: React.FC<Props> = ({
+  fileName,
   openFileId,
   setIsOpenFileEditor,
   token
@@ -47,11 +49,19 @@ const FileEditor: React.FC<Props> = ({
     total: 1
   })
 
+  const closeFileEditor = () => {
+    setIsOpenFileEditor(false)
+  }
+
   useEffect(() => {
     const loadFileById = async (id: string, token: string) => {
-      const {ext, file } = await filesApi.getFileById({ id, token })
-      setFile(file)
-      setExt(ext)
+      try {
+        const { ext, file } = await filesApi.getFileById({ id, token, fileName })
+        setFile(file)
+        setExt(ext)
+      } catch (error) {
+        closeFileEditor()
+      }
     }
 
     loadFileById(openFileId, token)
@@ -76,10 +86,6 @@ const FileEditor: React.FC<Props> = ({
         current
       })
     }
-  }
-
-  const closeFileEditor = () => {
-    setIsOpenFileEditor(false)
   }
 
   return (

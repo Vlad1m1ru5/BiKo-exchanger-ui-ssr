@@ -40,6 +40,7 @@ const Feed: React.FC<Props> = ({
   const [error, setError] = useState<ApplicationError | null>(null)
   const [filesMetadataList, setFilesMetadataList] = useState<FileMetadata[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [openFileName, setOpenFileName] = useState<string>('')
   const [tags, setTags] = useState<Tags>({
     applyed: [],
     alias: ''
@@ -104,6 +105,7 @@ const Feed: React.FC<Props> = ({
       const master = owner === userName ? 'Я' : owner
       const onClick = () => { 
         setOpenFileId(id)
+        setOpenFileName(name)
         setIsOpenFileEditor(true)
       }
       const weight = size
@@ -149,7 +151,7 @@ const Feed: React.FC<Props> = ({
         )}
         {isOpenFileEditor && (
           <Suspense fallback='Подождите...'>
-            <FileEditor/>
+           {!!openFileName && <FileEditor fileName={openFileName} />}
           </Suspense>
         )}
       </Group>

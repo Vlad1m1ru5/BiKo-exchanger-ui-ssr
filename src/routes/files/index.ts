@@ -15,63 +15,32 @@ const backApi = process.env.API
 const filesRouter = express.Router()
 const upload = multer()
 
-const filesMetadataList: FileMetadata[] = [
-  {
-    id: 'first-uuid',
-    birthtime: new Date(),
-    mtime: new Date(),
-    name: 'test-doc.pdf',
-    owner: 'User',
-    tags: ['tag'],
-    size: 7.1
-  },
-  {
-    id: 'second-uuid',
-    birthtime: new Date(),
-    mtime: new Date(),
-    name: 'second-file.docx',
-    owner: 'User',
-    tags: ['tag', 'tag2'],
-    size: 8.2
-  }
-]
-
-filesRouter.get('/data/:id', isAuthRequest, isValidFileId, (req, res) => {
+filesRouter.get('/data/:id', isAuthRequest, isValidFileId, async (req, res) => {
+  const { token, fileName } = req.headers
   const { id } = req.params
+  const config = {
+    headers: { ...tokenToObj(token) },
+    'Content-Type': 'application/json'
+  }
 
   try {
-    const fileMetadata = filesMetadataList.find((fileMetadata) => fileMetadata.id === id)
-
-    if (!fileMetadata) {
-      throw new Error ('Не найден файл.')
+    if (!fileName ||
+        typeof fileName !== 'string'  
+    ) {
+      throw new Error(`Файл с именем ${fileName} не существует`)
     }
 
-    const { name } = fileMetadata
+    const { data } = await axios.post(`${backApi}/file/${id}`, config)
+    const extMatches = fileName.match(/(\.[a-z]+)$/g)
 
-    const matches = name.match(/(\.[a-z]+)$/g)
-
-    const callback = (err: any, data: any) => {  
-      if (err) {
-        res.status(500)
-        res.send('Не удалось прочитать файл.')
-        return
-      }
-  
-      if (matches === null) {
-        throw new Error('Не найдено расширение файла.')
-      }
-
-      const ext = matches[0].replace('.', '')
-      const file = `data:file/${ext};base64,${data}`
-
-      res.send({ ext, file })
+    if (extMatches === null) {
+      throw new Error(`Не найден файл с именем ${fileName}`)
     }
 
-    fs.readFile(
-      path.resolve(__dirname, name),
-      'base64',
-      callback
-    )
+    const ext = extMatches[0].replace('.', '')
+    const file = `data:file/${ext};base64,${data}`
+
+    res.send({ ext, file })
   } catch (error) {
     const { message, status } = error
 
@@ -137,27 +106,6 @@ filesRouter.get('/options', isAuthRequest, async (req, res) => {
     headers: { ...tokenToObj(token) },
     'Content-Type': 'application/json'
   }
-  
-  const filesMetadataList: FileOptions[] = [
-    {
-      id: 'first-uuid',
-      name: 'test.pdf',
-      options: [
-        'read',
-        'share'
-      ],
-      tags: ['tag']
-    },
-    {
-      id: 'second-uuid',
-      name: 'second-file.docx',
-      options: [
-        'read',
-        'share'
-      ],
-      tags: ['tag', 'tag2'],
-    }
-  ]
 
   try {
     const { data } = await axios.get<string>(`${backApi}/listFile/forUser`, config)
