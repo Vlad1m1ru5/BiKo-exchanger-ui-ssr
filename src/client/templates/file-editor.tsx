@@ -42,8 +42,7 @@ const FileEditor: React.FC<Props> = ({
   setIsOpenFileEditor,
   token
 }) => {
-  const [ext, setExt] = useState<string>('')
-  const [file, setFile] = useState<string>('')
+  const [file, setFile] = useState<Blob | null>(null)
   const [pages, setPages] = useState<Pages>({
     current: 1,
     total: 1
@@ -56,9 +55,8 @@ const FileEditor: React.FC<Props> = ({
   useEffect(() => {
     const loadFileById = async (id: string, token: string) => {
       try {
-        const { ext, file } = await filesApi.getFileById({ id, token, fileName })
+        const file = await filesApi.getFileById({ id, token, fileName })
         setFile(file)
-        setExt(ext)
       } catch (error) {
         closeFileEditor()
       }
@@ -118,7 +116,7 @@ const FileEditor: React.FC<Props> = ({
           </Prompt>
         </Group>
       </Topbar>
-      {ext === 'pdf' && (
+      {file !== null && (
         <Document
           file={file}
           onLoadSuccess={setTotalPages}

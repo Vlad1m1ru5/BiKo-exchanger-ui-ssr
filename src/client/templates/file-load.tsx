@@ -10,7 +10,6 @@ import Prompt from 'client/components/prompt'
 import Topbar from 'client/components/topbar'
 import { Headline } from 'client/components/fonts'
 
-import srcArrow from 'assets/icons/Arrow.svg'
 import srcClose from 'assets/icons/Close.svg'
 
 import { filesApi } from 'client/api'
@@ -43,7 +42,7 @@ const FileShare: React.FunctionComponent<Props> = ({
     const file = files[0]
     const fileReader = new FileReader()
 
-    fileReader.readAsText(file)
+    fileReader.readAsArrayBuffer(file)
     fileReader.onerror = () => { alert('Ошибка чтения файла.') }
     fileReader.onload = () => {
       const { result } = fileReader
@@ -52,9 +51,7 @@ const FileShare: React.FunctionComponent<Props> = ({
         throw new Error('Пустой файл.')
       }
 
-      const matches = value.match(/(\.[a-z]+)$/g)
-      const ext = matches ? matches[0].replace('.', '') : 'text'
-      const file = new Blob([result], { type: `application/${ext}` })
+      const file = new File([result], value)
 
       const formData = new FormData()
       formData.append('file', file, value)

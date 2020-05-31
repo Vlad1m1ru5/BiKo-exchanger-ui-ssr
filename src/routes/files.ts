@@ -2,12 +2,13 @@ import axios from 'axios'
 import express from 'express'
 import FormData from 'form-data'
 import multer from 'multer'
-
+import fs from 'fs'
 import {
   isAuthRequest,
   isValidFileId,
   tokenToObj
 } from 'middleware/index';
+import { fstat } from 'fs';
 
 const backApi = process.env.API
 const filesRouter = express.Router()
@@ -16,11 +17,7 @@ const upload = multer()
 filesRouter.get('/data/:id', isAuthRequest, isValidFileId, async (req, res) => {
   const { token, filename } = req.headers
   const { id } = req.params
-  const config = {
-    headers: { ...tokenToObj(token) },
-    'Content-Type': 'application/json',
-    'Respose-Type': 'arraybuffer'
-  }
+  const config = { headers: { ...tokenToObj(token) } }
 
   try {
     if (!filename ||
@@ -35,12 +32,12 @@ filesRouter.get('/data/:id', isAuthRequest, isValidFileId, async (req, res) => {
       throw new Error(`Не найден файл с именем ${filename}`)
     }
 
-    const { data } = await axios.post(`${backApi}/file/${id}`, config)
-    const { info } = JSON.parse(JSON.parse(data.replace(')]}\'', '')))
     const ext = extMatches[0].replace('.', '')
-    const file = `data:application/${ext};base64,${info}`
 
-    res.send({ ext, file })
+    const { data } = await axios.post(`${backApi}/file/${id}`, null, config)
+    const { info } = JSON.parse(JSON.parse(data.replace(')]}\'', '')))
+
+    res.send(`data:application/${ext};base64,${info}`)
   } catch (error) {
     const { message, status } = error
 
@@ -150,8 +147,6 @@ filesRouter.post('/authoreties', isAuthRequest, async (req, res) => {
 
 filesRouter.post('/create', upload.single('file'), async (req, res) => {
   const { headers: { token }, body: { tag }, file } = req
-
-  console.log(file)
 
   const formData = new FormData()
   formData.append('file', file.buffer, file.originalname)

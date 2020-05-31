@@ -28,8 +28,14 @@ const filesApi = {
     token: string
     fileName: string
   }) => {
-    const config = { headers: { token, fileName } }
-    const { data } = await axios.get<{ ext: string, file: string }>(`${path}/data/${id}`, config)
+    const config = {
+      headers: {
+        token,
+        fileName,
+        'Conten-Type': 'blob'
+      }
+    }
+    const { data } = await axios.get<Blob>(`${path}/data/${id}`, config)
     return data
   },
   getFilesOptions: async (token: string) => {
