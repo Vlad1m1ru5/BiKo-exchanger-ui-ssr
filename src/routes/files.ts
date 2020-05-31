@@ -18,7 +18,8 @@ filesRouter.get('/data/:id', isAuthRequest, isValidFileId, async (req, res) => {
   const { id } = req.params
   const config = {
     headers: { ...tokenToObj(token) },
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Respose-Type': 'arraybuffer'
   }
 
   try {
@@ -28,20 +29,15 @@ filesRouter.get('/data/:id', isAuthRequest, isValidFileId, async (req, res) => {
       throw new Error(`Файл с именем ${filename} не существует`)
     }
 
-    const response = await axios.get(`${backApi}/listFile`, config)
-    const { author } = JSON.parse(
-      JSON.parse(response.data.replace(')]}\'', ''))
-    ).find((file: any) => file.id === id)
-
-    const { data } = await axios.post(`${backApi}/file/${id}`, { filename, author }, config)
     const extMatches = filename.match(/(\.[a-z]+)$/g)
 
     if (extMatches === null) {
       throw new Error(`Не найден файл с именем ${filename}`)
     }
 
-    const ext = extMatches[0].replace('.', '')
+    const { data } = await axios.post(`${backApi}/file/${id}`, config)
     const { info } = JSON.parse(JSON.parse(data.replace(')]}\'', '')))
+    const ext = extMatches[0].replace('.', '')
     const file = `data:application/${ext};base64,${info}`
 
     res.send({ ext, file })
@@ -154,6 +150,8 @@ filesRouter.post('/authoreties', isAuthRequest, async (req, res) => {
 
 filesRouter.post('/create', upload.single('file'), async (req, res) => {
   const { headers: { token }, body: { tag }, file } = req
+
+  console.log(file)
 
   const formData = new FormData()
   formData.append('file', file.buffer, file.originalname)

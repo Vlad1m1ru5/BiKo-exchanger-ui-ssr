@@ -45,8 +45,8 @@ const FileShare: React.FunctionComponent<Props> = ({
 
     fileReader.readAsText(file)
     fileReader.onerror = () => { alert('Ошибка чтения файла.') }
-    fileReader.onload = (current) => {
-      const { result } = current.target
+    fileReader.onload = () => {
+      const { result } = fileReader
 
       if (result === null) {
         throw new Error('Пустой файл.')
