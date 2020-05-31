@@ -1,8 +1,6 @@
 import axios from 'axios'
 import express from 'express'
 import FormData from 'form-data'
-import fs from 'fs'
-import path from 'path'
 import multer from 'multer'
 
 import {
@@ -16,7 +14,7 @@ const filesRouter = express.Router()
 const upload = multer()
 
 filesRouter.get('/data/:id', isAuthRequest, isValidFileId, async (req, res) => {
-  const { token, fileName } = req.headers
+  const { token, filename } = req.headers
   const { id } = req.params
   const config = {
     headers: { ...tokenToObj(token) },
@@ -24,21 +22,27 @@ filesRouter.get('/data/:id', isAuthRequest, isValidFileId, async (req, res) => {
   }
 
   try {
-    if (!fileName ||
-        typeof fileName !== 'string'  
+    if (!filename ||
+        typeof filename !== 'string'  
     ) {
-      throw new Error(`Файл с именем ${fileName} не существует`)
+      throw new Error(`Файл с именем ${filename} не существует`)
     }
 
-    const { data } = await axios.post(`${backApi}/file/${id}`, config)
-    const extMatches = fileName.match(/(\.[a-z]+)$/g)
+    const response = await axios.get(`${backApi}/listFile`, config)
+    const { author } = JSON.parse(
+      JSON.parse(response.data.replace(')]}\'', ''))
+    ).find((file: any) => file.id === id)
+
+    const { data } = await axios.post(`${backApi}/file/${id}`, { filename, author }, config)
+    const extMatches = filename.match(/(\.[a-z]+)$/g)
 
     if (extMatches === null) {
-      throw new Error(`Не найден файл с именем ${fileName}`)
+      throw new Error(`Не найден файл с именем ${filename}`)
     }
 
     const ext = extMatches[0].replace('.', '')
-    const file = `data:file/${ext};base64,${data}`
+    const { info } = JSON.parse(JSON.parse(data.replace(')]}\'', '')))
+    const file = `data:application/${ext};base64,${info}`
 
     res.send({ ext, file })
   } catch (error) {

@@ -34,8 +34,14 @@ usersRouter.get('/login', isCreatedUser, async (req, res) => {
   } catch (error) {
     const { message, status } = error
 
-    res.status(status)
-    res.send(message)
+    if (message && status) {
+      res.status(status)
+      res.send(message)
+      return
+    }
+
+    res.status(500)
+    res.send(error.message)
   }
 })
 

@@ -92,7 +92,7 @@ const FileEditor: React.FC<Props> = ({
     <Modal>
       <Topbar>
         <Group direction='row'>
-          <Headline>{openFileId}</Headline>
+          <Headline>{fileName}</Headline>
         </Group>
         <Group direction='row'>
           <Group direction='row'>

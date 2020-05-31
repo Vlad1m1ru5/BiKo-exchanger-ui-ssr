@@ -44,14 +44,18 @@ const FileShare: React.FunctionComponent<Props> = ({
     const fileReader = new FileReader()
 
     fileReader.readAsText(file)
-    fileReader.onload = () => {
-      const { result } = fileReader
+    fileReader.onerror = () => { alert('Ошибка чтения файла.') }
+    fileReader.onload = (current) => {
+      const { result } = current.target
 
       if (result === null) {
         throw new Error('Пустой файл.')
       }
 
-      const file = new Blob([result])
+      const matches = value.match(/(\.[a-z]+)$/g)
+      const ext = matches ? matches[0].replace('.', '') : 'text'
+      const file = new Blob([result], { type: `application/${ext}` })
+
       const formData = new FormData()
       formData.append('file', file, value)
       formData.append('tag', 'test-tag')
@@ -59,9 +63,6 @@ const FileShare: React.FunctionComponent<Props> = ({
       filesApi.createFile({ formData, token })
         .then(() => { alert('Успешная загрузка файла.') })
         .catch(() => { alert('Ошибка загрузки файла.') })
-    }
-    fileReader.onerror = () => {
-      alert('Ошибка чтения файла.')
     }
   }
 
