@@ -19,6 +19,7 @@ import srcClose from 'assets/icons/Close.svg'
 import { filesApi } from 'client/api'
 
 import { setIsOpenFileEditor } from 'store/actions'
+import styled from 'styled-components'
 
 interface Pages {
   current: number
@@ -141,4 +142,4 @@ const mapDispatchToProps = {
   setIsOpenFileEditor
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FileEditor)
+export default connect(mapStateToProps, mapDispatchToProps)(styled(FileEditor)`position: fixed`)

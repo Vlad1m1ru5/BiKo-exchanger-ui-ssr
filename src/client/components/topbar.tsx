@@ -9,6 +9,7 @@ const Topbar = styled.div<{ theme: Theme }>`
   flex-grow: 1;
   justify-content: space-between;
   position: sticky;
+  top: 0;
 
   & > * {
     margin-left: ${({ theme }) => theme.atom.margin};
