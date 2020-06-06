@@ -4,7 +4,8 @@ import {
   isAuthRequest,
   isCreatedUser,
   isNewUser,
-  responseToJson
+  responseToJson,
+  tokenToObj
 } from 'middleware/index';
 
 const backApi = process.env.API
@@ -45,31 +46,17 @@ usersRouter.get('/login', isCreatedUser, async (req, res) => {
   }
 })
 
-usersRouter.get('/all/:userName', isAuthRequest, (req, res) => {
+usersRouter.get('/all/:userName', isAuthRequest, async (req, res) => {
+  const config = { headers: { ...tokenToObj(req.headers.token) } }
   const { userName } = req.params
 
-  const users: User[] = [
-    {
-      id: '123',
-      name: 'John'
-    },
-    {
-      id: '456',
-      name: 'Smith'
-    },
-    {
-      id: '789',
-      name: 'Alex'
-    },
-    {
-      id: '012',
-      name: 'Vanse'
-    }
-  ]
+  const { data } = await axios.get<string>(`${backApi}/userList`, config)
+  const { userByName } =  JSON.parse(JSON.parse(data.replace(')]}\'', '')))
+  const users = userByName
+    .filter((name: string) => name !== userName)
+    .map((name: string, id: number) => ({ id, name }))
 
-  const data = users.filter(({ name }) => name !== userName)
-
-  res.send(data)
+  res.send(users)
 })
 
 export default usersRouter

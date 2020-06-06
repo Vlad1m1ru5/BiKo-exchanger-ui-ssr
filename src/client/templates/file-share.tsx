@@ -68,6 +68,8 @@ const FileShare: React.FunctionComponent<Props> = ({
     setUsers(users)
   }
 
+  const noOptionsMessage = () => <div>Нет доступных пользователей</div>
+
   const usersNames = users
     .map(({ name }) => name)
     .join(';\n')
@@ -92,8 +94,10 @@ const FileShare: React.FunctionComponent<Props> = ({
             controlShouldRenderValue={false}
             hideSelectedOptions={false}
             isMulti={true}
+            noOptionsMessage={noOptionsMessage}
             options={options}
             onChange={setSelectedUsersIds}
+            placeholder='Пользователи...'
             renderSelectedOptions={true}
           />
         </Prompt>
