@@ -8,7 +8,6 @@ import { SpecialButton } from 'client/components/button'
 
 import srcAdd from 'assets/icons/Add.svg'
 import srcClose from 'assets/icons/Close.svg'
-import srcHide from 'assets/icons/Hide.svg'
 import srcSquare from 'assets/icons/Square.svg'
 import srcSearch from 'assets/icons/Search.svg'
 
@@ -34,16 +33,12 @@ const FileOption: React.FunctionComponent<Props> = ({
 
   const deleteFile = () => {}
 
-  const printFile = () => {}
-  
   const readFile = () => {}
   
   const shareFile = () => {
     setOpenFileId(id)
     setOpenFileOption('share')
   }
-
-  const writeFile = () => {}
 
   useEffect(() => {
     switch (option) {
@@ -53,18 +48,7 @@ const FileOption: React.FunctionComponent<Props> = ({
         setSrc(srcClose)
         setTile('Удалить')
         break
-      case 'print':
-        setHandleOnClick(printFile)
-        setSpec('')
-        setSrc(srcSquare)
-        setTile('Распечатать')
-        break
       case 'read':
-        setHandleOnClick(readFile)
-        setSpec('')
-        setSrc(srcSearch)
-        setTile('Открыть')
-        break
       case 'share':
         setHandleOnClick(() => shareFile)
         setSpec('')
@@ -72,10 +56,10 @@ const FileOption: React.FunctionComponent<Props> = ({
         setTile('Поделиться')
         break
       case 'write':
-        setHandleOnClick(writeFile)
+        setHandleOnClick(readFile)
         setSpec('')
-        setSrc(srcHide)
-        setTile('Редактирвать')
+        setSrc(srcSearch)
+        setTile('История')
         break
       default:
         return

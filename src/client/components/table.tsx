@@ -45,4 +45,8 @@ export const TableCell = styled.td<{ theme: Theme }>`
   text-align: center;
   white-space: nowrap;
   width: fit-content;
+
+  *:last-child {
+    min-width: 70px;
+  }
 `
