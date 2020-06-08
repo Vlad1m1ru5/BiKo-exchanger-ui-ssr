@@ -2,13 +2,11 @@ import axios from 'axios'
 import express from 'express'
 import FormData from 'form-data'
 import multer from 'multer'
-import fs from 'fs'
 import {
   isAuthRequest,
   isValidFileId,
   tokenToObj
 } from 'middleware/index';
-import { fstat } from 'fs';
 
 const backApi = process.env.API
 const filesRouter = express.Router()
@@ -130,12 +128,12 @@ filesRouter.get('/options', isAuthRequest, async (req, res) => {
 })
 
 filesRouter.post('/authoreties', isAuthRequest, async (req, res) => {
-  const { headers, body: { id, option, usersIds } } = req
-
+  const { body: { id, option, usersIds } } = req
+  const config = { headers: { ...tokenToObj(req.headers.token) } }
   const usernameForShare = usersIds.map((userId: string) => ({ username: userId }))
 
-  try {
-    const { data } = await axios.post(`${backApi}/file/${option}/${id}`, usernameForShare, { headers })
+  try {    
+    const { data } = await axios.post(`${backApi}/file/${option}/${id}`, { usernameForShare }, config)
     res.send(data)
   } catch (error) {
     const { message, status } = error

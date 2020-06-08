@@ -50,7 +50,8 @@ usersRouter.get('/all/:userName', isAuthRequest, async (req, res) => {
   const config = { headers: { ...tokenToObj(req.headers.token) } }
   const { userName } = req.params
 
-  const { data } = await axios.get<string>(`${backApi}/userList`, config)
+  const { data } = await axios.get<string>(`${backApi}/listUser`, config)
+
   const { userByName } =  JSON.parse(JSON.parse(data.replace(')]}\'', '')))
   const users = userByName
     .filter((name: string) => name !== userName)

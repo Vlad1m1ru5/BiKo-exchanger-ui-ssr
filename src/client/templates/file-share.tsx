@@ -53,7 +53,7 @@ const FileShare: React.FunctionComponent<Props> = ({
   const shareFile = () => {
     const id = openFileId
     const option = 'read'
-    const usersIds = users.map(({ id }) => id)
+    const usersIds = users.map(({ name }) => name)
 
     filesApi.setUsersOptionByFileId({ id, option, token, usersIds })
       .then(closeFileShare)
