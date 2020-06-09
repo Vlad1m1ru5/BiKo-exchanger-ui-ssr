@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense } from 'react'
 import { connect } from 'react-redux'
 
 import Button, { SpecialButton } from 'client/components/button'
+import ErrorBox from 'client/components/error-box'
 import Icon from 'client/components/icon'
 import Input from 'client/components/input'
 import Item from 'client/components/item'
@@ -131,7 +132,7 @@ const Finder: React.FC<Props> = ({
       </TopbarMenu>
       <SidebarMenu />
       <Group direction='column'>
-        {!!error && <Subtitle>{error.response.data}</Subtitle>}
+        {!!error && <ErrorBox><Subtitle>{error.response.data}</Subtitle></ErrorBox>}
         {isLoading && (
           <Subtitle>Загрузка...</Subtitle>
         ) || (

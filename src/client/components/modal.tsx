@@ -5,6 +5,7 @@ const Modal = styled.div<{ theme: Theme }>`
   box-shadow: ${({ theme }) => theme.box.shadow.bottom};
   position: absolute;
   top: 0;
+  width: 595px;
 `
 
 export default Modal

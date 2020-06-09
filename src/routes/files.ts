@@ -59,7 +59,14 @@ filesRouter.get('/metadata', isAuthRequest, async (req, res) => {
 
   try {
     const { data } = await axios.get(`${backApi}/listFile`, config)
-    const files: any[] = JSON.parse(JSON.parse(data.replace(')]}\'', '')))
+    const fixData = JSON.parse(data.replace(')]}\'', ''))
+
+    if (!fixData) {
+      throw new Error('Нет доступных документов')
+    }
+
+    const files: any[] = JSON.parse(fixData)
+    
     const filesMetadataList = files.map(({
       author = 'Не найден',
       data = new Date(),
@@ -104,7 +111,13 @@ filesRouter.get('/options', isAuthRequest, async (req, res) => {
 
   try {
     const { data } = await axios.get<string>(`${backApi}/listFile/forUser`, config)
-    const userOptions = JSON.parse(JSON.parse(data.replace(')]}\'', '')))
+    const fixData = JSON.parse(data.replace(')]}\'', ''))
+
+    if (!fixData) {
+      throw new Error('Нет доступных документов')
+    }
+
+    const userOptions = JSON.parse(fixData)
     const filesMetadataList = userOptions.map(({ id, filename: name, options, tag: tags }: any) => ({
       id,
       name,
