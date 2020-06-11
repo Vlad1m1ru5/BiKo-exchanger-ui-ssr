@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { SpecialButton } from 'client/components/button'
+import srcArrow from 'assets/icons/Arrow.svg'
+
+import Button, { SpecialButton } from 'client/components/button'
 import Group from 'client/components/group'
 import Icon from 'client/components/icon'
 import Input from 'client/components/input'
@@ -16,20 +18,27 @@ import { filesApi } from 'client/api'
 
 import { setIsOpenFileLoad } from 'store/actions'
 
+type State = {
+  file: File | null
+  value: string 
+  tag: string
+}
+
 interface Props {
   setIsOpenFileLoad: action
   token: string
-}
-
-interface StagedFile {
-  file: File | null
-  path: string
 }
 
 const FileShare: React.FunctionComponent<Props> = ({
   setIsOpenFileLoad,
   token
 }) => {
+
+  const [state, setState] = useState<State>({
+    file: null,
+    value: '',
+    tag: ''
+  })
 
   const closeFileLoad = () => { setIsOpenFileLoad(false) }
 
@@ -39,7 +48,25 @@ const FileShare: React.FunctionComponent<Props> = ({
     if (files === null) {
       return
     }
+    
     const file = files[0]
+
+    setState({ ...state, file, value })
+  }
+
+  const saveTags = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const tag = event.currentTarget.value
+
+    setState({ ...state, tag })
+  }
+
+  const sendFile = () => {
+    const { file, value, tag } = state
+
+    if (file === null) {
+      return
+    }
+
     const fileReader = new FileReader()
 
     fileReader.readAsArrayBuffer(file)
@@ -55,7 +82,7 @@ const FileShare: React.FunctionComponent<Props> = ({
 
       const formData = new FormData()
       formData.append('file', file, value)
-      formData.append('tag', 'test-tag')
+      formData.append('tag', tag)
 
       filesApi.createFile({ formData, token })
         .then(() => { alert('Успешная загрузка файла.') })
@@ -81,7 +108,7 @@ const FileShare: React.FunctionComponent<Props> = ({
         </Group>
       </Topbar>
       <Group direction='row'>
-        <Headline>&nbsp;Файлы</Headline>
+        <Headline>&nbsp;Файл</Headline>
         <Prompt title='Загрузить'>
           <Input
             accept='.doc,.docx,.pdf'
@@ -89,6 +116,14 @@ const FileShare: React.FunctionComponent<Props> = ({
             onChange={receaveFile}
           />
         </Prompt>
+        <Input
+          type='text'
+          onChange={saveTags}
+          placeholder='Ключевые слова...'
+        />
+        <Button onClick={sendFile}>
+          <Icon src={srcArrow} />  
+        </Button>
       </Group>
     </Modal>
   )

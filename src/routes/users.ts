@@ -42,7 +42,7 @@ usersRouter.get('/login', isCreatedUser, async (req, res) => {
     }
 
     res.status(500)
-    res.send(error.message)
+    res.send('Пользователь не найден')
   }
 })
 

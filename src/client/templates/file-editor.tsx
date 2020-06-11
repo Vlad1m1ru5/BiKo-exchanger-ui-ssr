@@ -24,6 +24,7 @@ import styled from 'styled-components'
 interface Pages {
   current: number
   total: number
+  scale: number
 }
 
 interface PdfProps {
@@ -46,7 +47,8 @@ const FileEditor: React.FC<Props> = ({
   const [file, setFile] = useState<Blob | null>(null)
   const [pages, setPages] = useState<Pages>({
     current: 1,
-    total: 1
+    total: 1,
+    scale: 1.0
   })
 
   const closeFileEditor = () => {
@@ -84,6 +86,13 @@ const FileEditor: React.FC<Props> = ({
         ...pages,
         current
       })
+    }
+  }
+
+  const scalePage = (page: any) => {
+    const scale = 594 / page.originalWidth
+    if (scale !== pages.scale) {
+      setPages({ ...pages, scale })
     }
   }
 
@@ -126,7 +135,11 @@ const FileEditor: React.FC<Props> = ({
             cMapPacked: true,
           }}
         >
-          <Page pageNumber={pages.current} />
+          <Page
+            pageNumber={pages.current}
+            onLoadSuccess={scalePage}
+            scale={pages.scale}
+            />
         </Document>
       )}
     </Modal>

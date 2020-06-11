@@ -127,16 +127,8 @@ filesRouter.get('/options', isAuthRequest, async (req, res) => {
 
     res.send(filesMetadataList)
   } catch (error) {
-    const { message, status } = error
-
-    if (message && status) {
-      res.status(status)
-      res.send(message)
-      return
-    }
-
     res.status(500)
-    res.send(error.message)
+    res.send('Нет доступных документов')
   }
 })
 

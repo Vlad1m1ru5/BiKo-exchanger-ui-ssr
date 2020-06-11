@@ -90,7 +90,7 @@ const Finder: React.FC<Props> = ({
 
     const tagsCaptionsList = tags.map((tag, index) => <Caption key={index}>{tag}</Caption>)
     
-    const Tags = <Group direction='row'>{tagsCaptionsList}</Group>
+    const Tags = <Group direction='column'>{tagsCaptionsList}</Group>
 
     return {
       onClick: () => {},
