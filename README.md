@@ -24,6 +24,6 @@ git clone https://github.com/Vlad1m1ru5/BiKo-exchanger-ui-ssr.git
 
 3. В первом окне выполнить команду: ```npm run server```, - поднять на порту 3030 сервер приложения
 
-4. Во вотром окне выполнить команду  ```npm run start:dev```, - поднять dev-сервер клиента
+4. Во вотром окне выполнить команду  ```npm run start:dev```, - поднять dev-сервер клиента на порту 9000
 
 5. PROFIT
