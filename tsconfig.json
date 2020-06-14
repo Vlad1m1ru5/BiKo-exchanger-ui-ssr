@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "esModuleInterop": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "outDir": "./public",
+    "paths": {
+      "api": ["api/*"],
+      "assets": ["assets/*"],
+      "client": ["client/*"],
+      "middleware": ["middleware/*"],
+      "routes": ["routes/*"],
+      "static": ["static/*"],
+      "store": ["store/*"]
+    },
+    "strict": true,
+    "target": "es5"
+  }
+}

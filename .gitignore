@@ -4,3 +4,7 @@ node_modules
 
 #project
 public
+
+#jest
+**/__snapshots__/
+**/coverage/

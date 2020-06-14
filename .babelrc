@@ -1,16 +1,37 @@
 {
   "presets": [
-    "@babel/preset-react",
     [
       "@babel/preset-env",
       {
         "targets": {
-          "node": "current"
+          "browsers": [ "ie >= 11" ]
+        }
+      }
+    ],
+    "@babel/preset-typescript",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-runtime",
+    [
+      "babel-plugin-styled-components",
+      {
+        "pure": true,
+        "ssr": true
+      }
+    ],
+    [
+      "module-resolver",
+      {
+        "alias":  {
+          "api": "./src/api",
+          "client": "./src/client/",
+          "routes": "./src/routes/",
+          "static": "./src/static/",
+          "store": "./src/store/"
         }
       }
     ]
-  ],
-  "plugins": [
-    "@babel/plugin-proposal-class-properties"
   ]
 }
