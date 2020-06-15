@@ -43,7 +43,7 @@ const TopbarMenu: React.FC<Props> = ({
             </Button>
           </Prompt>
         </Concealer>
-        <Headline>BIKO</Headline>
+        <Headline>СЭД</Headline>
       </Group>
       <Group direction='row'>
         {children}
